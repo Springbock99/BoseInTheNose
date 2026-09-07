@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 type SleeperUser = {
   user_id: string;
@@ -89,6 +89,7 @@ const fallbackHighlights: Highlight[] = [
 ];
 
 const navItems = ['Home', 'Highlights'];
+const refreshIntervalMs = 60_000;
 
 function formatRecord(roster: SleeperRoster) {
   const wins = roster.settings?.wins ?? 0;
@@ -185,40 +186,56 @@ export default function LeagueDashboard() {
   const [leagueData, setLeagueData] = useState<LeagueResponse | null>(null);
   const [matchups, setMatchups] = useState<Matchup[]>([]);
   const [status, setStatus] = useState<'loading' | 'ready' | 'offline'>('loading');
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  useEffect(() => {
-    let cancelled = false;
+  const loadLeague = useCallback(async (shouldUpdate = () => true) => {
+    setIsRefreshing(true);
 
-    async function loadLeague() {
-      try {
-        const leagueResponse = await fetch(`${apiBaseUrl}/api/league`);
-        if (!leagueResponse.ok) {
-          throw new Error('League request failed');
-        }
+    try {
+      const leagueResponse = await fetch(`${apiBaseUrl}/api/league`, { cache: 'no-store' });
+      if (!leagueResponse.ok) {
+        throw new Error('League request failed');
+      }
 
-        const data = (await leagueResponse.json()) as LeagueResponse;
-        const week = data.state?.week || 1;
-        const matchupsResponse = await fetch(`${apiBaseUrl}/api/league/matchups/${week}`);
-        const matchupData = matchupsResponse.ok ? await matchupsResponse.json() : { matchups: [] };
+      const data = (await leagueResponse.json()) as LeagueResponse;
+      const week = data.state?.week || 1;
+      const matchupsResponse = await fetch(`${apiBaseUrl}/api/league/matchups/${week}`, { cache: 'no-store' });
+      const matchupData = matchupsResponse.ok ? await matchupsResponse.json() : { matchups: [] };
 
-        if (!cancelled) {
-          setLeagueData(data);
-          setMatchups(matchupData.matchups || []);
-          setStatus('ready');
-        }
-      } catch {
-        if (!cancelled) {
-          setStatus('offline');
-        }
+      if (!shouldUpdate()) {
+        return;
+      }
+
+      setLeagueData(data);
+      setMatchups(matchupData.matchups || []);
+      setLastUpdated(new Date());
+      setStatus('ready');
+    } catch {
+      if (!shouldUpdate()) {
+        return;
+      }
+
+      setStatus('offline');
+    } finally {
+      if (shouldUpdate()) {
+        setIsRefreshing(false);
       }
     }
+  }, []);
 
-    loadLeague();
+  useEffect(() => {
+    let mounted = true;
+    const shouldUpdate = () => mounted;
+
+    loadLeague(shouldUpdate);
+    const interval = window.setInterval(() => loadLeague(shouldUpdate), refreshIntervalMs);
 
     return () => {
-      cancelled = true;
+      mounted = false;
+      window.clearInterval(interval);
     };
-  }, []);
+  }, [loadLeague]);
 
   const teams = useMemo(() => (leagueData ? buildTeams(leagueData) : fallbackTeams), [leagueData]);
   const highlights = useMemo(
@@ -230,6 +247,9 @@ export default function LeagueDashboard() {
   const season = leagueData?.league.season || '2026';
   const totalManagers = leagueData?.league.total_rosters || 14;
   const currentWeek = leagueData?.state.week || 1;
+  const lastUpdatedLabel = lastUpdated
+    ? lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    : 'Not yet';
 
   return (
     <main className="min-h-screen bg-[#050608] text-[#f5f8fb]">
@@ -293,10 +313,23 @@ export default function LeagueDashboard() {
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#62dfff]">Standings</p>
               <h2 className="mt-1 text-2xl font-black">Top Table</h2>
+              <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-white/38">
+                Updated {lastUpdatedLabel}
+              </p>
             </div>
-            <span className="border border-[#62dfff]/60 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#62dfff]">
-              {status === 'ready' ? 'Sleeper live' : status === 'loading' ? 'Syncing' : 'Backend off'}
-            </span>
+            <div className="flex flex-col items-end gap-2">
+              <span className="border border-[#62dfff]/60 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#62dfff]">
+                {status === 'ready' ? 'Sleeper live' : status === 'loading' ? 'Syncing' : 'Backend off'}
+              </span>
+              <button
+                type="button"
+                onClick={() => loadLeague()}
+                disabled={isRefreshing}
+                className="border border-white/10 bg-white/[0.04] px-3 py-2 text-xs font-bold uppercase tracking-[0.14em] text-white/72 transition hover:border-[#62dfff]/50 hover:text-[#62dfff] disabled:cursor-wait disabled:opacity-50"
+              >
+                {isRefreshing ? 'Refreshing' : 'Refresh'}
+              </button>
+            </div>
           </div>
           <div className="space-y-3">
             {teams.map((team, index) => (
