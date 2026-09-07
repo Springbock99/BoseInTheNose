@@ -8,12 +8,16 @@ Dark-mode fantasy league website with a separate backend prepared for Sleeper AP
 npm run dev
 ```
 
+The frontend reads from `NEXT_PUBLIC_API_BASE_URL`. Locally it defaults to
+`http://localhost:8787`, so it will connect to the backend automatically while
+both servers are running.
+
 The current site includes:
 
 - Home
 - Highlights
 - Dark mode only
-- Static placeholder league data ready to swap for backend responses
+- Sleeper-powered standings and weekly highlight cards
 
 ## Backend
 
