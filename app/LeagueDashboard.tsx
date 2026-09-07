@@ -232,27 +232,27 @@ export default function LeagueDashboard() {
   const currentWeek = leagueData?.state.week || 1;
 
   return (
-    <main className="min-h-screen bg-[#050608] text-[#f7f2e8]">
-      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(196,35,35,0.28),transparent_32%),linear-gradient(180deg,#111318_0%,#050608_54%,#020203_100%)]" />
+    <main className="min-h-screen bg-[#050608] text-[#f5f8fb]">
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(98,223,255,0.20),transparent_32%),radial-gradient(circle_at_86%_18%,rgba(255,66,92,0.12),transparent_24%),linear-gradient(180deg,#111318_0%,#050608_54%,#020203_100%)]" />
       <header className="sticky top-0 z-20 border-b border-white/10 bg-[#050608]/86 backdrop-blur-xl">
         <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
           <a href="#home" className="flex items-center gap-3" aria-label="Bose In The Nose home">
-            <span className="grid h-11 w-11 place-items-center border border-[#d6a957]/70 bg-[#101217] text-lg font-black text-[#d6a957]">
+            <span className="grid h-11 w-11 place-items-center border border-[#62dfff]/70 bg-[#101217] text-lg font-black text-[#62dfff] shadow-[0_0_24px_rgba(98,223,255,0.12)]">
               BN
             </span>
             <span>
-              <span className="block text-sm font-semibold uppercase tracking-[0.24em] text-[#d6a957]">
+              <span className="block text-sm font-semibold uppercase tracking-[0.24em] text-[#62dfff]">
                 Fantasy League
               </span>
               <span className="block text-lg font-black leading-none">{leagueName}</span>
             </span>
           </a>
-          <div className="flex items-center gap-1 border border-white/10 bg-white/[0.04] p-1">
+          <div className="flex items-center gap-1 border border-white/10 bg-white/[0.04] p-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
             {navItems.map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="px-3 py-2 text-sm font-semibold text-white/72 transition hover:bg-white/10 hover:text-white sm:px-5"
+                className="px-3 py-2 text-sm font-semibold text-white/72 transition hover:bg-[#62dfff]/10 hover:text-[#62dfff] sm:px-5"
               >
                 {item}
               </a>
@@ -263,7 +263,7 @@ export default function LeagueDashboard() {
 
       <section id="home" className="relative mx-auto grid min-h-[calc(100vh-80px)] max-w-7xl items-center gap-12 px-5 py-12 sm:px-8 lg:grid-cols-[1.08fr_0.92fr]">
         <div className="max-w-3xl">
-          <p className="mb-5 text-sm font-bold uppercase tracking-[0.32em] text-[#d6a957]">
+          <p className="mb-5 text-sm font-bold uppercase tracking-[0.32em] text-[#62dfff]">
             {season} league command center
           </p>
           <h1 className="text-5xl font-black leading-[0.96] tracking-normal text-white sm:text-7xl lg:text-8xl">
@@ -274,7 +274,7 @@ export default function LeagueDashboard() {
               ? `${leagueName} is now connected to Sleeper. Standings, team totals, and weekly highlights are being pulled through your local backend.`
               : 'A dark-mode clubhouse for standings, weekly stories, rivalries, and Sleeper-powered league data.'}
           </p>
-          <div className="mt-9 grid max-w-2xl grid-cols-3 border border-white/10 bg-white/[0.04]">
+          <div className="mt-9 grid max-w-2xl grid-cols-3 border border-white/10 bg-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
             {[
               [String(totalManagers).padStart(2, '0'), 'Managers'],
               [String(currentWeek).padStart(2, '0'), 'NFL week'],
@@ -291,22 +291,22 @@ export default function LeagueDashboard() {
         <aside className="border border-white/10 bg-[#0d1015]/92 p-5 shadow-2xl shadow-black/40">
           <div className="mb-5 flex items-center justify-between border-b border-white/10 pb-4">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#d6a957]">Standings</p>
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#62dfff]">Standings</p>
               <h2 className="mt-1 text-2xl font-black">Top Table</h2>
             </div>
-            <span className="border border-[#d6a957]/60 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#d6a957]">
+            <span className="border border-[#62dfff]/60 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#62dfff]">
               {status === 'ready' ? 'Sleeper live' : status === 'loading' ? 'Syncing' : 'Backend off'}
             </span>
           </div>
           <div className="space-y-3">
             {teams.map((team, index) => (
-              <div key={team.name} className="grid grid-cols-[36px_1fr_auto] items-center gap-4 border border-white/10 bg-white/[0.035] p-4">
+              <div key={team.name} className="grid grid-cols-[36px_1fr_auto] items-center gap-4 border border-white/10 bg-white/[0.035] p-4 transition hover:border-[#62dfff]/35 hover:bg-white/[0.055]">
                 <span className="text-lg font-black text-white/38">{String(index + 1).padStart(2, '0')}</span>
                 <div>
                   <h3 className="font-bold text-white">{team.name}</h3>
                   <p className="text-sm text-white/48">{team.record} | {team.points} PF</p>
                 </div>
-                <span className="text-sm font-bold text-emerald-300">{team.trend}</span>
+                <span className="text-sm font-bold text-[#7cf7b5]">{team.trend}</span>
               </div>
             ))}
           </div>
@@ -317,7 +317,7 @@ export default function LeagueDashboard() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div>
-              <p className="text-sm font-bold uppercase tracking-[0.32em] text-[#d6a957]">Highlights</p>
+              <p className="text-sm font-bold uppercase tracking-[0.32em] text-[#62dfff]">Highlights</p>
               <h2 className="mt-3 text-4xl font-black text-white sm:text-5xl">Weekly pulse</h2>
             </div>
             <p className="max-w-xl text-base leading-7 text-white/58">
@@ -326,8 +326,8 @@ export default function LeagueDashboard() {
           </div>
           <div className="grid gap-4 lg:grid-cols-3">
             {highlights.map((item) => (
-              <article key={`${item.tag}-${item.title}`} className="min-h-64 border border-white/10 bg-[#11141a] p-6 transition hover:border-[#d6a957]/60 hover:bg-[#151922]">
-                <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#d6a957]">{item.tag}</p>
+              <article key={`${item.tag}-${item.title}`} className="min-h-64 border border-white/10 bg-[#11141a] p-6 transition hover:border-[#62dfff]/60 hover:bg-[#151922] hover:shadow-[0_20px_60px_rgba(0,0,0,0.28)]">
+                <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#62dfff]">{item.tag}</p>
                 <h3 className="mt-8 text-2xl font-black leading-tight text-white">{item.title}</h3>
                 <p className="mt-6 border-t border-white/10 pt-4 text-sm font-semibold text-white/50">{item.meta}</p>
               </article>

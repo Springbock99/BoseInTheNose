@@ -2,7 +2,7 @@
 
 :root {
   --background: #050608;
-  --foreground: #f7f2e8;
+  --foreground: #f5f8fb;
 }
 
 @theme inline {
@@ -35,6 +35,6 @@ a {
 }
 
 ::selection {
-  background: #d6a957;
+  background: #62dfff;
   color: #050608;
 }
