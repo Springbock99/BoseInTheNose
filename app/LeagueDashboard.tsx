@@ -96,29 +96,11 @@ const fallbackHighlights: Highlight[] = [
 
 const navItems = ['Home', 'Highlights'];
 const refreshIntervalMs = 60_000;
-const backgroundMockups = [
-  {
-    name: 'Deep Field',
-    detail: 'visible, smooth, readable',
-    imageClass: 'opacity-[0.42] saturate-[0.92] contrast-[0.96]',
-    washClass: 'bg-[linear-gradient(90deg,rgba(2,3,5,0.88)_0%,rgba(2,3,5,0.52)_46%,rgba(2,3,5,0.80)_100%),linear-gradient(180deg,rgba(2,3,5,0.42)_0%,rgba(2,3,5,0.78)_72%,#020305_100%)]',
-    glowClass: 'bg-[radial-gradient(circle_at_50%_0%,rgba(98,223,255,0.20),transparent_36%),radial-gradient(circle_at_86%_18%,rgba(255,66,92,0.11),transparent_24%)]',
-  },
-  {
-    name: 'Broadcast Haze',
-    detail: 'brighter stadium lights',
-    imageClass: 'opacity-[0.52] blur-[0.5px] saturate-[1.02] contrast-[0.92]',
-    washClass: 'bg-[linear-gradient(90deg,rgba(2,3,5,0.84)_0%,rgba(2,3,5,0.42)_50%,rgba(2,3,5,0.78)_100%),linear-gradient(180deg,rgba(2,3,5,0.34)_0%,rgba(2,3,5,0.72)_76%,#020305_100%)]',
-    glowClass: 'bg-[radial-gradient(circle_at_50%_4%,rgba(98,223,255,0.24),transparent_36%),radial-gradient(circle_at_16%_22%,rgba(167,139,250,0.13),transparent_22%)]',
-  },
-  {
-    name: 'Clubhouse Glass',
-    detail: 'calm premium panels',
-    imageClass: 'opacity-[0.32] saturate-[0.82] contrast-[1.02]',
-    washClass: 'bg-[linear-gradient(90deg,rgba(2,3,5,0.92)_0%,rgba(2,3,5,0.62)_48%,rgba(2,3,5,0.86)_100%),linear-gradient(180deg,rgba(2,3,5,0.58)_0%,rgba(2,3,5,0.84)_72%,#020305_100%)]',
-    glowClass: 'bg-[radial-gradient(circle_at_52%_0%,rgba(98,223,255,0.14),transparent_34%),radial-gradient(circle_at_78%_20%,rgba(124,247,181,0.09),transparent_24%)]',
-  },
-];
+const backgroundStyle = {
+  imageClass: 'opacity-[0.52] blur-[0.5px] saturate-[1.02] contrast-[0.92]',
+  washClass: 'bg-[linear-gradient(90deg,rgba(2,3,5,0.84)_0%,rgba(2,3,5,0.42)_50%,rgba(2,3,5,0.78)_100%),linear-gradient(180deg,rgba(2,3,5,0.34)_0%,rgba(2,3,5,0.72)_76%,#020305_100%)]',
+  glowClass: 'bg-[radial-gradient(circle_at_50%_4%,rgba(98,223,255,0.24),transparent_36%),radial-gradient(circle_at_16%_22%,rgba(167,139,250,0.13),transparent_22%)]',
+};
 const scoreboardStyles = [
   {
     name: 'Tunnel Classic',
@@ -342,7 +324,6 @@ export default function LeagueDashboard() {
   const [status, setStatus] = useState<'loading' | 'ready' | 'offline'>('loading');
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [selectedBackground, setSelectedBackground] = useState('Broadcast Haze');
 
   const loadLeague = useCallback(async (shouldUpdate = () => true) => {
     setIsRefreshing(true);
@@ -405,7 +386,6 @@ export default function LeagueDashboard() {
   const lastUpdatedLabel = lastUpdated
     ? lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     : 'Not yet';
-  const backgroundStyle = backgroundMockups.find((mockup) => mockup.name === selectedBackground) || backgroundMockups[0];
 
   return (
     <main className="relative isolate min-h-screen overflow-hidden bg-[#050608] text-[#f5f8fb]">
@@ -437,23 +417,6 @@ export default function LeagueDashboard() {
               >
                 {item}
               </a>
-            ))}
-          </div>
-          <div className="flex w-full gap-1 overflow-x-auto border border-white/10 bg-black/25 p-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] lg:w-auto">
-            {backgroundMockups.map((mockup) => (
-              <button
-                key={mockup.name}
-                type="button"
-                onClick={() => setSelectedBackground(mockup.name)}
-                className={`shrink-0 px-3 py-2 text-left transition sm:px-4 ${
-                  mockup.name === selectedBackground
-                    ? 'bg-[#62dfff]/12 text-[#62dfff]'
-                    : 'text-white/58 hover:bg-white/8 hover:text-white'
-                }`}
-              >
-                <span className="block text-xs font-black uppercase tracking-[0.14em]">{mockup.name}</span>
-                <span className="block text-[10px] font-semibold uppercase tracking-[0.12em] opacity-60">{mockup.detail}</span>
-              </button>
             ))}
           </div>
         </nav>
