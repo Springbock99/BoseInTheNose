@@ -7,6 +7,7 @@ type SleeperUser = {
   avatar?: string | null;
   display_name?: string;
   metadata?: {
+    avatar?: string;
     team_name?: string;
   };
 };
@@ -64,6 +65,7 @@ type Highlight = {
 };
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8787';
+const logoImageUrl = '/nfl-fantasy-logo.png';
 
 const fallbackTeams: TeamRow[] = [
   { name: 'Velvet Blitz', record: '7-2', points: '1,184.6', trend: '+48.2', wins: 7, fpts: 1184.6 },
@@ -96,7 +98,32 @@ const fallbackHighlights: Highlight[] = [
 
 const navItems = ['Home', 'Highlights'];
 const refreshIntervalMs = 60_000;
+const logoStyles = [
+  {
+    name: 'Gold Aura',
+    detail: 'champion glow',
+    shellClass: 'h-20 w-20 sm:h-24 sm:w-24',
+    glowClass: 'inset-0 bg-[radial-gradient(circle_at_50%_52%,rgba(255,190,89,0.58),rgba(244,197,106,0.24)_40%,transparent_72%)] blur-md',
+    imageClass: 'h-16 w-16 sm:h-20 sm:w-20',
+  },
+  {
+    name: 'Warm Sweep',
+    detail: 'gold from left',
+    shellClass: 'h-20 w-20 sm:h-24 sm:w-24',
+    glowClass: '-inset-2 bg-[linear-gradient(115deg,rgba(255,190,89,0.52),rgba(98,223,255,0.16)_46%,transparent_74%)] blur-lg',
+    imageClass: 'h-16 w-16 sm:h-20 sm:w-20',
+  },
+  {
+    name: 'Trophy Wake',
+    detail: 'scoreboard trail',
+    shellClass: 'h-20 w-20 sm:h-24 sm:w-24',
+    glowClass: '-inset-3 bg-[radial-gradient(circle_at_48%_50%,rgba(255,190,89,0.38),transparent_42%),radial-gradient(circle_at_12%_55%,rgba(167,139,250,0.18),transparent_52%)] blur-xl',
+    imageClass: 'h-16 w-16 sm:h-20 sm:w-20',
+  },
+];
+const selectedLogoStyle = logoStyles[0];
 const backgroundStyle = {
+  imageUrl: '/stadium-background.png',
   imageClass: 'opacity-[0.52] blur-[0.5px] saturate-[1.02] contrast-[0.92]',
   washClass: 'bg-[linear-gradient(90deg,rgba(2,3,5,0.84)_0%,rgba(2,3,5,0.42)_50%,rgba(2,3,5,0.78)_100%),linear-gradient(180deg,rgba(2,3,5,0.34)_0%,rgba(2,3,5,0.72)_76%,#020305_100%)]',
   glowClass: 'bg-[radial-gradient(circle_at_50%_4%,rgba(98,223,255,0.24),transparent_36%),radial-gradient(circle_at_16%_22%,rgba(167,139,250,0.13),transparent_22%)]',
@@ -123,11 +150,56 @@ const scoreboardStyles = [
     detail: 'avatar-forward cards',
     rowClass: 'grid-cols-[3.25rem_1fr_auto] min-h-18 px-4 py-3',
     rankClass: 'hidden',
-    avatarClass: 'h-12 w-12',
+    avatarClass: 'h-12 w-12 rounded-full',
     titleClass: 'text-base',
   },
 ];
 const selectedScoreboardStyle = scoreboardStyles[2];
+const defaultSleeperAvatarIds = new Set([
+  '578c6b253dd7b4bab45382e1af102204',
+  '7572250c2fb084c434fed0e82229e183',
+  'd55d1f7075eda01948318de4af616075',
+]);
+
+function LogoImage({ className }: { className: string }) {
+  return (
+    <span
+      className={`block shrink-0 bg-contain bg-center bg-no-repeat mix-blend-screen drop-shadow-[0_0_18px_rgba(98,223,255,0.18)] ${className}`}
+      style={{ backgroundImage: `url(${logoImageUrl})` }}
+      aria-label="Bouse In The Nose logo"
+    />
+  );
+}
+
+function LogoLockup({
+  style,
+  leagueName,
+  compact = false,
+}: {
+  style: (typeof logoStyles)[number];
+  leagueName: string;
+  compact?: boolean;
+}) {
+  return (
+    <div className={`flex items-center gap-3 ${compact ? '' : 'min-w-0'}`}>
+      <span className={`relative grid shrink-0 place-items-center ${style.shellClass}`}>
+        <span className={`pointer-events-none absolute ${style.glowClass}`} />
+        <LogoImage className={`relative ${compact ? 'h-12 w-12' : style.imageClass}`} />
+      </span>
+      <span className="min-w-0">
+        {!compact && <span className="block truncate text-lg font-black leading-none">{leagueName}</span>}
+        {compact && (
+          <>
+            <span className="block text-sm font-black leading-none text-white">{style.name}</span>
+            <span className="mt-1 block text-[0.65rem] font-bold uppercase tracking-[0.14em] text-white/42">
+              {style.detail}
+            </span>
+          </>
+        )}
+      </span>
+    </div>
+  );
+}
 
 function formatRecord(roster: SleeperRoster) {
   const wins = roster.settings?.wins ?? 0;
@@ -149,18 +221,15 @@ function getTeamName(roster: SleeperRoster, usersById: Map<string, SleeperUser>)
 }
 
 function getAvatarUrl(roster: SleeperRoster, usersById: Map<string, SleeperUser>) {
-  const avatar = usersById.get(roster.owner_id)?.avatar;
-  return avatar ? `https://sleepercdn.com/avatars/thumbs/${avatar}` : undefined;
-}
+  const user = usersById.get(roster.owner_id);
+  if (user?.metadata?.avatar) {
+    return user.metadata.avatar;
+  }
 
-function getInitials(name: string) {
-  return name
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0])
-    .join('')
-    .toUpperCase();
+  const avatar = user?.avatar;
+  return avatar && !defaultSleeperAvatarIds.has(avatar)
+    ? `https://sleepercdn.com/avatars/thumbs/${avatar}`
+    : undefined;
 }
 
 function buildTeams(data: LeagueResponse): TeamRow[] {
@@ -238,11 +307,20 @@ function buildHighlights(data: LeagueResponse, matchups: Matchup[]): Highlight[]
 function TeamAvatar({ team, className }: { team: TeamRow; className: string }) {
   return (
     <span
-      className={`grid shrink-0 place-items-center overflow-hidden border border-[#62dfff]/20 bg-[#62dfff]/10 bg-cover bg-center text-xs font-black text-[#62dfff] ${className}`}
+      className={`relative grid shrink-0 place-items-center overflow-hidden border border-[#62dfff]/20 bg-[#061826] bg-cover bg-center shadow-[0_0_22px_rgba(98,223,255,0.10)] ${className}`}
       style={team.avatarUrl ? { backgroundImage: `url(${team.avatarUrl})` } : undefined}
       aria-label={`${team.name} avatar`}
+      data-avatar-status={team.avatarUrl ? 'custom' : 'placeholder'}
     >
-      {!team.avatarUrl && getInitials(team.name)}
+      {!team.avatarUrl && (
+        <>
+          <span className="absolute inset-0 bg-[radial-gradient(circle_at_50%_25%,rgba(98,223,255,0.34),transparent_44%),linear-gradient(145deg,rgba(167,139,250,0.20),rgba(98,223,255,0.08))]" />
+          <span className="relative grid h-[52%] w-[52%] place-items-center rounded-full border border-[#62dfff]/25 bg-black/22">
+            <span className="absolute top-[24%] h-[26%] w-[26%] rounded-full bg-[#9beeff]" />
+            <span className="absolute bottom-[20%] h-[28%] w-[54%] rounded-t-full bg-[#9beeff]" />
+          </span>
+        </>
+      )}
     </span>
   );
 }
@@ -251,6 +329,7 @@ function ScoreboardMockup({
   teams,
   status,
   lastUpdatedLabel,
+  totalManagers,
   style,
   isRefreshing,
   onRefresh,
@@ -258,6 +337,7 @@ function ScoreboardMockup({
   teams: TeamRow[];
   status: 'loading' | 'ready' | 'offline';
   lastUpdatedLabel: string;
+  totalManagers: number;
   style: (typeof scoreboardStyles)[number];
   isRefreshing: boolean;
   onRefresh: () => void;
@@ -269,9 +349,9 @@ function ScoreboardMockup({
         <div className="mb-4 flex items-start justify-between gap-4 border-b border-white/10 pb-4">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#62dfff]">Standings</p>
-            <h2 className="mt-1 text-2xl font-black">{style.name}</h2>
+            <h2 className="mt-1 text-2xl font-black">Full Standings</h2>
             <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-white/38">
-              {style.detail} | Updated {lastUpdatedLabel}
+              {teams.length} of {totalManagers} teams | Updated {lastUpdatedLabel}
             </p>
           </div>
           <div className="flex flex-col items-end gap-2">
@@ -288,7 +368,12 @@ function ScoreboardMockup({
             </button>
           </div>
         </div>
-        <div className="space-y-2.5">
+        <div className="mb-2 grid grid-cols-[3.25rem_1fr_auto] gap-3 px-4 text-[0.65rem] font-black uppercase tracking-[0.16em] text-white/34">
+          <span>No.</span>
+          <span>Team</span>
+          <span className="text-right">Wins</span>
+        </div>
+        <div className="scoreboard-scrollbar max-h-[min(58rem,calc(100vh-15rem))] space-y-2.5 overflow-y-auto pr-1">
           {teams.map((team, teamIndex) => (
             <div
               key={`${style.name}-${team.name}`}
@@ -303,7 +388,7 @@ function ScoreboardMockup({
               <div className="min-w-0">
                 <div className="flex items-baseline gap-2">
                   {style.rankClass === 'hidden' && (
-                    <span className="text-xs font-black text-[#c4b5fd]">{String(teamIndex + 1).padStart(2, '0')}</span>
+                    <span className="text-xs font-black text-white/30">{String(teamIndex + 1).padStart(2, '0')}</span>
                   )}
                   <h3 className={`truncate font-bold text-white ${style.titleClass}`}>{team.name}</h3>
                 </div>
@@ -313,6 +398,9 @@ function ScoreboardMockup({
             </div>
           ))}
         </div>
+        <p className="mt-4 border-t border-white/10 pt-3 text-xs font-semibold text-white/40">
+          Pulled live from Sleeper. Once games start logging scores, records and PF will update here automatically.
+        </p>
       </div>
     </article>
   );
@@ -391,22 +479,14 @@ export default function LeagueDashboard() {
     <main className="relative isolate min-h-screen overflow-hidden bg-[#050608] text-[#f5f8fb]">
       <div
         className={`pointer-events-none fixed inset-0 z-0 bg-cover bg-center transition duration-500 ${backgroundStyle.imageClass}`}
-        style={{ backgroundImage: "url('/stadium-background.png')" }}
+        style={{ backgroundImage: `url('${backgroundStyle.imageUrl}')` }}
       />
       <div className={`pointer-events-none fixed inset-0 z-[1] transition duration-500 ${backgroundStyle.washClass}`} />
       <div className={`pointer-events-none fixed inset-0 z-[2] transition duration-500 ${backgroundStyle.glowClass}`} />
       <header className="sticky top-0 z-20 border-b border-white/10 bg-[#050608]/86 backdrop-blur-xl">
         <nav className="mx-auto flex min-h-20 max-w-7xl flex-col gap-4 px-5 py-4 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
           <a href="#home" className="flex items-center gap-3" aria-label="Bose In The Nose home">
-            <span className="grid h-11 w-11 place-items-center border border-[#62dfff]/70 bg-[#101217] text-lg font-black text-[#62dfff] shadow-[0_0_24px_rgba(98,223,255,0.12)]">
-              BN
-            </span>
-            <span>
-              <span className="block text-sm font-semibold uppercase tracking-[0.24em] text-[#62dfff]">
-                Fantasy League
-              </span>
-              <span className="block text-lg font-black leading-none">{leagueName}</span>
-            </span>
+            <LogoLockup style={selectedLogoStyle} leagueName={leagueName} />
           </a>
           <div className="flex items-center gap-1 border border-white/10 bg-white/[0.04] p-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
             {navItems.map((item) => (
@@ -447,12 +527,26 @@ export default function LeagueDashboard() {
               </div>
             ))}
           </div>
+          <div className="mt-7 max-w-2xl">
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#62dfff]">Logo mockups</p>
+            <div className="grid gap-3 sm:grid-cols-3">
+              {logoStyles.map((style) => (
+                <div
+                  key={style.name}
+                  className="relative overflow-visible p-1"
+                >
+                  <LogoLockup style={style} leagueName={leagueName} compact />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         <ScoreboardMockup
           teams={teams}
           status={status}
           lastUpdatedLabel={lastUpdatedLabel}
+          totalManagers={totalManagers}
           style={selectedScoreboardStyle}
           isRefreshing={isRefreshing}
           onRefresh={() => loadLeague()}
