@@ -342,7 +342,7 @@ export default function LeagueDashboard() {
   const [status, setStatus] = useState<'loading' | 'ready' | 'offline'>('loading');
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [selectedBackground, setSelectedBackground] = useState(backgroundMockups[0].name);
+  const [selectedBackground, setSelectedBackground] = useState('Broadcast Haze');
 
   const loadLeague = useCallback(async (shouldUpdate = () => true) => {
     setIsRefreshing(true);
