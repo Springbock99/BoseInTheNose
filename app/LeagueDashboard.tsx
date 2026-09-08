@@ -171,31 +171,20 @@ function LogoImage({ className }: { className: string }) {
   );
 }
 
-function LogoLockup({
-  style,
-  leagueName,
-  compact = false,
-}: {
-  style: (typeof logoStyles)[number];
-  leagueName: string;
-  compact?: boolean;
-}) {
+function LogoLockup({ style, leagueName }: { style: (typeof logoStyles)[number]; leagueName: string }) {
   return (
-    <div className={`flex items-center gap-3 ${compact ? '' : 'min-w-0'}`}>
+    <div className="flex min-w-0 items-center gap-3">
       <span className={`relative grid shrink-0 place-items-center ${style.shellClass}`}>
         <span className={`pointer-events-none absolute ${style.glowClass}`} />
-        <LogoImage className={`relative ${compact ? 'h-12 w-12' : style.imageClass}`} />
+        <LogoImage className={`relative ${style.imageClass}`} />
       </span>
       <span className="min-w-0">
-        {!compact && <span className="block truncate text-lg font-black leading-none">{leagueName}</span>}
-        {compact && (
-          <>
-            <span className="block text-sm font-black leading-none text-white">{style.name}</span>
-            <span className="mt-1 block text-[0.65rem] font-bold uppercase tracking-[0.14em] text-white/42">
-              {style.detail}
-            </span>
-          </>
-        )}
+        <span className="block text-xs font-black uppercase tracking-[0.22em] text-[#f9d98a]/78">
+          Fantasy League
+        </span>
+        <span className="league-mark-small mt-1 block truncate text-xl font-black leading-none text-white">
+          {leagueName}
+        </span>
       </span>
     </div>
   );
@@ -483,17 +472,18 @@ export default function LeagueDashboard() {
       />
       <div className={`pointer-events-none fixed inset-0 z-[1] transition duration-500 ${backgroundStyle.washClass}`} />
       <div className={`pointer-events-none fixed inset-0 z-[2] transition duration-500 ${backgroundStyle.glowClass}`} />
-      <header className="sticky top-0 z-20 border-b border-white/10 bg-[#050608]/86 backdrop-blur-xl">
-        <nav className="mx-auto flex min-h-20 max-w-7xl flex-col gap-4 px-5 py-4 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
+      <header className="sticky top-0 z-20 bg-transparent">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/48 to-transparent" />
+        <nav className="relative mx-auto flex min-h-20 max-w-7xl flex-col gap-4 px-5 py-4 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
           <a href="#home" className="flex items-center gap-3" aria-label="Bose In The Nose home">
             <LogoLockup style={selectedLogoStyle} leagueName={leagueName} />
           </a>
-          <div className="flex items-center gap-1 border border-white/10 bg-white/[0.04] p-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+          <div className="flex w-fit items-center gap-1 border border-white/10 bg-black/18 p-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_12px_34px_rgba(0,0,0,0.18)] backdrop-blur-md">
             {navItems.map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="px-3 py-2 text-sm font-semibold text-white/72 transition hover:bg-[#62dfff]/10 hover:text-[#62dfff] sm:px-5"
+                className="px-3 py-2 text-sm font-semibold text-white/72 transition hover:bg-[#f9d98a]/12 hover:text-[#f9d98a] sm:px-5"
               >
                 {item}
               </a>
@@ -526,19 +516,6 @@ export default function LeagueDashboard() {
                 <div className="mt-1 text-xs font-bold uppercase tracking-[0.18em] text-white/45">{label}</div>
               </div>
             ))}
-          </div>
-          <div className="mt-7 max-w-2xl">
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-[#62dfff]">Logo mockups</p>
-            <div className="grid gap-3 sm:grid-cols-3">
-              {logoStyles.map((style) => (
-                <div
-                  key={style.name}
-                  className="relative overflow-visible p-1"
-                >
-                  <LogoLockup style={style} leagueName={leagueName} compact />
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 
