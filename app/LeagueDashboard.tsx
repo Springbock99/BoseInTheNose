@@ -99,24 +99,24 @@ const refreshIntervalMs = 60_000;
 const backgroundMockups = [
   {
     name: 'Deep Field',
-    detail: 'dim, smooth, readable',
-    imageClass: 'opacity-[0.24] saturate-[0.82] contrast-[0.92]',
-    washClass: 'bg-[linear-gradient(90deg,rgba(2,3,5,0.94)_0%,rgba(2,3,5,0.72)_46%,rgba(2,3,5,0.88)_100%),linear-gradient(180deg,rgba(2,3,5,0.68)_0%,rgba(2,3,5,0.92)_72%,#020305_100%)]',
-    glowClass: 'bg-[radial-gradient(circle_at_50%_0%,rgba(98,223,255,0.18),transparent_34%),radial-gradient(circle_at_86%_18%,rgba(255,66,92,0.10),transparent_24%)]',
+    detail: 'visible, smooth, readable',
+    imageClass: 'opacity-[0.42] saturate-[0.92] contrast-[0.96]',
+    washClass: 'bg-[linear-gradient(90deg,rgba(2,3,5,0.88)_0%,rgba(2,3,5,0.52)_46%,rgba(2,3,5,0.80)_100%),linear-gradient(180deg,rgba(2,3,5,0.42)_0%,rgba(2,3,5,0.78)_72%,#020305_100%)]',
+    glowClass: 'bg-[radial-gradient(circle_at_50%_0%,rgba(98,223,255,0.20),transparent_36%),radial-gradient(circle_at_86%_18%,rgba(255,66,92,0.11),transparent_24%)]',
   },
   {
     name: 'Broadcast Haze',
-    detail: 'soft stadium lights',
-    imageClass: 'opacity-[0.34] blur-[1px] saturate-[0.95] contrast-[0.86]',
-    washClass: 'bg-[linear-gradient(90deg,rgba(2,3,5,0.90)_0%,rgba(2,3,5,0.58)_50%,rgba(2,3,5,0.86)_100%),linear-gradient(180deg,rgba(2,3,5,0.52)_0%,rgba(2,3,5,0.88)_76%,#020305_100%)]',
-    glowClass: 'bg-[radial-gradient(circle_at_50%_4%,rgba(98,223,255,0.22),transparent_35%),radial-gradient(circle_at_16%_22%,rgba(167,139,250,0.12),transparent_22%)]',
+    detail: 'brighter stadium lights',
+    imageClass: 'opacity-[0.52] blur-[0.5px] saturate-[1.02] contrast-[0.92]',
+    washClass: 'bg-[linear-gradient(90deg,rgba(2,3,5,0.84)_0%,rgba(2,3,5,0.42)_50%,rgba(2,3,5,0.78)_100%),linear-gradient(180deg,rgba(2,3,5,0.34)_0%,rgba(2,3,5,0.72)_76%,#020305_100%)]',
+    glowClass: 'bg-[radial-gradient(circle_at_50%_4%,rgba(98,223,255,0.24),transparent_36%),radial-gradient(circle_at_16%_22%,rgba(167,139,250,0.13),transparent_22%)]',
   },
   {
     name: 'Clubhouse Glass',
-    detail: 'quiet, premium panels',
-    imageClass: 'opacity-[0.18] saturate-[0.72] contrast-[1.02]',
-    washClass: 'bg-[linear-gradient(90deg,rgba(2,3,5,0.96)_0%,rgba(2,3,5,0.78)_48%,rgba(2,3,5,0.92)_100%),linear-gradient(180deg,rgba(2,3,5,0.76)_0%,rgba(2,3,5,0.94)_72%,#020305_100%)]',
-    glowClass: 'bg-[radial-gradient(circle_at_52%_0%,rgba(98,223,255,0.12),transparent_33%),radial-gradient(circle_at_78%_20%,rgba(124,247,181,0.08),transparent_24%)]',
+    detail: 'calm premium panels',
+    imageClass: 'opacity-[0.32] saturate-[0.82] contrast-[1.02]',
+    washClass: 'bg-[linear-gradient(90deg,rgba(2,3,5,0.92)_0%,rgba(2,3,5,0.62)_48%,rgba(2,3,5,0.86)_100%),linear-gradient(180deg,rgba(2,3,5,0.58)_0%,rgba(2,3,5,0.84)_72%,#020305_100%)]',
+    glowClass: 'bg-[radial-gradient(circle_at_52%_0%,rgba(98,223,255,0.14),transparent_34%),radial-gradient(circle_at_78%_20%,rgba(124,247,181,0.09),transparent_24%)]',
   },
 ];
 const scoreboardStyles = [
