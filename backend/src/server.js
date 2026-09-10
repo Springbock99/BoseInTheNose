@@ -68,6 +68,26 @@ app.get('/api/trending', async (request, response, next) => {
   }
 });
 
+app.get('/api/players/:sport?', async (request, response, next) => {
+  try {
+    const players = await sleeper.getPlayers(request.params.sport || 'nfl');
+    const requestedIds = typeof request.query.ids === 'string'
+      ? request.query.ids.split(',').map((id) => id.trim()).filter(Boolean)
+      : [];
+
+    if (requestedIds.length > 0) {
+      response.json({
+        players: Object.fromEntries(requestedIds.map((id) => [id, players[id]]).filter(([, player]) => player)),
+      });
+      return;
+    }
+
+    response.json({ players });
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.use((error, _request, response, _next) => {
   response.status(502).json({
     error: 'Sleeper API request failed.',
