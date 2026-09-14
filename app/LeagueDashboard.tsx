@@ -150,6 +150,7 @@ const navItems = [
   { label: 'Home', href: '#home' },
   { label: 'Highlights', href: '#highlights' },
   { label: 'Stats', href: '/stats' },
+  { label: 'Rules', href: '/rules' },
 ];
 const refreshIntervalMs = 60_000;
 const logoStyles = [

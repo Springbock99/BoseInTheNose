@@ -1,0 +1,2763 @@
+{
+  "title": "BouseInTheNose Fantasy Football League Master Rulebook",
+  "generatedAt": "2026-09-14T21:12:24.249Z",
+  "frontMatter": [
+    "LEAGUE RULES",
+    "Consolidated draft for final review · 10 September 2026",
+    "Season of applicability: [TO CONFIRM]",
+    "Adoption date and official version: [TO CONFIRM]",
+    "This document consolidates the chapter drafts and subsequent revisions in Fantasy Rules Summary. Repeated provisions have been combined and references aligned. Bracketed review notes identify missing annual information or unresolved wording; they do not establish new rules. Appendix A gathers those items for final review."
+  ],
+  "chapters": [
+    {
+      "id": "general-provisions",
+      "number": null,
+      "title": "General Provisions",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "G.1",
+          "title": "Scope and Acceptance",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "This Rulebook governs the BouseInTheNose Fantasy Football League and applies to every participating Manager. Participation constitutes acceptance of this Rulebook, the official League settings, valid decisions made under it, and applicable supplementary rules for the season."
+            }
+          ]
+        },
+        {
+          "id": "G.2",
+          "title": "Official Platform",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Sleeper is the League’s official fantasy football platform and, unless this Rulebook provides otherwise, the official source for rosters, lineups, transactions, scoring, matchups, standings, draft results and playoff brackets."
+            }
+          ]
+        },
+        {
+          "id": "G.3",
+          "title": "Rulebook Priority",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "This Rulebook takes priority over conflicting informal agreements, group-chat messages, previous-season practices and unwritten traditions. The Decathlon Handbook and other supplementary documents apply only within the authority granted by this Rulebook. The full hierarchy appears in Section 17.1."
+            }
+          ]
+        },
+        {
+          "id": "G.4",
+          "title": "Manager Responsibility",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Each Manager is responsible for knowing and following the rules. Failure to read or understand a rule shall not normally excuse a violation. Managers are encouraged to seek clarification before acting where a rule is unclear."
+            }
+          ]
+        },
+        {
+          "id": "G.5",
+          "title": "Good-Faith Competition",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers must compete independently and in good faith. Cheating, collusion and intentional manipulation are prohibited. Aggressive, unconventional or unpopular strategies remain permitted where they comply with this Rulebook."
+            }
+          ]
+        },
+        {
+          "id": "G.6",
+          "title": "Administration and Equal Application",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The Commissioners administer and enforce the League under Chapter 1. Their authority may not be used for personal competitive advantage. All Managers, including Commissioners, are subject to the same rules without preferential treatment."
+            }
+          ]
+        },
+        {
+          "id": "G.7",
+          "title": "Uncovered Situations",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Situations not expressly covered shall be resolved under Chapter 17, considering the intent of existing rules, competitive integrity, fairness, relevant previous rulings and normal Sleeper operation."
+            }
+          ]
+        },
+        {
+          "id": "G.8",
+          "title": "Rule Changes",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Material rule changes are governed by Chapter 12. Rules shall not normally be changed retroactively or during an active season merely because an existing rule produces an unpopular result."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-1",
+      "number": 1,
+      "title": "Chapter 1 — The Commissioners and Their Powers",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "1.1",
+          "title": "Commissioner Administration",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The League shall be administered by three Commissioners, with equal authority unless otherwise agreed by the League. They are responsible for day-to-day administration, enforcement, League settings and the resolution of disputes and exceptional situations."
+            }
+          ]
+        },
+        {
+          "id": "1.2",
+          "title": "General Authority",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Commissioners may enforce rules, investigate suspected violations, review League activity, correct administrative or platform errors, implement agreed settings and decisions, reverse or correct transactions where authorized, issue warnings or authorized penalties, and take reasonable action to protect competitive integrity."
+            },
+            {
+              "type": "p",
+              "text": "Administrative actions that do not materially alter competitive rules do not require a League Vote. Significant actions should be communicated where reasonably possible."
+            }
+          ]
+        },
+        {
+          "id": "1.3",
+          "title": "Conflicts of Interest",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "A Commissioner shall recuse themselves from deciding a trade, dispute, investigation, disciplinary matter or other ruling in which they are directly or materially indirectly involved."
+            },
+            {
+              "type": "p",
+              "text": "A material indirect interest may concern a matchup, playoff qualification or seed, draft position, prize, League Loser status, punishment or another significant competitive outcome. A remote or theoretical effect on the standings does not automatically require recusal."
+            },
+            {
+              "type": "p",
+              "text": "For trade reviews, the specific panel and voting procedures in Sections 7.2–7.4 apply. Other disputes and appeals follow Chapter 13. The remaining eligible Commissioners shall decide matters where a Commissioner is conflicted, with Alternate Commissioners appointed where necessary. If all Commissioners are directly involved, the matter shall be decided by a League Vote or another neutral procedure consistent with this Rulebook."
+            }
+          ]
+        },
+        {
+          "id": "1.4",
+          "title": "Alternate Commissioners",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Eligible regular Commissioners shall appoint neutral League Members case by case whenever replacements are required. Alternates must be current League Members unless otherwise agreed, must have no direct or material indirect conflict, and must withdraw if they cannot act neutrally."
+            },
+            {
+              "type": "p",
+              "text": "An Alternate Commissioner has one equal vote and authority only for the assigned matter. Broader Commissioner-tool access shall be granted only where specifically necessary. Their authority ends when the matter is resolved."
+            }
+          ]
+        },
+        {
+          "id": "1.5",
+          "title": "Emergency Powers",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "A Commissioner may take proportionate temporary action before a formal decision where immediate intervention is necessary to prevent serious harm to competitive integrity, League funds, safety or an official event. This includes suspected collusion, roster dumping, unauthorized account or lineup manipulation, major platform failures and errors that would otherwise become irreversible."
+            },
+            {
+              "type": "p",
+              "text": "Temporary measures may include locking transactions, preserving rosters or evidence, pausing competition, freezing disputed funds or restricting event access. The action must be explained as soon as reasonably possible and reviewed promptly. It is not a final finding of wrongdoing or authority to create a new competitive rule merely because the existing result is undesirable."
+            }
+          ]
+        },
+        {
+          "id": "1.6",
+          "title": "Limitations",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Commissioners may not use their tools or authority for personal advantage, favoritism, retaliation or private disputes. They may not improperly alter rosters, lineups, scores, standings, draft results, waiver priority or transactions; override a valid decision merely because it is strategically poor; or retroactively punish previously permitted conduct."
+            }
+          ]
+        },
+        {
+          "id": "1.7",
+          "title": "Transparency and Finality",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Material rulings should briefly explain what occurred, the relevant rule, the action taken and the reason. Private or sensitive information need not be disclosed unnecessarily."
+            },
+            {
+              "type": "p",
+              "text": "A valid ruling remains effective unless overturned through an authorized procedure. Interpretation follows Chapter 17; review and finality follow Chapter 13. A recused Commissioner may not later override the decision."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-2",
+      "number": 2,
+      "title": "Chapter 2 — League Members and Manager Responsibilities",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "2.1",
+          "title": "Membership and Team Management",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Each fantasy team shall have one registered League Member as its Manager. Each Manager must remain reasonably active throughout the season, manage their own roster and lineup, monitor injuries, bye weeks, eligibility and deadlines, and make a genuine effort to compete."
+            },
+            {
+              "type": "p",
+              "text": "Commissioners are not responsible for correcting ordinary management mistakes. Competitive strategy and prohibited conduct are addressed in Chapters 5, 6, 7 and 14."
+            }
+          ]
+        },
+        {
+          "id": "2.2",
+          "title": "Independent Control and Assistance",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers must retain independent control of their teams. Unauthorized account access, lineup changes or transactions are prohibited, as is allowing another Manager to operate a second team for competitive advantage."
+            },
+            {
+              "type": "p",
+              "text": "Temporary assistance may be permitted in exceptional circumstances where the Commissioners are informed and no competitive conflict exists. A Manager expecting an extended absence should make arrangements in advance. Commissioner assistance should be administrative and follow explicit instructions where possible; strategic decisions require specific authority under this Rulebook."
+            }
+          ]
+        },
+        {
+          "id": "2.3",
+          "title": "Communication",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers should remain reasonably reachable and respond within a reasonable period to matters requiring their participation, including Commissioner inquiries, requested trade discussions, votes and disciplinary or administrative matters. Constant availability and responses to every offer or message are not required."
+            },
+            {
+              "type": "p",
+              "text": "Managers with credible evidence of serious cheating, collusion or account manipulation should report it to a Commissioner. Ordinary strategic disagreements and minor mistakes need not be reported."
+            }
+          ]
+        },
+        {
+          "id": "2.4",
+          "title": "Abandoned Teams",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "A team may be considered abandoned where its Manager stops participating for an extended period, repeatedly neglects lineups, becomes unreachable, expressly withdraws or otherwise ceases management."
+            },
+            {
+              "type": "p",
+              "text": "Commissioners may protect competitive balance by restricting transactions, setting a neutral lineup, appointing a temporary replacement, transferring control or removing the Manager. Intervention must be limited to what is necessary. Commissioner-set lineups follow Section 5.7."
+            }
+          ]
+        },
+        {
+          "id": "2.5",
+          "title": "Continued Participation",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Clinching or losing a chance at the Championship does not end a Manager’s obligations or ordinary roster-management rights. Managers may continue using waivers, free agency, legitimate blocking and trades before the deadline, and must compete in remaining matchups and applicable lower brackets."
+            }
+          ]
+        },
+        {
+          "id": "2.6",
+          "title": "Conduct and Outside Agreements",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Banter, rivalry, criticism and competitive discussion are permitted within the limits of Chapter 14. Private arrangements cannot override the Rulebook. Outside agreements that undermine competitive integrity may result in related transactions being voided and proportionate discipline."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-3",
+      "number": 3,
+      "title": "Chapter 3 — League Format and Official Settings",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "3.1",
+          "title": "League Type",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The League uses Sleeper’s Classic Redraft format. Rosters reset between seasons unless formally agreed otherwise before the relevant season. Managers retain no permanent ownership of players from previous seasons. The number of teams may change annually."
+            }
+          ]
+        },
+        {
+          "id": "3.2",
+          "title": "Roster Structure",
+          "blocks": [
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Position",
+                  "Slots"
+                ],
+                [
+                  "Quarterback (QB)",
+                  "1"
+                ],
+                [
+                  "Running Back (RB)",
+                  "2"
+                ],
+                [
+                  "Wide Receiver (WR)",
+                  "2"
+                ],
+                [
+                  "Tight End (TE)",
+                  "1"
+                ],
+                [
+                  "Flex (RB/WR/TE)",
+                  "1"
+                ],
+                [
+                  "Kicker (K)",
+                  "1"
+                ],
+                [
+                  "Team Defense/Special Teams (DEF)",
+                  "1"
+                ],
+                [
+                  "Bench",
+                  "4"
+                ],
+                [
+                  "Injured Reserve (IR)",
+                  "2"
+                ]
+              ]
+            },
+            {
+              "type": "p",
+              "text": "There is no Superflex position. Automatic Bench substitutions are disabled unless formally enabled. IR eligibility follows the configured Sleeper settings: OUT and SUSPENDED players are permitted where Sleeper allows them. Doubtful, Not Active, Did Not Report, Holdout and equivalent statuses are not eligible unless permitted by the official settings."
+            }
+          ]
+        },
+        {
+          "id": "3.3",
+          "title": "Offensive Scoring",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The League uses Full PPR with custom scoring, calculated by Sleeper."
+            },
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Category",
+                  "Points"
+                ],
+                [
+                  "Passing yards",
+                  "1 per 25 yards"
+                ],
+                [
+                  "Passing touchdown",
+                  "6"
+                ],
+                [
+                  "Interception thrown",
+                  "−1"
+                ],
+                [
+                  "Passing two-point conversion",
+                  "2"
+                ],
+                [
+                  "Passing first down",
+                  "0"
+                ],
+                [
+                  "Rushing yards",
+                  "1 per 10 yards"
+                ],
+                [
+                  "Rushing touchdown",
+                  "6"
+                ],
+                [
+                  "Rushing two-point conversion",
+                  "2"
+                ],
+                [
+                  "Rushing first down",
+                  "0"
+                ],
+                [
+                  "Rushing touchdown of 50+ yards",
+                  "+3 bonus"
+                ],
+                [
+                  "Reception",
+                  "1"
+                ],
+                [
+                  "Receiving yards",
+                  "1 per 10 yards"
+                ],
+                [
+                  "Receiving touchdown",
+                  "6"
+                ],
+                [
+                  "Receiving two-point conversion",
+                  "2"
+                ],
+                [
+                  "Receiving first down",
+                  "0"
+                ],
+                [
+                  "Receiving touchdown of 50+ yards",
+                  "+2 bonus"
+                ]
+              ]
+            },
+            {
+              "type": "p",
+              "text": "No position-specific reception bonus applies unless formally adopted. Long-touchdown bonuses apply automatically when Sleeper records a qualifying play."
+            }
+          ]
+        },
+        {
+          "id": "3.4",
+          "title": "Kicking Scoring",
+          "blocks": [
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Successful kick",
+                  "Points"
+                ],
+                [
+                  "Extra point",
+                  "1"
+                ],
+                [
+                  "Field goal, 0–19 yards",
+                  "3"
+                ],
+                [
+                  "Field goal, 20–29 yards",
+                  "3"
+                ],
+                [
+                  "Field goal, 30–39 yards",
+                  "3"
+                ],
+                [
+                  "Field goal, 40–49 yards",
+                  "4"
+                ],
+                [
+                  "Field goal, 50–59 yards",
+                  "5"
+                ],
+                [
+                  "Field goal, 60+ yards",
+                  "6"
+                ]
+              ]
+            },
+            {
+              "type": "p",
+              "text": "Missed kicks carry no negative score unless the official settings are changed accordingly."
+            }
+          ]
+        },
+        {
+          "id": "3.5",
+          "title": "Team Defense/Special Teams Scoring",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Team Defense/Special Teams scoring is calculated by Sleeper using the following settings."
+            },
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Turnovers and Scores",
+                  "Points"
+                ],
+                [
+                  "Interception",
+                  "2"
+                ],
+                [
+                  "Interception return yards",
+                  "0"
+                ],
+                [
+                  "Fumble recovery",
+                  "2"
+                ],
+                [
+                  "Fumble return yards",
+                  "0"
+                ],
+                [
+                  "Forced fumble",
+                  "1"
+                ],
+                [
+                  "Safety",
+                  "2"
+                ],
+                [
+                  "Blocked kick",
+                  "2"
+                ],
+                [
+                  "Blocked-kick return yards",
+                  "0"
+                ],
+                [
+                  "Defensive touchdown",
+                  "6"
+                ],
+                [
+                  "Two-point conversion return",
+                  "2"
+                ]
+              ]
+            },
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Pressure and Coverage",
+                  "Points"
+                ],
+                [
+                  "Tackle",
+                  "0"
+                ],
+                [
+                  "Solo tackle",
+                  "0"
+                ],
+                [
+                  "Assisted tackle",
+                  "0"
+                ],
+                [
+                  "Tackle for loss",
+                  "0"
+                ],
+                [
+                  "Sack",
+                  "1"
+                ],
+                [
+                  "Sack yards",
+                  "0"
+                ],
+                [
+                  "Hit on quarterback",
+                  "0"
+                ],
+                [
+                  "Pass defended",
+                  "0"
+                ]
+              ]
+            },
+            {
+              "type": "p",
+              "text": "Points per point allowed is disabled and scores 0. The points-allowed brackets are:"
+            },
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Points Allowed",
+                  "Fantasy Points"
+                ],
+                [
+                  "0",
+                  "10"
+                ],
+                [
+                  "1–6",
+                  "7"
+                ],
+                [
+                  "7–13",
+                  "4"
+                ],
+                [
+                  "14–20",
+                  "1"
+                ],
+                [
+                  "21–27",
+                  "0"
+                ],
+                [
+                  "28–34",
+                  "−1"
+                ],
+                [
+                  "35+",
+                  "−4"
+                ]
+              ]
+            },
+            {
+              "type": "p",
+              "text": "Points per yard allowed is disabled and scores 0. The total-yardage-allowed brackets are:"
+            },
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Total Yards Allowed",
+                  "Fantasy Points"
+                ],
+                [
+                  "Less than 100",
+                  "10"
+                ],
+                [
+                  "100–199",
+                  "7"
+                ],
+                [
+                  "200–299",
+                  "4"
+                ],
+                [
+                  "300–349",
+                  "1"
+                ],
+                [
+                  "350–399",
+                  "0"
+                ],
+                [
+                  "400–449",
+                  "−1"
+                ],
+                [
+                  "450–499",
+                  "−4"
+                ],
+                [
+                  "500–549",
+                  "−7"
+                ],
+                [
+                  "550+",
+                  "−10"
+                ]
+              ]
+            },
+            {
+              "type": "p",
+              "text": "The situational categories 3 and Out, 4th Down Stop and Forced Punt are disabled and each scores 0."
+            },
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Special Teams",
+                  "Points"
+                ],
+                [
+                  "Special-teams touchdown",
+                  "6"
+                ],
+                [
+                  "Special-teams forced fumble",
+                  "1"
+                ],
+                [
+                  "Special-teams fumble recovery",
+                  "1"
+                ],
+                [
+                  "Special-teams solo tackle",
+                  "0"
+                ],
+                [
+                  "Punt-return yards",
+                  "0"
+                ],
+                [
+                  "Kick-return yards",
+                  "0"
+                ],
+                [
+                  "Missed-field-goal return yards",
+                  "0"
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3.6",
+          "title": "Draft and Transaction Defaults",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The standard settings are a Snake Draft, two minutes per pick, CPU autopick enabled, no third-round reversal and draft-pick trading disabled. Chapter 4 governs the Draft and Decathlon."
+            },
+            {
+              "type": "p",
+              "text": "The League uses Rolling Waivers and a two-day dropped-player waiver period. Available free agents are first-come, first-served under Chapter 6."
+            },
+            {
+              "type": "p",
+              "text": "Trades have a normal two-day review period and a Week 11 deadline, subject to permitted preseason adjustments. There is no automatic trade-veto system; Commissioner approval and veto authority follow Chapter 7."
+            },
+            {
+              "type": "p",
+              "text": "Players lock according to Sleeper’s game-start rules. Bench players cannot be dropped after their games begin where the configured restriction applies. Chapter 5 governs lineup and roster exceptions."
+            }
+          ]
+        },
+        {
+          "id": "3.7",
+          "title": "Season and Playoff Settings",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The League uses head-to-head competition without an additional league-median matchup unless formally adopted before the season. Sleeper generates the schedule unless a custom schedule is adopted."
+            },
+            {
+              "type": "p",
+              "text": "Regular-season length, playoff qualifiers, byes, seeds and qualification structure may vary with League size and must be announced or displayed before the season. Unless otherwise agreed before the season, playoff rounds last one week, reseeding is enabled and the lower bracket uses the configured Toilet Bowl format. Chapters 8 and 9 govern results and tiebreakers."
+            }
+          ]
+        },
+        {
+          "id": "3.8",
+          "title": "Settings Authority and Changes",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Clearly displayed Sleeper settings bind Managers where consistent with this Rulebook. Conflicts must be resolved under Section 17.1, determining whether a setting is incorrect or a valid decision has not yet been reflected in the text."
+            },
+            {
+              "type": "p",
+              "text": "Material competitive settings should normally change between seasons. In-season corrections, platform-related adjustments and amendments must follow Chapters 1 and 12. A displayed setting does not itself authorize an unapproved material change."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-4",
+      "number": 4,
+      "title": "Chapter 4 — The Draft",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "4.1",
+          "title": "Draft Format and Scheduling",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The League uses the Snake Draft settings in Section 3.6 unless formally changed before the season. All players in the official Sleeper draft pool may normally be selected."
+            },
+            {
+              "type": "p",
+              "text": "Commissioners shall announce the draft date and start time. Live attendance is strongly encouraged but is not mandatory where autopick operates normally. An absent Manager is responsible for their queue, rankings and autopick preparation. The draft shall not normally be delayed solely for one late or absent Manager."
+            }
+          ]
+        },
+        {
+          "id": "4.2",
+          "title": "Draft Order Decathlon",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Draft order shall be determined by ten separate competitions. All participating Managers shall take part unless the Commissioners approve a legitimate exception."
+            },
+            {
+              "type": "p",
+              "text": "Each event awards points by finishing position. With N Managers, first place receives N points, second N − 1, continuing down to 1 point for last place. In a fourteen-Manager League, this means 14 points for first through 1 point for fourteenth."
+            },
+            {
+              "type": "p",
+              "text": "Points from all ten events are added. The highest total receives Draft Pick 1, the next highest Draft Pick 2, and so on. The standings assign draft positions directly."
+            }
+          ]
+        },
+        {
+          "id": "4.3",
+          "title": "Decathlon Handbook",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The annual Decathlon Handbook governs individual event formats, equipment, starting order, time limits, scoring and ranking methods, event tiebreakers, fouls, penalties, disqualifications and safety requirements. This Rulebook governs overall points, participation, authority, overall ties and draft-order allocation."
+            },
+            {
+              "type": "p",
+              "text": "Events may test physical, skill, knowledge, luck or other agreed abilities. Where reasonably possible, the programme should test varied abilities. Rules must be explained before each event, with clear rankings and reasonably equal conditions, and may not be designed to favor a Manager."
+            },
+            {
+              "type": "p",
+              "text": "Each event must produce a complete finishing order. Event ties follow the Handbook’s announced method. If none has been announced, Commissioners shall establish a fair method before final points are awarded. Averaged points shall not be used unless expressly agreed before the event."
+            },
+            {
+              "type": "p",
+              "text": "[TO COMPLETE: The annual Decathlon Handbook, including all ten competitions.]"
+            }
+          ]
+        },
+        {
+          "id": "4.4",
+          "title": "Three-Month Distribution Deadline",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The Handbook shall be provided to every League Member no later than three months before competition day, allowing time to understand the events, prepare, practice voluntarily and ask questions."
+            },
+            {
+              "type": "p",
+              "text": "The Handbook may change annually, including events, formats, equipment and event-specific scoring. Each version applies only to its stated season; the previous year’s version does not automatically carry forward."
+            },
+            {
+              "type": "p",
+              "text": "The version distributed by the deadline is the official seasonal Handbook. Its competitions and material rules should remain substantially unchanged. Minor clarifications, corrections and administrative adjustments are permitted."
+            },
+            {
+              "type": "p",
+              "text": "A material change after the deadline should occur only where reasonably necessary. All Managers must be informed immediately, the reason explained and additional preparation time provided where reasonably possible. Rules should not be materially changed after an event begins. No change may favor or disadvantage a particular Manager."
+            },
+            {
+              "type": "p",
+              "text": "Once the Handbook is properly distributed, Managers are responsible for familiarizing themselves with it. Failure to read it shall not normally excuse a violation, misunderstanding or poor result."
+            }
+          ]
+        },
+        {
+          "id": "4.5",
+          "title": "Overall Ties and Non-Participation",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "A tie in total Decathlon points shall be resolved by an additional tiebreaker competition ranking the tied Managers and determining their relative draft positions. Only tied Managers need participate."
+            },
+            {
+              "type": "p",
+              "text": "Unjustified non-participation shall normally receive the lowest available event score. Where several Managers are absent, Commissioners shall allocate the lowest positions fairly and consistently. Legitimate inability may be addressed through rescheduling, an equivalent challenge or another fair placement method. Events may not be intentionally skipped to manipulate draft position."
+            }
+          ]
+        },
+        {
+          "id": "4.6",
+          "title": "Final Draft Order",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Commissioners compete on equal terms and must recuse themselves from disputes concerning their own results. Once all events, overall tiebreakers and valid disputes are resolved, the order is final and shall be entered into Sleeper. Subsequent changes are limited to correcting a clear administrative error."
+            }
+          ]
+        },
+        {
+          "id": "4.7",
+          "title": "Pick Timer and Autopick",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Each Manager has two minutes per selection unless the official settings state otherwise. Timer expiry results in a valid Sleeper autopick. Distraction, an unprepared queue, misunderstanding the timer or disliking the selection do not justify reversal."
+            }
+          ]
+        },
+        {
+          "id": "4.8",
+          "title": "Accidental Selections",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "A wrong selection or clear misclick must be reported immediately. Commissioners may reverse it only where the explanation is credible, reporting is prompt, the next pick has not occurred or correction would not unfairly affect later selections, and the draft would not be materially disrupted."
+            },
+            {
+              "type": "p",
+              "text": "The threshold rises substantially once others have relied on the selection. A change of mind does not qualify."
+            }
+          ]
+        },
+        {
+          "id": "4.9",
+          "title": "Technical Problems and Pauses",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers are responsible for a reasonable connection and functional device. Ordinary connection problems do not automatically justify reversal. A serious technical failure may justify a pause or correction, considering prompt reporting, queue preparation, autopick and reliance by later selections."
+            },
+            {
+              "type": "p",
+              "text": "Commissioners may pause, suspend or reschedule for a significant platform failure, serious emergency or necessary correction. Valid completed picks should be preserved; a full restart should occur only where integrity cannot otherwise be restored. Pauses may not provide extra strategic thinking time."
+            }
+          ]
+        },
+        {
+          "id": "4.10",
+          "title": "Draft Controls and Integrity",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Commissioner tools may be used only for legitimate administration, including approved corrections and restoring the proper order. Managers may discuss players and strategy, bluff and withhold intentions. Fraudulent claims that an available player has already been selected, unauthorized account access, collusive selections and tool misuse are prohibited."
+            },
+            {
+              "type": "p",
+              "text": "Draft-pick trading remains disabled unless formally enabled before the draft. Unofficial pick exchanges are not recognized while disabled. Additional governing rules should be adopted before any future draft using pick trading."
+            }
+          ]
+        },
+        {
+          "id": "4.11",
+          "title": "Player Risk and Finality",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers accept the risks of drafting injured, suspended, unsigned, retired or otherwise unavailable players where Sleeper permits selection. Overlooked information and breaking NFL news do not normally invalidate picks."
+            },
+            {
+              "type": "p",
+              "text": "The draft ends when all scheduled selections are complete and Sleeper closes it. Post-draft corrections require exceptional circumstances, such as a confirmed platform or Commissioner error or an agreed correction not processed during the draft. Managers may not redraft after inspecting completed rosters. Other roster issues follow Chapters 5 and 6."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-5",
+      "number": 5,
+      "title": "Chapter 5 — Rosters and Lineups",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "5.1",
+          "title": "Competitive Lineups",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers must make a genuine effort to field a legal, competitive lineup using Section 3.2’s positions. They should not intentionally leave positions empty when an eligible player could reasonably start."
+            },
+            {
+              "type": "p",
+              "text": "An empty position may be permitted where no eligible replacement is rostered, a late injury or inactive designation occurs, or another legitimate circumstance makes filling it impractical. Repeated or deliberate omissions may be reviewed."
+            },
+            {
+              "type": "p",
+              "text": "Starting an injured, inactive, suspended or bye-week player is not automatically a violation. Commissioners should consider when the status became known, available replacements, activity, intent and repetition. A single mistake shall not normally produce a penalty."
+            }
+          ]
+        },
+        {
+          "id": "5.2",
+          "title": "Strategic Discretion",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers need not maximize projected points or follow consensus rankings. Reasonable decisions based on risk, matchup, weather, injury, upside, protecting a lead or other football considerations remain permitted even when unsuccessful."
+            },
+            {
+              "type": "p",
+              "text": "Deliberately weakening a lineup primarily to lose or improperly manipulate standings is prohibited under Chapter 14. Commissioners must consider context and may not substitute their fantasy judgment for the Manager’s."
+            }
+          ]
+        },
+        {
+          "id": "5.3",
+          "title": "Player Locks and Substitutions",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Player locks and Bench-drop restrictions follow Section 3.6. Locked players may not normally be moved into or out of a lineup. Commissioners shall not override locks because of forgetfulness, changed strategy or later player news."
+            },
+            {
+              "type": "p",
+              "text": "There are no automatic Bench replacements for starters who do not play, score zero or leave a game early unless the League formally changes that setting."
+            }
+          ]
+        },
+        {
+          "id": "5.4",
+          "title": "IR and Roster Legality",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers must comply with Sleeper’s roster limits and IR eligibility. When an IR player loses eligibility, the Manager is responsible for removing them. Normal transaction restrictions arising from ineligible IR players or temporarily over-limit rosters do not justify Commissioner intervention."
+            },
+            {
+              "type": "p",
+              "text": "Temporary over-limit states allowed by Sleeper must be resolved before further moves where the platform requires it. Deliberate limit violations, IR misuse, unauthorized Commissioner-added players and exploitation of platform errors are prohibited. Commissioners may require correction."
+            }
+          ]
+        },
+        {
+          "id": "5.5",
+          "title": "Late News and Retroactive Corrections",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers should monitor late news where reasonably possible but need not be continuously available. A late inactive, emergency or technical issue is not automatically misconduct."
+            },
+            {
+              "type": "p",
+              "text": "Lineups shall not normally change after player lock. A retroactive correction may be considered only for a clear Sleeper or Commissioner error, a verified failure to record a submitted lineup, or an extraordinary circumstance making correction clearly necessary for fairness. Forgetfulness normally does not qualify. Chapter 1’s recusal requirements apply."
+            }
+          ]
+        },
+        {
+          "id": "5.6",
+          "title": "Transactions and Eliminated Teams",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Legitimate streaming and opponent blocking are permitted; Roster Churning is prohibited under Chapter 6. Eliminated Managers retain the participation rights and obligations in Section 2.5."
+            }
+          ]
+        },
+        {
+          "id": "5.7",
+          "title": "Abandoned Lineups and Finality",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "For teams administered under Section 2.4, Commissioner-set lineups must use a neutral, consistent method. Where possible, the preferred method is the highest reasonably projected eligible Sleeper lineup at the time it is set, without strategic adjustment for the opponent."
+            },
+            {
+              "type": "p",
+              "text": "Unauthorized lineup changes may be reversed and disciplined. Once the relevant players have locked, lineups are normally final, subject only to authorized exceptions. Regret, mistaken projections and unexpected performance do not justify changes."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-6",
+      "number": 6,
+      "title": "Chapter 6 — Waivers and Free Agency",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "6.1",
+          "title": "Rolling Waivers",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Sleeper determines and maintains waiver priority. Successful claims move priority according to its configured rolling-waiver procedure. Dropped players normally remain on waivers for two days, after which they may become free agents where permitted."
+            },
+            {
+              "type": "p",
+              "text": "Commissioners may adjust priority only to correct an administrative or confirmed platform error, restore priority after an improperly reversed transaction, or implement another expressly authorized ruling."
+            }
+          ]
+        },
+        {
+          "id": "6.2",
+          "title": "Claims and Deadlines",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers may submit multiple claims and are responsible for player choice, corresponding drops, claim order, roster space, IR eligibility and timely submission. Sleeper processes claims according to priority, ordering and roster restrictions."
+            },
+            {
+              "type": "p",
+              "text": "Failed claims caused by ordinary roster restrictions, incorrect ordering, misunderstood priority or missed deadlines shall not normally be corrected. Commissioners shall not reorder claims after processing because a Manager preferred another result."
+            }
+          ]
+        },
+        {
+          "id": "6.3",
+          "title": "Free Agents and Availability",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Free agents may be added immediately on a first-come, first-served basis where Sleeper permits. Only official transactions establish ownership. Prior discussion, previous ownership, greater need or an announced intention to add a player creates no priority."
+            },
+            {
+              "type": "p",
+              "text": "Sleeper determines waiver status, locks and other availability restrictions. Managers are responsible for checking them."
+            }
+          ]
+        },
+        {
+          "id": "6.4",
+          "title": "Permitted Strategy and Roster Churning",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers may stream any position, add depth, prepare for bye weeks, hold backups, speculate on future value and genuinely acquire and retain players to block opponents. They need not intend to start every acquisition."
+            },
+            {
+              "type": "p",
+              "text": "Repeatedly cycling players mainly to force them onto waivers and deny access is prohibited. Commissioners should consider holding time, legitimate roster purpose, number of players, timing and transaction patterns. Frequency alone is not misconduct; a single add-and-drop shall not normally be Roster Churning."
+            }
+          ]
+        },
+        {
+          "id": "6.5",
+          "title": "Suspicious Transactions",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "A valuable player may be dropped for legitimate reasons. Review requires credible grounds such as collusion, Roster Dumping, sabotage, an outside agreement, abandonment or a disguised transfer. Poor strategy, later changes in value or harm to another Manager’s prospects alone do not justify reversal."
+            },
+            {
+              "type": "p",
+              "text": "Coordinating claims, drops or intermediaries to improperly benefit another team is prohibited under Chapter 14. Normal discussion, speculation and bluffing are permitted."
+            }
+          ]
+        },
+        {
+          "id": "6.6",
+          "title": "Technical Errors",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "A genuine Sleeper failure preventing a claim may be reviewed using reliable evidence, including outages, screenshots, error messages and similar reports. Ordinary device or connection failure and forgetfulness shall not normally qualify."
+            },
+            {
+              "type": "p",
+              "text": "For confirmed processing or Commissioner errors, corrections should recreate the proper result using original priority, claim order, roster eligibility and affected subsequent activity. Reliance on the original result should be respected unless disturbing it is necessary to restore the correct outcome."
+            },
+            {
+              "type": "p",
+              "text": "Manual additions or removals require Rulebook authority, such as correcting errors, administering an abandoned team or implementing a disciplinary ruling."
+            }
+          ]
+        },
+        {
+          "id": "6.7",
+          "title": "Accidental Drops",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "An accidental drop must be reported immediately. It may be reversed where credible, promptly reported, not yet acquired by another Manager and not materially prejudicial to others. Reversal after a legitimate acquisition requires exceptional circumstances. Regret does not qualify."
+            },
+            {
+              "type": "p",
+              "text": "Managers should not exploit a publicly announced immediate review of a possible accidental drop. An acquisition knowingly made while that correction is pending may be reversed if the drop is ruled accidental. Without an announced review, available players may be acquired normally."
+            }
+          ]
+        },
+        {
+          "id": "6.8",
+          "title": "Records and Finality",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Sleeper’s transaction log is the official record. Valid transactions are final except for a specific violation, confirmed technical or administrative error, qualifying accidental drop or other expressly authorized intervention. Eliminated Managers retain their rights under Section 2.5; playoff teams receive no special acquisition priority."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-7",
+      "number": 7,
+      "title": "Chapter 7 — Trades",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "7.1",
+          "title": "Right to Trade and Review",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers may trade subject to Sleeper settings, the deadline, roster legality, Commissioner approval and this Rulebook. All trades require review and approval; Commissioners may approve or veto during the normal two-day review period and request explanations or investigate suspected violations."
+            },
+            {
+              "type": "p",
+              "text": "Review protects fair competition and Rulebook compliance. Managers may value players differently. An uneven trade or one a Commissioner would not personally make is not, by itself, grounds for veto."
+            }
+          ]
+        },
+        {
+          "id": "7.2",
+          "title": "Commissioner Voting",
+          "blocks": [
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Conflict situation",
+                  "Review procedure"
+                ],
+                [
+                  "No Commissioner conflicted",
+                  "All three may participate; majority decides."
+                ],
+                [
+                  "One Commissioner conflicted",
+                  "The other two independently review. If they disagree, a neutral Alternate Commissioner supplies the deciding vote."
+                ],
+                [
+                  "Two Commissioners conflicted",
+                  "The remaining Commissioner appoints two neutral Alternates; the three-person panel decides by majority."
+                ]
+              ]
+            },
+            {
+              "type": "p",
+              "text": "Each eligible decision-maker has one vote. Conflicted Commissioners may provide requested information but shall not vote or participate in final deliberations. Alternate appointments follow Section 1.4."
+            }
+          ]
+        },
+        {
+          "id": "7.3",
+          "title": "Neutrality",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Direct involvement in a trade or a clear, material indirect competitive interest requires recusal. A review vote may not be used to protect an upcoming matchup, playoff position, preferred acquisition or path to the Championship, or to favor or punish a Manager personally."
+            }
+          ]
+        },
+        {
+          "id": "7.4",
+          "title": "All Commissioners Conflicted",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Where all three Commissioners are directly or materially indirectly involved in a trade, the three Commissioners shall appoint three neutral Alternate Commissioners. Each Alternate must have no direct or material indirect interest in whether the trade is approved or vetoed."
+            },
+            {
+              "type": "p",
+              "text": "The three Alternates shall perform the Commissioners’ trade-review duties for that trade. Each has one vote, and the panel decides by majority. The regular Commissioners may provide requested factual information but shall not vote or participate in the panel’s final deliberations. The Alternates’ authority ends when the trade review and any directly connected ruling are complete."
+            }
+          ]
+        },
+        {
+          "id": "7.5",
+          "title": "Veto Grounds and Evidence",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "A trade may be vetoed where eligible reviewers reasonably determine that it involves or is likely to involve collusion, Roster Dumping, a Player Loan, outside compensation, matchup or account manipulation, coercion, exploitation of an abandoned team, a transfer of value without genuine fantasy purpose, or another material violation."
+            },
+            {
+              "type": "p",
+              "text": "An extreme transaction that would clearly undermine competitive integrity may also be vetoed, but this power must be used cautiously. Ordinary decisions are presumed legitimate; an imbalance in value may prompt investigation but does not alone prove collusion."
+            },
+            {
+              "type": "p",
+              "text": "Reviewers may consider each Manager’s explanation, team needs, player value and known information at acceptance, possible outside compensation, temporary arrangements, abandonment and evidence of manipulation. A veto must be briefly explained to the involved Managers, and to the League where appropriate, without unnecessary disclosure of sensitive evidence."
+            }
+          ]
+        },
+        {
+          "id": "7.6",
+          "title": "Permanent Transfers and Outside Terms",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Approved trades must genuinely transfer ownership. Player Loans, promised returns, temporary matchup transfers and retained ownership interests are prohibited. Trades may not include outside compensation such as cash, goods, meals, drinks, services, favors or unrelated promises."
+            },
+            {
+              "type": "p",
+              "text": "Private conditions are unenforceable unless expressly permitted. Commissioners shall not enforce requirements to return a player, supply compensation following injury, or bench a traded player against the former team."
+            }
+          ]
+        },
+        {
+          "id": "7.7",
+          "title": "Offers, Negotiations and Mistakes",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Active Sleeper offers may be accepted until withdrawn. Managers are responsible for removing unwanted offers. Acceptance initiates review; subsequent regret creates no automatic cancellation right."
+            },
+            {
+              "type": "p",
+              "text": "Low offers, counteroffers, bluffing, rejection without explanation and refusal to trade are permitted. Fraud, threats, account manipulation and prohibited compensation are not."
+            },
+            {
+              "type": "p",
+              "text": "An accidental offer or acceptance must be reported immediately. Cancellation may be allowed where the mistake is credible and obvious, reporting is prompt, the other Manager has not materially relied on it and other League activity is not unfairly affected. Delay, changed news and reliance weigh against reversal."
+            }
+          ]
+        },
+        {
+          "id": "7.8",
+          "title": "Deadline",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The standard deadline is Week 11 unless changed before the season. A trade validly accepted before the deadline may complete review afterward where Sleeper permits; acceptance time normally controls. Trades accepted after the deadline and private later-transfer agreements shall not be manually implemented."
+            }
+          ]
+        },
+        {
+          "id": "7.9",
+          "title": "Pending Trades and Player News",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Injury, suspension, demotion, release, retirement or other news after acceptance does not automatically cancel a trade. Both Managers accept this risk; review should focus primarily on circumstances at acceptance and avoid hindsight."
+            },
+            {
+              "type": "p",
+              "text": "If both Managers promptly request cancellation before approval, Commissioners may allow it where Sleeper permits, no third party is materially affected and no manipulation exists. Neither Manager has an automatic cancellation right."
+            }
+          ]
+        },
+        {
+          "id": "7.10",
+          "title": "Roster Requirements and Multi-Team Trades",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers must ensure trades can process legally. Normal roster, IR or player-lock restrictions shall not normally be overridden."
+            },
+            {
+              "type": "p",
+              "text": "Sleeper-supported multi-team trades are permitted where all Managers independently agree and each team receives genuine fantasy consideration. The same review and recusal requirements apply. Eliminated teams may trade before the deadline; credible concerns may justify scrutiny, but elimination alone does not justify veto."
+            }
+          ]
+        },
+        {
+          "id": "7.11",
+          "title": "Finality and Appeals",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Once approved and processed, a trade is normally final. Later performance, injury, public opinion or regret do not justify reversal. Exceptional grounds include newly discovered collusion, fraud, account manipulation, confirmed platform or Commissioner error, or intentional concealment of material information as part of prohibited misconduct."
+            },
+            {
+              "type": "p",
+              "text": "Reversals require the same conflict safeguards. Formal review and appeals follow Chapter 13; recused Commissioners may not override the result."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-8",
+      "number": 8,
+      "title": "Chapter 8 — Regular Season, Matchups and Standings",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "8.1",
+          "title": "Matchups and Scores",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers play the official Sleeper schedule unless a custom schedule has been adopted. Each matchup compares points from valid starting lineups; Bench points do not count unless expressly provided otherwise. The higher score wins."
+            },
+            {
+              "type": "p",
+              "text": "Scores remain provisional until applicable NFL and Sleeper corrections are processed. Legitimate corrections are accepted even when they change results, standings, qualification, seeds or other dependent outcomes."
+            }
+          ]
+        },
+        {
+          "id": "8.2",
+          "title": "Ties and Standings",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Equal regular-season matchup scores normally remain a tie, counted under the configured Sleeper method, unless Sleeper applies another configured procedure. Commissioners shall not invent an individual matchup tiebreaker after seeing the result."
+            },
+            {
+              "type": "p",
+              "text": "Sleeper standings normally control, subject to Chapter 9’s Physical Tiebreaker provisions. Configured standings criteria should be established before the season and not changed retroactively for particular Managers. Where used, Points For follows Sleeper’s official total; Points Against is a tiebreaker only if configured or adopted, and otherwise remains a statistic."
+            }
+          ]
+        },
+        {
+          "id": "8.3",
+          "title": "Schedule Integrity",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers may not exchange opponents, transfer results, predetermine outcomes or privately disregard the schedule. Authorized changes may correct errors, implement an agreed structure or resolve extraordinary scheduling issues before affected matchups begin."
+            },
+            {
+              "type": "p",
+              "text": "After games begin, a schedule correction requires a clear administrative or platform error and necessity to restore the intended schedule. Unfavorable matchups are not grounds for alteration. Materially affected Commissioners must recuse themselves."
+            }
+          ]
+        },
+        {
+          "id": "8.4",
+          "title": "NFL Disruptions",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Sleeper’s treatment of postponed, cancelled, suspended or abandoned NFL games normally controls. Managers bear ordinary scheduling and availability risks. Projected points or manual substitutions shall not normally compensate for disrupted games, injuries or inactives."
+            },
+            {
+              "type": "p",
+              "text": "Where an exceptional NFL or Sleeper situation materially threatens fairness and no reasonable platform solution exists, Commissioners may issue a necessary, consistent ruling under Chapters 1 and 17, avoiding speculation and using actual statistics where reasonably available."
+            }
+          ]
+        },
+        {
+          "id": "8.5",
+          "title": "Corrections, Disputes and Finality",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Manual score changes require a confirmed platform or Commissioner error, valid Rulebook ruling or extraordinary situation not reasonably resolvable through Sleeper. Disagreement with an official NFL statistic alone is insufficient."
+            },
+            {
+              "type": "p",
+              "text": "A matchup normally becomes final once games and scoring are complete and the normal correction period has passed or no further relevant corrections are expected. Later alterations require an authorized extraordinary ruling."
+            },
+            {
+              "type": "p",
+              "text": "Disputes must identify a specific error and follow Chapter 13. Final regular-season standings determine qualification and seeding subject to Chapter 9. Material scoring issues and valid disputes should be resolved before the playoff field is final."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-9",
+      "number": 9,
+      "title": "Chapter 9 — Playoffs, Toilet Bowl and Tiebreakers",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "9.1",
+          "title": "Playoff Structure and Qualification",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Seasonal qualifiers, byes and bracket structure follow Section 3.7. Final regular-season standings determine qualification and seeds, subject to corrections, valid rulings and this Chapter’s tiebreakers. Reseeding follows the configured format; Commissioners may not alter seeds to create preferred matchups."
+            },
+            {
+              "type": "p",
+              "text": "Normal lineup, lock, roster, IR, waiver and free-agency rules continue throughout the playoffs and Toilet Bowl. Managers must continue competing independently, including after receiving League Loser status."
+            }
+          ]
+        },
+        {
+          "id": "9.2",
+          "title": "Physical Tiebreakers",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Where two or more teams finish with the same regular-season record, Sleeper’s normal standings tiebreakers apply first: Points For, followed by higher Points Against. A remaining tie shall be resolved by an official Physical Tiebreaker only where it is necessary to determine an overall winner or loser for the season."
+            },
+            {
+              "type": "p",
+              "text": "An official Physical Tiebreaker may therefore determine the League Champion, the Toilet Bowl Loser or whether a Manager receives League Loser status. It shall not be used solely to determine an intermediate seed, qualification position or other placement that does not itself decide an overall season winner or loser."
+            },
+            {
+              "type": "p",
+              "text": "Where a tie affects which Managers occupy the bottom two regular-season positions, the relevant Managers shall take part in a Physical Tiebreaker. Unresolved Championship and Toilet Bowl ties requiring a definitive result follow this Chapter."
+            }
+          ]
+        },
+        {
+          "id": "9.3",
+          "title": "Competition Selection",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The Commissioners shall select and announce the Physical Tiebreaker only if a qualifying season-ending tie occurs. The competition does not need to be selected in advance. Once required, it shall be organized in sufficient time to finalize the affected season outcome."
+            },
+            {
+              "type": "p",
+              "text": "The competition should be reasonably fair, produce a clear outcome, finish within a reasonable period, avoid specialist sporting requirements unless participants agree, and avoid unreasonable injury risk. It may not be chosen to favor a tied Manager. Conflicts follow Chapter 1. Multi-Manager formats must rank all tied Managers, and all rules and practical arrangements must be announced before the competition begins."
+            }
+          ]
+        },
+        {
+          "id": "9.4",
+          "title": "Participation and Inability",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers must participate in good faith and may not deliberately fail, withdraw or refuse to manipulate placement. Legitimate inability may justify rescheduling, an alternative competition or another fair method."
+            },
+            {
+              "type": "p",
+              "text": "Unjustified refusal may result in an adverse ruling limited to the overall season outcome the competition was intended to decide, including League Loser status, Toilet Bowl Loser status or forfeiture of the League Championship."
+            }
+          ]
+        },
+        {
+          "id": "9.5",
+          "title": "Corrections and Tiebreaker Finality",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "A Physical Tiebreaker is required only once the underlying fantasy result is considered final. A legitimate correction removing the tie before competition cancels the need for it. If a correction changes the underlying result after the competition, Commissioners shall determine the appropriate outcome under this Rulebook."
+            },
+            {
+              "type": "p",
+              "text": "A competition completed under its announced rules is final, subject to proper dispute procedures. Poor performance, unexpected difficulty or an unwelcome consequence does not justify a challenge."
+            }
+          ]
+        },
+        {
+          "id": "9.6",
+          "title": "Championship and Final Positions",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The winner of the final Championship matchup is the League Champion, once scoring, corrections and required tiebreakers are complete. Prizes follow Chapter 11; other rewards follow seasonal arrangements."
+            },
+            {
+              "type": "p",
+              "text": "All final positions become official after applicable scoring, corrections, tiebreakers and valid disputes have concluded."
+            }
+          ]
+        },
+        {
+          "id": "9.7",
+          "title": "Toilet Bowl and League Losers",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Non-qualifiers participate in the Toilet Bowl where applicable under the configured bracket. Its ultimate loser is the Toilet Bowl Loser."
+            },
+            {
+              "type": "p",
+              "text": "The bottom two Managers in the final regular-season standings immediately before the playoffs are the League Losers. Toilet Bowl performance cannot remove that status. A Manager may hold both designations, with cumulative consequences under Chapter 10."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-10",
+      "number": 10,
+      "title": "Chapter 10 — League Losers, Punishments and Enforcement",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "10.1",
+          "title": "Purpose and Obligations",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Punishments form part of the League’s competitive and social traditions. They may be embarrassing, inconvenient, humorous, time-consuming or otherwise undesirable within reasonable limits."
+            },
+            {
+              "type": "p",
+              "text": "Both League Losers must complete the season’s official punishment. The Toilet Bowl Loser must perform cleanup duty after the annual League meeting and drinking event. A Manager holding both designations normally owes both obligations."
+            }
+          ]
+        },
+        {
+          "id": "10.2",
+          "title": "Selection and Notice",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The League shall decide the annual punishment by Week 5 of the regular season."
+            },
+            {
+              "type": "p",
+              "text": "The punishment shall normally take place during the weekend when the League meets. A different date or arrangement may apply where it has been planned and communicated in advance."
+            },
+            {
+              "type": "p",
+              "text": "Commissioners shall communicate the punishment, affected Managers, completion requirements, timing and any specific evidence requirements. Once formally decided and properly communicated, it binds the relevant League Losers."
+            }
+          ]
+        },
+        {
+          "id": "10.3",
+          "title": "Limits and Alternatives",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Punishments may not require illegal, unreasonably dangerous, seriously injurious, discriminatory, grossly degrading or otherwise clearly unreasonable conduct, or be intended to create genuine financial hardship."
+            },
+            {
+              "type": "p",
+              "text": "A Manager with legitimate difficulty due to injury, illness, work, travel, family or other practical circumstances must notify the Commissioners promptly. Commissioners may extend, postpone or modify the obligation or approve a reasonably equivalent alternative in seriousness, inconvenience, effort and duration. Disliking the punishment is not grounds for an easier option."
+            }
+          ]
+        },
+        {
+          "id": "10.4",
+          "title": "Completion",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers must make a genuine effort to satisfy the agreed conditions. Pretence, deliberate sabotage or intentional partial completion may be treated as refusal; minor deviations following substantial good-faith completion shall not."
+            },
+            {
+              "type": "p",
+              "text": "A stated deadline applies. Otherwise, completion is due during the weekend when the League meets. Photographs, videos and witnesses are generally permitted as evidence of completion, and Commissioners may announce other reasonable verification requirements in advance."
+            }
+          ]
+        },
+        {
+          "id": "10.5",
+          "title": "Cleanup Duty",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Cleanup includes ordinary tasks such as collecting bottles, cans, cups and rubbish, clearing tables, handling waste and returning the gathering area to a reasonably clean condition. Organizers may give reasonable instructions."
+            },
+            {
+              "type": "p",
+              "text": "Others may volunteer to help, but the Toilet Bowl Loser remains primarily responsible and may not delegate the entire obligation. Unjustified refusal follows the enforcement procedure below."
+            }
+          ]
+        },
+        {
+          "id": "10.6",
+          "title": "Refusal and Opportunity to Comply",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Unjustified refusal is a Rulebook breach. Before further enforcement, Commissioners should give clear notice, a reasonable opportunity to complete the obligation, a final opportunity to explain legitimate inability, and an approved alternative where appropriate."
+            },
+            {
+              "type": "p",
+              "text": "Proportionate escalation may include warnings, a new deadline, an alternative, additional reasonable League duties and restrictions on optional activities. A monetary offer does not itself establish compliance."
+            }
+          ]
+        },
+        {
+          "id": "10.7",
+          "title": "Financial Penalty: Last Resort, Not a Buyout",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "A financial penalty may be imposed only as a last-resort enforcement measure after unjustified refusal of the original punishment and any reasonable alternative offered or approved."
+            },
+            {
+              "type": "p",
+              "text": "The penalty is additional enforcement, not a substitute for performance. A Manager has no automatic right to choose payment instead. Payment does not automatically discharge the punishment; any exceptional different resolution requires an express Commissioner decision based on exceptional circumstances."
+            },
+            {
+              "type": "p",
+              "text": "The absolute maximum financial penalty for punishment refusal is one full Buy-In for the relevant season, regardless of repeated warnings or missed deadlines. The amount may be lower, considering seriousness, opportunities to comply, partial performance, alternatives, previous breaches and mitigating circumstances."
+            }
+          ]
+        },
+        {
+          "id": "10.8",
+          "title": "Continued Refusal and Exclusion",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Persistent unjustified refusal of the punishment, reasonable alternatives, completion arrangements or valid enforcement measures is a serious breach. Complete refusal may result in removal, denial of next-season entry, suspension pending resolution or permanent exclusion in serious or repeated cases."
+            },
+            {
+              "type": "p",
+              "text": "Exclusion is the ultimate League disciplinary measure and should follow reasonable opportunities to resolve the matter. Exclusion is not automatic; the eligible Commissioners have the final decision under this Rulebook. Their decision must observe Chapters 1 and 13 and consider validity of the obligation, clear notice, reasonable time, alternatives, imposed penalties, continued refusal, mitigation and previous breaches."
+            }
+          ]
+        },
+        {
+          "id": "10.9",
+          "title": "Outstanding Obligations and Lawful Recovery",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Leaving, exclusion, non-attendance or blocking communication does not automatically resolve an outstanding punishment or valid financial obligation. Future participation may depend on settlement."
+            },
+            {
+              "type": "p",
+              "text": "Non-financial punishments are primarily enforced through League discipline. This Rulebook does not claim that a Manager can necessarily be legally compelled to perform them. Commissioners may consider proportionate, lawful recovery of a valid unpaid monetary obligation where appropriate and consistent with applicable law. Nothing authorizes unlawful threats, harassment or disproportionate enforcement."
+            }
+          ]
+        },
+        {
+          "id": "10.10",
+          "title": "Reinstatement and Records",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "An excluded Manager has no automatic right to return. Commissioners may consider reinstatement once obligations and the circumstances causing exclusion are satisfactorily addressed and future compliance is demonstrated, subject to reasonable conditions."
+            },
+            {
+              "type": "p",
+              "text": "Punishment, completion, alternative, fine, outstanding-obligation and exclusion records may be maintained under Chapter 16."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-11",
+      "number": 11,
+      "title": "Chapter 11 — League Buy-In, Prize Pool and Payments",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "11.1",
+          "title": "Buy-In and Confirmation",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Each Manager must pay the full seasonal Buy-In. Its amount and currency shall be set and communicated before the season begins, normally during the summer. Payment is due before the draft."
+            },
+            {
+              "type": "p",
+              "text": "Payment may be made through Revolut, Vipps or a functionally equivalent payment service available in Switzerland. Kent Janeck Jens Daneel is the League Treasurer."
+            },
+            {
+              "type": "p",
+              "text": "A place is fully confirmed only after acceptance and payment. Commissioners may refuse entry, replace a non-paying Manager or exclude them from the Decathlon, draft and connected activities. Intentionally withholding payment while participating is not permitted."
+            },
+            {
+              "type": "p",
+              "text": "Minor, communicated delays may be accepted where planning is unaffected and no replacement has been confirmed. Repeated late payment may affect future membership."
+            }
+          ]
+        },
+        {
+          "id": "11.2",
+          "title": "Fund and Prize Allocation",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Every Buy-In contributes 30% to the Draft and Celebration Fund and 70% to the competitive prize pool. This allocation applies unless formally amended before the season."
+            },
+            {
+              "type": "p",
+              "text": "The competitive prize pool is distributed as follows:"
+            },
+            {
+              "type": "p",
+              "text": "1.   Third place receives one full seasonal Buy-In."
+            },
+            {
+              "type": "p",
+              "text": "2.   First place receives two-thirds of the remaining prize money."
+            },
+            {
+              "type": "p",
+              "text": "3.   Second place receives one-third of the remaining prize money."
+            },
+            {
+              "type": "p",
+              "text": "For N Managers each paying Buy-In B, total contributions are N × B. The event fund is 0.30 × N × B; third place receives B; the remaining 0.70 × N × B − B is split 2:1 between first and second."
+            },
+            {
+              "type": "p",
+              "text": "With fourteen Managers, the approximate shares of all contributions are 30.00% to the event fund, 41.90% to first, 20.95% to second and 7.14% to third. Exact calculations control; the treasurer resolves minor rounding differences. The calculation automatically adjusts to League size."
+            },
+            {
+              "type": "p",
+              "text": "Third place’s payment is a prize, not a refund, and does not remove that Manager’s original event-fund contribution. Other money increases the prize pool only by express League agreement."
+            }
+          ]
+        },
+        {
+          "id": "11.3",
+          "title": "Announcement and Stability",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Exact prize amounts shall be communicated before the regular season. Once established, financial arrangements should remain stable. Material changes must follow Chapter 12 and may not retroactively favor or disadvantage a Manager."
+            }
+          ]
+        },
+        {
+          "id": "11.4",
+          "title": "Shared and Personal Expenses",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The Draft and Celebration Fund supports reasonable shared event expenses benefiting the League or a substantial part of it, including food, drinks, draft and Decathlon costs, approved accommodation or venue costs, equipment, group activities and awards."
+            },
+            {
+              "type": "p",
+              "text": "An expense is covered where included in the budget, approved by Commissioners, agreed by the League or otherwise clearly communicated as shared. Personal travel, outside activities, separate food and drinks, personal purchases and accommodation not expressly included remain each Manager’s responsibility."
+            },
+            {
+              "type": "p",
+              "text": "Organizers shall not intentionally commit the League beyond available funds without League approval. Additional contributions should be agreed by affected Managers before commitment; optional costs beyond the shared budget normally belong to participants."
+            }
+          ]
+        },
+        {
+          "id": "11.5",
+          "title": "Treasurer and Accounting",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Kent Janeck Jens Daneel, as League Treasurer, must record payments and approved expenses, separate prize and event funds, track balances, distribute prizes and provide reasonable transparency. League funds may not be used personally."
+            },
+            {
+              "type": "p",
+              "text": "Managers may reasonably request the Buy-In, payment status, fund allocations, expenses, balances, prize distribution and outstanding obligations."
+            }
+          ]
+        },
+        {
+          "id": "11.6",
+          "title": "Unused Funds and Fines",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Unused event funds remain League property unless otherwise decided. The League may carry them forward or approve another shared use; they are not automatically returned individually."
+            },
+            {
+              "type": "p",
+              "text": "Chapter 10 fines are separate from the Buy-In and are not automatically prize or event funds. Their use is determined separately by the League."
+            }
+          ]
+        },
+        {
+          "id": "11.7",
+          "title": "Prize Payments",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Prizes should be paid within a reasonable period after relevant results, corrections, necessary tiebreakers and prize-affecting disputes are final. Only disputed portions should be held while a dispute is unresolved; undisputed prizes should not be unnecessarily delayed."
+            }
+          ]
+        },
+        {
+          "id": "11.8",
+          "title": "Withdrawal and Refunds",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Early withdrawal may qualify for a refund where a replacement can reasonably be found and costs have not already been incurred. Commissioners shall decide fairly and consistently."
+            },
+            {
+              "type": "p",
+              "text": "Once the Decathlon, draft or other significant competitive activity begins, there is no automatic refund. Considerations include replacement and replacement payment, season progress, unavoidable circumstances, committed costs and effects on League funds."
+            },
+            {
+              "type": "p",
+              "text": "Poor performance, elimination, disagreement, regret or loss of interest do not entitle a Manager to a refund."
+            }
+          ]
+        },
+        {
+          "id": "11.9",
+          "title": "Outstanding Payments",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Valid obligations remain outstanding until paid, formally waived or resolved through an approved arrangement. Leaving does not automatically cancel them. Commissioners may require settlement before future participation."
+            },
+            {
+              "type": "p",
+              "text": "References elsewhere to the Buy-In mean the full seasonal entry fee, including for Chapter 10’s penalty ceiling."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-12",
+      "number": 12,
+      "title": "Chapter 12 — Amendments, Voting and Rule Changes",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "12.1",
+          "title": "Proposals and Authority",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Any League Member may propose an amendment, stating the existing provision where applicable, proposed wording, reason and intended effective season. Commissioners may help prepare the wording but may not unilaterally alter material rules without express authority."
+            }
+          ]
+        },
+        {
+          "id": "12.2",
+          "title": "League Votes",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Material amendments normally require a League Vote. Each active Manager has one vote. For a vote to be valid, at least 70% of all active Managers must cast a yes or no vote. Where 70% does not produce a whole number, the required number of participating Managers is rounded up. Abstentions do not count toward the participation requirement or the result."
+            },
+            {
+              "type": "p",
+              "text": "Unless another approval threshold is specified, a simple majority of valid votes cast passes the proposal. A tied vote fails and the existing rule remains."
+            },
+            {
+              "type": "p",
+              "text": "Commissioners must provide a reasonable voting opportunity proportionate to urgency and importance, including time to read, discuss, clarify and consider major proposals."
+            },
+            {
+              "type": "p",
+              "text": "Managers are expected to participate in official League Votes. Repeated or continuing failure to vote without a reasonable explanation may result in warnings and proportionate League discipline determined under this Rulebook. The Commissioners decide case by case when non-participation has become continuous and what response is appropriate; no automatic number of missed votes or fixed sanction applies. A single missed vote does not by itself establish a breach."
+            }
+          ]
+        },
+        {
+          "id": "12.3",
+          "title": "Timing and In-Season Changes",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Material competitive amendments should normally occur between seasons so Managers know the framework before competing. This includes scoring, rosters, drafts, waivers, trades, playoffs, prizes, League Loser criteria and Decathlon scoring."
+            },
+            {
+              "type": "p",
+              "text": "An in-season amendment may be considered only for exceptional circumstances, such as a serious loophole, a threat to integrity, an unforeseen NFL or Sleeper issue, or an unworkable rule. Unpopular or unexpected outcomes alone are insufficient."
+            },
+            {
+              "type": "p",
+              "text": "A higher standard should apply in-season: unless immediate action is clearly necessary, a material amendment should require at least two-thirds of votes cast. Where reasonably possible, defer it to the following season."
+            }
+          ]
+        },
+        {
+          "id": "12.4",
+          "title": "Non-Retroactivity",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "New rules shall not normally apply retroactively. Managers should be judged under the rules in force when they acted. Rules may not be created solely to punish previously permitted conduct or change valid results, transactions, draft positions, punishments or prizes."
+            }
+          ]
+        },
+        {
+          "id": "12.5",
+          "title": "Clarifications and Administrative Corrections",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Commissioners may clarify existing intent and correct grammar, numbering, references, duplication, formatting, mathematics or obvious editing errors without a League Vote, provided meaning does not materially change. Relevant corrections should be communicated. Clarification may not disguise an amendment."
+            },
+            {
+              "type": "p",
+              "text": "Emergency temporary rulings under Chapter 1 address the immediate problem, must be reviewed afterward and do not automatically become permanent rules."
+            }
+          ]
+        },
+        {
+          "id": "12.6",
+          "title": "Vote Administration and Conflicts",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Commissioners may vote as ordinary Managers on amendments resolving matters involving them unless a serious conflict exists. They may not manipulate wording, deadlines, procedures or vote counting for advantage. Neutral Managers or Alternates may oversee voting where necessary."
+            }
+          ]
+        },
+        {
+          "id": "12.7",
+          "title": "Handbook and Seasonal Decisions",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Annual event-specific Handbook revisions may proceed within Chapter 4’s authority and three-month deadline without amending the Rulebook. Fundamental changes to the Decathlon system require amendment."
+            },
+            {
+              "type": "p",
+              "text": "Expressly variable matters may be decided seasonally, including Buy-In amount, team count, dates, event location, annual punishment, Decathlon events and permitted seasonal settings. Exact prizes are calculated under Section 11.2; seasonal decisions must respect permanent rules."
+            }
+          ]
+        },
+        {
+          "id": "12.8",
+          "title": "Recording and Effective Dates",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Approved amendments should be entered into the official Rulebook, with change and effective-date history where practical. The specified effective date governs. If none is stated, offseason amendments normally apply immediately to the upcoming season; in-season amendments apply immediately only where necessary and otherwise from the following season."
+            },
+            {
+              "type": "p",
+              "text": "Annual review may identify improvements and prepare proposals but does not authorize a material unilateral rewrite. Validly effective amendments bind all Managers."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-13",
+      "number": 13,
+      "title": "Chapter 13 — Appeals and Disputes",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "13.1",
+          "title": "Raising a Dispute",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Any Manager may raise a reasonably grounded issue involving rule application, procedure, transactions, scoring, misconduct, punishments, prizes, draft order or League status. Identify the issue and relevant provision where possible. Minor misunderstandings should be resolved informally where appropriate, without removing the right to formal review."
+            },
+            {
+              "type": "p",
+              "text": "A formal review begins on a clear Manager request or a Commissioner determination that investigation is required. Managers must cooperate reasonably with requests for explanation and evidence."
+            }
+          ]
+        },
+        {
+          "id": "13.2",
+          "title": "Promptness",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Disputes should be raised as soon as reasonably possible. Delay affects whether a correction remains practical, but late matters may be considered where discovery was not reasonably possible, new evidence emerges, misconduct is serious or integrity is materially affected."
+            },
+            {
+              "type": "p",
+              "text": "A Manager may not knowingly delay a challenge to see whether the result becomes favorable. Tactical delay may justify refusing retroactive relief."
+            }
+          ]
+        },
+        {
+          "id": "13.3",
+          "title": "Initial Ruling",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Eligible Commissioners issue the initial ruling under Chapter 1’s conflict safeguards and any matter-specific procedure. Where appropriate, the explanation should identify the issue, rule, facts, outcome, correction or penalty and appeal availability."
+            }
+          ]
+        },
+        {
+          "id": "13.4",
+          "title": "Appeals",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "A directly affected Manager may appeal for a wrong rule, overlooked evidence, material factual misunderstanding, improper procedure, disproportionate outcome or new material evidence. Disliking the result does not justify a complete retrial."
+            },
+            {
+              "type": "p",
+              "text": "Appeals must be submitted within a reasonable period and promptly enough for meaningful review in time-sensitive matters. State the decision challenged, grounds, supporting rule or evidence and requested outcome. Formal legal wording is unnecessary."
+            }
+          ]
+        },
+        {
+          "id": "13.5",
+          "title": "Appeal Panel and Decision",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "An appeal should not normally be reviewed by exactly the same decision-makers acting alone. Where practical, a neutral three-person panel of eligible Commissioners and necessary Alternates shall review it. Conflicted people are excluded; Alternates have equal votes and authority limited to the matter."
+            },
+            {
+              "type": "p",
+              "text": "Formal disputes and appeals normally use majority decisions; two votes decide a three-person panel. A panel should not recommend changing a reasonable ruling merely because it would have chosen differently. Grounds for change include a material rule or procedural error, inadequate evidential support, overlooked evidence or a clearly disproportionate or unreasonable result. The panel’s conclusion is submitted to the eligible regular Commissioners for the final decision. If no regular Commissioner is eligible because all are recused, the neutral panel’s majority decision is final."
+            }
+          ]
+        },
+        {
+          "id": "13.6",
+          "title": "Temporary Measures",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Commissioners may proportionately preserve the position by pausing a trade or draft, locking a player, preserving a roster, delaying disputed prizes or suspending a punishment. These are not findings of wrongdoing."
+            },
+            {
+              "type": "p",
+              "text": "An appeal does not automatically suspend enforcement. A stay may be granted where implementation is difficult to reverse, a serious issue is raised and suspension would not materially harm the League."
+            }
+          ]
+        },
+        {
+          "id": "13.7",
+          "title": "Evidence and Proportionality",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Reasonably reliable evidence may include Sleeper records, screenshots, League messages, voluntarily supplied direct messages, witnesses, recordings, payment records and Commissioner logs. Evidence must be considered in context."
+            },
+            {
+              "type": "p",
+              "text": "Ordinary Manager decisions are presumed legitimate. Serious penalties, reversals, exclusion and collusion findings require stronger evidence than minor corrections. Fabricated or deliberately misleading evidence may justify rejection of a claim and additional discipline."
+            },
+            {
+              "type": "p",
+              "text": "Remedies should reflect seriousness, intent, competitive effect, history, cooperation and whether the harm can be directly corrected. The purpose is ordinarily to restore fairness and enforce the rules without unnecessary additional punishment."
+            }
+          ]
+        },
+        {
+          "id": "13.8",
+          "title": "Remedies",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Authorized remedies include transaction reversals, roster or score corrections, restored priority or players, voided trades, administrative corrections, orders to complete obligations, warnings and penalties authorized elsewhere."
+            },
+            {
+              "type": "p",
+              "text": "Where exact restoration is impractical, choose the fairest reasonable approximation and avoid speculation."
+            }
+          ]
+        },
+        {
+          "id": "13.9",
+          "title": "Finality and Good Faith",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "A League Vote is not an automatic appeal. Individual competitive disputes shall not be decided by popularity vote unless expressly authorized."
+            },
+            {
+              "type": "p",
+              "text": "Managers may criticize rulings, but Commissioners may require orderly presentation of arguments and evidence. The process may not be abused to harass, delay transactions, disrupt administration, relitigate matters or gain tactical advantage."
+            },
+            {
+              "type": "p",
+              "text": "After considering the appeal panel’s conclusion, the eligible regular Commissioners may uphold, modify, reverse or return a matter for further factual review and have the final say. Where all regular Commissioners are recused, the neutral panel exercises that final authority. A final decision may be reopened only upon significant new evidence or discovery of a material procedural error, rather than repeated arguments. Comparable precedents are considered under Chapter 17."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-14",
+      "number": 14,
+      "title": "Chapter 14 — Conduct, Cheating and Competitive Integrity",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "14.1",
+          "title": "Independent Competition",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Managers must act in good faith, primarily for their own teams, without improper cooperation, sabotage or manipulation. Lawful Rulebook-compliant aggressive strategy, streaming, blocking, unusual lineups, uneven trades and negotiation bluffing are permitted."
+            }
+          ]
+        },
+        {
+          "id": "14.2",
+          "title": "Prohibited Conduct",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The following are prohibited:"
+            },
+            {
+              "type": "li",
+              "text": "Cheating, unauthorized Commissioner-tool use, account manipulation, falsified information, fabricated evidence and deliberate circumvention of restrictions through another team."
+            },
+            {
+              "type": "li",
+              "text": "Collusion, sham trades, Player Loans, outside compensation, coordinated waiver or lineup manipulation and arranged losses."
+            },
+            {
+              "type": "li",
+              "text": "Roster Dumping or deliberate transfers without genuine competitive purpose."
+            },
+            {
+              "type": "li",
+              "text": "Intentional losing primarily to manipulate qualification, seeds, loser status, Toilet Bowl results, draft-related consequences or another improper outcome."
+            },
+            {
+              "type": "li",
+              "text": "Tampering with equipment, results, finances or official competitions, sabotage and unauthorized assistance."
+            },
+            {
+              "type": "li",
+              "text": "Knowingly false allegations of serious misconduct. Good-faith allegations that prove mistaken are not violations."
+            },
+            {
+              "type": "p",
+              "text": "Detailed transaction and lineup rules remain in Chapters 4–7. Poor judgment alone is not proof of misconduct."
+            }
+          ]
+        },
+        {
+          "id": "14.3",
+          "title": "Loopholes, Fraud and Commissioner Misconduct",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Commissioners may cautiously intervene where conduct deliberately evades wording while clearly violating a rule’s purpose. This does not authorize punishment of ordinary creative strategy."
+            },
+            {
+              "type": "p",
+              "text": "Strategic bluffing does not permit forged records, fabricated approval, false payment evidence or deliberate misrepresentation during disputes. Commissioners are equally accountable for improper changes, decisions, fund use, concealed conflicts or retaliation."
+            }
+          ]
+        },
+        {
+          "id": "14.4",
+          "title": "Personal Conduct and Events",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Banter, mockery, rivalry and ordinary criticism are permitted. Credible threats, persistent targeted harassment, serious discriminatory abuse, intimidation, theft, intentional property damage, violence and dangerous conduct are not."
+            },
+            {
+              "type": "p",
+              "text": "Normal heckling is permitted where it does not materially interfere with competition. Physical activities must observe agreed rules and reasonable safety requirements. Intoxication does not excuse a violation."
+            }
+          ]
+        },
+        {
+          "id": "14.5",
+          "title": "Financial Integrity",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Personal use of League money, concealed receipts, fabricated expenses, unapproved spending and refusal to account for funds may result in immediate disciplinary review. Financial administration follows Chapter 11."
+            }
+          ]
+        },
+        {
+          "id": "14.6",
+          "title": "Investigation and Discipline",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Credible allegations may be investigated under Chapter 13. Managers should reasonably cooperate; non-cooperation may be considered but does not automatically prove wrongdoing."
+            },
+            {
+              "type": "p",
+              "text": "Proportionate measures may include warnings, transaction reversals, roster or score corrections, temporary restrictions, loss of privileges, expressly authorized financial consequences, removal from an event, suspension or exclusion, including permanent exclusion in serious cases."
+            },
+            {
+              "type": "p",
+              "text": "Deliberate, repeated, coordinated or concealed violations, material effects, misuse of authority and refusal to cooperate may aggravate a case. Genuine mistakes, immediate reporting, limited effects, cooperation, remorse, prompt correction and a clean history may mitigate it without removing responsibility."
+            },
+            {
+              "type": "p",
+              "text": "Chapter 1 governs emergency action and conflicts; Chapter 13 governs review and appeals. No competitive position or Commissioner status creates immunity."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-15",
+      "number": 15,
+      "title": "Chapter 15 — Annual League Events and Celebration Weekend",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "15.1",
+          "title": "Annual Event",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "An in-person annual event shall be organized where reasonably possible, potentially as a multi-day Draft and Celebration Weekend. It may include the Decathlon, fantasy draft, awards, punishments, food, drinks and social activities celebrating the previous and upcoming seasons."
+            },
+            {
+              "type": "p",
+              "text": "Dates, programme, venue, accommodation and activities may vary annually and shall be communicated in due time. Organizers may issue schedules and make reasonable necessary changes."
+            }
+          ]
+        },
+        {
+          "id": "15.2",
+          "title": "Norway–Switzerland Rotation",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "As a general rule, the event shall alternate annually between Norway and Switzerland, unless otherwise agreed by the League, to distribute travel and hosting responsibilities reasonably."
+            },
+            {
+              "type": "p",
+              "text": "The League may depart from the rotation for accommodation, cost, attendance, scheduling, suitable venues, practical difficulties or another approved arrangement, including another country. An exception does not permanently reset or abolish the rotation unless expressly decided. For an alternative country, the League should determine the following season’s return to rotation before the event."
+            }
+          ]
+        },
+        {
+          "id": "15.3",
+          "title": "Location and Organizers",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Location should reasonably consider accessibility, cost, accommodation, Decathlon suitability, draft space and social arrangements. Commissioners may appoint organizers from anywhere in the League. Host-country Members may reasonably assist with local knowledge and logistics but do not automatically bear all organization or costs. Organizer status grants no additional competitive authority."
+            }
+          ]
+        },
+        {
+          "id": "15.4",
+          "title": "Attendance and Activities",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Attendance is strongly encouraged. Managers unable to attend should notify Commissioners early. Absence does not automatically end membership; Decathlon, draft, punishment and tiebreaker obligations remain governed by their respective chapters."
+            },
+            {
+              "type": "p",
+              "text": "Optional social activities are discretionary unless specifically stated otherwise. No Manager must consume alcohol or undertake an activity creating unreasonable health or safety risk. Approved alternatives follow the relevant competitive rules."
+            }
+          ]
+        },
+        {
+          "id": "15.5",
+          "title": "Funding and Personal Arrangements",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Shared expenses, budget limits, outside activities and personal costs follow Section 11.4. Managers arrange their own travel unless shared transport is expressly provided; its terms should be announced beforehand. Transportation decisions must be safe and lawful."
+            },
+            {
+              "type": "p",
+              "text": "Managers must respect venue and accommodation rules. Individual purchases and personal choices do not automatically become the responsibility of the League, organizers or other Managers."
+            }
+          ]
+        },
+        {
+          "id": "15.6",
+          "title": "Awards, Punishments and Cleanup",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Awards may recognize Championship and podium results, regular-season or Decathlon performance, loser status and humorous achievements, and may vary annually. Punishments may be announced, presented or completed at the event or another required time under Chapter 10. Toilet Bowl cleanup follows Section 10.5."
+            }
+          ]
+        },
+        {
+          "id": "15.7",
+          "title": "Conduct, Damage and Event Rules",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Chapter 14 applies at all official events. A Manager who intentionally or negligently causes significant damage may be personally responsible for the cost; League funds shall not normally cover individual misconduct. Specific deposits or venue penalties may be assigned to the responsible Manager. Where responsibility cannot reasonably be attributed, the League may decide an appropriate allocation."
+            },
+            {
+              "type": "p",
+              "text": "Event-specific rules may address venues, accommodation, equipment, timing and logistics, but may not override material competitive rules without proper approval. Personal responsibility provisions remain subject to Section 17.4."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-16",
+      "number": 16,
+      "title": "Chapter 16 — League Records and History",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "16.1",
+          "title": "Official History",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The League may maintain season records of standings, podiums, playoff and Toilet Bowl results, League Losers, Decathlon results, draft order, tiebreakers, punishments and completion, awards, event locations, Buy-Ins, prizes and memorable events."
+            },
+            {
+              "type": "p",
+              "text": "Sleeper is the primary fantasy-results source; separate records may preserve events and information it does not retain. Records may use shared documents, websites, spreadsheets, trophies or archives."
+            }
+          ]
+        },
+        {
+          "id": "16.2",
+          "title": "Titles and Loser Records",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Final League Champions, both League Losers and Toilet Bowl Losers shall be permanently recorded, keeping regular-season loser and Toilet Bowl histories distinct. A Championship title may be removed only where a serious violation materially affecting it is established through the proper dispute process."
+            },
+            {
+              "type": "p",
+              "text": "Punishment histories may include alternatives, evidence, refusal and enforcement outcomes. Final tiebreaker outcomes must be reflected in recorded positions."
+            }
+          ]
+        },
+        {
+          "id": "16.3",
+          "title": "Performance Records and Awards",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The League may maintain fantasy and Decathlon records, including scores, wins, streaks, margins, titles, appearances and measurable event performances. Eligibility requires an official competition under valid settings, completed corrections and no material violation affecting the result. Formally invalidated results may be excluded."
+            },
+            {
+              "type": "p",
+              "text": "Annual, all-time, humorous and Hall of Fame awards may be established separately. Ceremonial titles grant no voting or Commissioner authority unless expressly provided elsewhere."
+            }
+          ]
+        },
+        {
+          "id": "16.4",
+          "title": "Comparability Across Seasons",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Historical results remain valid when team counts, scoring, rosters, brackets or events change. Records may identify the applicable format or scoring era where direct comparison would mislead. Materially changed Decathlon events need not share comparable records."
+            }
+          ]
+        },
+        {
+          "id": "16.5",
+          "title": "Accuracy, Custody and Finality",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Commissioners may correct factual errors without a League Vote where reliable evidence establishes the result. Uncertain records may be investigated, marked disputed or left unchanged where no reliable correction exists. Memory should not displace better evidence."
+            },
+            {
+              "type": "p",
+              "text": "Official records belong collectively to the League. Departing Commissioners should reasonably transfer unique records to another responsible Member."
+            },
+            {
+              "type": "p",
+              "text": "Completed seasons remain final after corrections, disputes, tiebreakers and discipline are resolved. Factual corrections and final disciplinary rulings may be reflected, with explanatory notes where appropriate; later disagreement with old rules is not grounds to rewrite history."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-17",
+      "number": 17,
+      "title": "Chapter 17 — Final Provisions, Interpretation and Hierarchy of Rules",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "17.1",
+          "title": "Hierarchy",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "The following order normally applies:"
+            },
+            {
+              "type": "p",
+              "text": "1.   This Rulebook as validly amended under Chapter 12."
+            },
+            {
+              "type": "p",
+              "text": "2.   The seasonal Decathlon Handbook within its delegated event-specific authority."
+            },
+            {
+              "type": "p",
+              "text": "3.   Official season-specific decisions permitted by this Rulebook."
+            },
+            {
+              "type": "p",
+              "text": "4.   Official Sleeper League settings."
+            },
+            {
+              "type": "p",
+              "text": "5.   Valid Commissioner rulings."
+            },
+            {
+              "type": "p",
+              "text": "6.   Informal agreements, messages, traditions and previous practices."
+            },
+            {
+              "type": "p",
+              "text": "A lower source may not override a higher one unless expressly permitted. An effective amendment forms part of the Rulebook and replaces the wording it validly changes."
+            },
+            {
+              "type": "p",
+              "text": "All people exercising official League authority must comply. A settings conflict must be resolved in favor of the Rulebook unless a valid amendment or permitted seasonal decision establishes otherwise. Informal material may inform interpretation but cannot override written rules."
+            }
+          ]
+        },
+        {
+          "id": "17.2",
+          "title": "Interpretation and Precedent",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Interpret provisions by their ordinary meaning, context, purpose, consistency, competitive fairness and relevant rulings. The spirit of a rule may clarify its application but may not disregard clear wording because its result is unpopular."
+            },
+            {
+              "type": "p",
+              "text": "Comparable precedent should promote consistency, but need not control where rules, facts or platform functionality materially differ or the earlier ruling was clearly mistaken. One-time rulings, accidents, oversight and repeated informal practice do not themselves create permanent rules."
+            }
+          ]
+        },
+        {
+          "id": "17.3",
+          "title": "Unforeseen Circumstances and Discretion",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Where no existing provision reasonably resolves a situation, eligible Commissioners may issue the least disruptive reasonable ruling, considering integrity, fairness, existing principles, comparable rulings and platform operation. It addresses the immediate issue and does not automatically amend the Rulebook."
+            },
+            {
+              "type": "p",
+              "text": "Discretion must be reasonable, consistent, impartial and exercised in good faith, subject to recusals and appeals. Commissioner authority administers the rules rather than replacing them."
+            }
+          ]
+        },
+        {
+          "id": "17.4",
+          "title": "Severability and Lawful Conduct",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "An unworkable, invalid, unlawful or unenforceable provision may be disregarded or corrected only to the minimum necessary extent; the remainder continues to apply. Preserve as much of the original rule as reasonably possible."
+            },
+            {
+              "type": "p",
+              "text": "Nothing authorizes unlawful conduct or enforcement, violence, fraud, theft, harassment or dangerous punishments. Where a rule would require unlawful conduct, a lawful interpretation or reasonable alternative applies."
+            }
+          ]
+        },
+        {
+          "id": "17.5",
+          "title": "External Decisions and Platform Changes",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Official NFL, team, statistical-provider and Sleeper decisions normally form part of fantasy risk unless this Rulebook provides otherwise. Outdated platform terminology may refer to its clear current equivalent; technical updates do not automatically change intended competitive rules."
+            }
+          ]
+        },
+        {
+          "id": "17.6",
+          "title": "Calculations and Deadlines",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Ordinary mathematics applies. Commissioners or the treasurer may make minor unavoidable rounding adjustments to reach correct totals without treating them as substantive amendments."
+            },
+            {
+              "type": "p",
+              "text": "Specific deadlines control. A reasonable period depends on urgency, live competition, availability and whether delay prevents correction."
+            }
+          ]
+        },
+        {
+          "id": "17.7",
+          "title": "Communication, Language and Version",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Decisions should be communicated through recognized channels reasonably accessible to affected Managers, including Sleeper chat, the League group chat or established direct communication. Managers must remain reasonably informed."
+            },
+            {
+              "type": "p",
+              "text": "The official Rulebook may be maintained in English. Where an informal translation conflicts with it, official English wording controls unless another version is formally adopted. The most recently validly approved version governs; adoption, version and effective-season information should be maintained."
+            }
+          ]
+        },
+        {
+          "id": "17.8",
+          "title": "Non-Enforcement and Final Authority",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "Failure to enforce a rule once does not automatically prevent later enforcement, though it may affect fairness, penalties or the need for clarification."
+            },
+            {
+              "type": "p",
+              "text": "Subject to the Rulebook and mandatory recusals, the eligible regular Commissioners have the final say on League rulings, including matters reviewed on appeal. Where all regular Commissioners are recused, the duly appointed neutral panel or other neutral procedure exercises final authority for that matter. This Rulebook and its valid supplementary documents form the complete governing framework."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "appendix-a",
+      "number": null,
+      "title": "Appendix A — Outstanding Items for Final Review",
+      "kind": "chapter",
+      "rules": [
+        {
+          "id": "A.1",
+          "title": "Annual Information to Complete",
+          "blocks": [
+            {
+              "type": "table",
+              "rows": [
+                [
+                  "Item",
+                  "Information required",
+                  "Reference"
+                ],
+                [
+                  "Official version",
+                  "Applicable season, adoption date and version",
+                  "Front matter; Section 17.7"
+                ],
+                [
+                  "League administration",
+                  "Current Manager count, Commissioner names and recognized communication channels",
+                  "Chapters 1–3"
+                ],
+                [
+                  "Buy-In",
+                  "Set the seasonal amount and currency before the season begins; payment is due before the draft",
+                  "Sections 11.1 and 11.5"
+                ],
+                [
+                  "Prize amounts",
+                  "Calculate from actual Manager count and Buy-In using the settled 30% / one Buy-In / 2:1 formula",
+                  "Section 11.2"
+                ],
+                [
+                  "Technical settings",
+                  "Record the full official settings, including precise waiver-processing arrangements, initial priority, enabled IR statuses and Bench-drop restriction",
+                  "Sections 3.2, 3.6 and 6.1–6.3"
+                ],
+                [
+                  "Schedule and playoffs",
+                  "Regular-season length, playoff start, qualifiers, byes, exact qualification/standings criteria, Toilet Bowl format and determination of third place",
+                  "Sections 3.7, 8.2 and 9.1"
+                ],
+                [
+                  "Trade deadline",
+                  "Exact seasonal Week 11 cutoff, including date, time and time zone, or any valid preseason adjustment",
+                  "Section 7.8"
+                ],
+                [
+                  "Decathlon",
+                  "Competition day; all ten events; Handbook edition and distribution date at least three months beforehand; event and overall tiebreak details",
+                  "Sections 4.2–4.5"
+                ],
+                [
+                  "Draft",
+                  "Date, start time, time zone and final Decathlon-derived order",
+                  "Sections 4.1 and 4.6"
+                ],
+                [
+                  "Annual punishment",
+                  "Select and announce the punishment, completion requirements and any specific evidence requirements by Week 5",
+                  "Sections 10.2–10.4"
+                ],
+                [
+                  "Annual event",
+                  "Host country and place in the rotation, venue, dates, organizers, programme, shared budget and personal-cost arrangements",
+                  "Chapter 15"
+                ]
+              ]
+            },
+            {
+              "type": "p",
+              "text": "The numerical settings reproduced in Chapter 3 are those confirmed in the League’s supplied Sleeper settings. Unspecified values have not been inferred from a generic Sleeper configuration."
+            }
+          ]
+        },
+        {
+          "id": "A.2",
+          "title": "Permanent Rule Review Status",
+          "blocks": [
+            {
+              "type": "p",
+              "text": "No unresolved permanent-rule drafting choices remain recorded in this appendix. Season-specific information in Section A.1 must still be completed for the applicable season."
+            }
+          ]
+        },
+        {
+          "id": "A.3",
+          "title": "Editorial Reconciliation Applied",
+          "blocks": [
+            {
+              "type": "li",
+              "text": "Later revisions replace earlier open-ended draft-order language, the undefined first/second prize split and wording suggesting an ordinary punishment buyout."
+            },
+            {
+              "type": "li",
+              "text": "The three-Commissioner structure is used consistently, reflecting the later trade-governance agreement."
+            },
+            {
+              "type": "li",
+              "text": "Valid amendments are treated as part of the Rulebook. The earlier hierarchy listed the unamended Rulebook ahead of amendments; the consolidated wording allows an effective amendment to replace the provision it changes, as Chapter 12 requires."
+            },
+            {
+              "type": "li",
+              "text": "Annual cash prizes remain to be calculated, but the prize allocation itself is settled. For fourteen equal Buy-Ins, third place receives 1/14 of the total, approximately 7.14%, rather than 14%."
+            },
+            {
+              "type": "li",
+              "text": "“Shall,” “may,” “should” and qualifications such as “normally” retain their substantive force; no fixed appeal deadline or new sanction amount has been supplied."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "glossary": [
+    {
+      "term": "Manager",
+      "text": "A League Member responsible for managing one fantasy team."
+    },
+    {
+      "term": "Commissioner",
+      "text": "A League Member with administrative authority under Chapter 1."
+    },
+    {
+      "term": "Alternate Commissioner",
+      "text": "A temporary neutral replacement for a conflicted Commissioner."
+    },
+    {
+      "term": "Recusal",
+      "text": "A Commissioner’s withdrawal from a decision because of a conflict of interest."
+    },
+    {
+      "term": "Rulebook",
+      "text": "The League’s main governing document, including valid amendments."
+    },
+    {
+      "term": "Decathlon Handbook",
+      "text": "The separate annual handbook governing the ten Draft Order Decathlon competitions."
+    },
+    {
+      "term": "Draft Order Decathlon",
+      "text": "The ten-event competition used to determine draft order."
+    },
+    {
+      "term": "League Champion",
+      "text": "The Manager who wins the Championship Playoffs."
+    },
+    {
+      "term": "League Loser",
+      "text": "One of the two Managers in the bottom two final regular-season positions."
+    },
+    {
+      "term": "Toilet Bowl Loser",
+      "text": "The ultimate loser of the Toilet Bowl."
+    },
+    {
+      "term": "Physical Tiebreaker",
+      "text": "A physical competition used only where a tie must be resolved to determine an overall winner or loser for the season."
+    },
+    {
+      "term": "Buy-In",
+      "text": "The full seasonal entry fee paid by each Manager."
+    },
+    {
+      "term": "Draft and Celebration Fund",
+      "text": "The 30% portion of each Buy-In reserved for shared Draft and Celebration Weekend expenses."
+    },
+    {
+      "term": "Collusion",
+      "text": "Improper cooperation intended to manipulate the League or unfairly benefit or harm another team."
+    },
+    {
+      "term": "Player Loan",
+      "text": "A prohibited temporary trade involving an agreement or expectation that a player will be returned."
+    },
+    {
+      "term": "Roster Dumping",
+      "text": "Deliberately weakening a roster primarily to benefit another Manager or manipulate competition."
+    },
+    {
+      "term": "Roster Churning",
+      "text": "Repeatedly adding and dropping players mainly to force them onto waivers and block other Managers."
+    },
+    {
+      "term": "Official League Communication",
+      "text": "Communication through the normal League channels recognized by the Commissioners."
+    },
+    {
+      "term": "Material",
+      "text": "Significant enough to affect competition, finances, punishments, draft position, playoffs or another meaningful League outcome."
+    }
+  ]
+}

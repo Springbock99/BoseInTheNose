@@ -1,7 +1,7 @@
 # Rules Page — Design
 
 **Date:** 2026-09-14
-**Status:** Awaiting review
+**Status:** Implemented
 **Route:** `/rules`
 
 ## Goal
@@ -23,6 +23,12 @@ Word styles map cleanly onto the content model:
 | `Overskrift2` | 143 | Rule heading, e.g. `7.3 Trade Deadline` |
 | `Normal` | 523 | Body paragraph |
 | `Punktliste` | 31 | Bullet item |
+
+The document also contains **10 tables** (roster slots, offensive/kicking/defensive
+scoring, commissioner-conflict procedures, Appendix A). Paragraphs nested inside
+table cells must not be collected as loose body text, so the converter walks
+top-level nodes and matches `<w:tbl>` before `<w:p>`, consuming each table whole.
+Nested tables are rejected: the non-greedy match would truncate the outer table.
 
 All 143 rule headings begin with a parseable ID (`G.1`, `7.3`, `17.8`, `A.1`).
 
@@ -69,11 +75,17 @@ document is expected to change; re-import must be one step.
 ### Data model
 
 ```ts
+// One ordered array rather than separate body[]/bullets[] arrays: splitting
+// content by type discards document order, and a rulebook paragraph that
+// introduces or qualifies a list must stay attached to it.
+type Block =
+  | { type: 'p' | 'li'; text: string }
+  | { type: 'table'; rows: string[][] }
+
 type Rule = {
   id: string          // "7.3"  — stable, used as the URL anchor
-  title: string       // "Trade Deadline"
-  body: string[]      // paragraphs
-  bullets: string[]   // list items
+  title: string       // "Neutrality"
+  blocks: Block[]
 }
 
 type Chapter = {
@@ -128,6 +140,12 @@ new MiniSearch({
   },
 })
 ```
+
+**Rule IDs bypass the index.** MiniSearch tokenizes `"7.3"` into `["7","3"]` —
+the identical token set as `"3.7"` — so an indexed lookup cannot distinguish them
+and ranks the wrong rule first. No amount of field boosting fixes this. An
+ID-shaped query is instead answered by exact prefix matching on the rule id, so
+`"7.3"` returns 7.3 and `"7"` returns all of Chapter 7 without matching 17.x.
 
 **Why MiniSearch over `includes()` or Fuse.js:** an inverted index with BM25
 ranking surfaces the *most relevant* rule rather than the first one in document
@@ -221,6 +239,8 @@ The converter parses a third-party XML format, so it validates and fails loudly:
 - every rule ID matches `/^([A-Z]\.)?\d+(\.\d+)*$/`
 - no rule has an empty body
 - no rule appears outside a chapter (front matter is collected, not an error)
+- every table in the document is accounted for (10), and every table is
+  rectangular — a ragged table means the cell walk lost content
 - exactly one glossary section, exactly one dropped TOC
 
 A validation failure exits non-zero and writes nothing. A partially-correct
@@ -240,6 +260,9 @@ coverage:
 - TOC dropped
 - front matter collected (6 paragraphs), not treated as rules
 - bullets attach to the correct rule
+- block order preserved where a paragraph follows a list (rule 14.2)
+- 10 tables parsed, all rectangular, no cell text leaked as loose paragraphs
+- table cell text is searchable ("passing touchdown" lives only in a table)
 - malformed input fails loudly rather than emitting partial output
 
 Search and highlight:
