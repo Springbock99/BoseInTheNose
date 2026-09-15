@@ -571,7 +571,7 @@ export default function LeagueDashboard() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const loadLeague = useCallback(async (shouldUpdate = () => true) => {
+  const loadLeague = useCallback(async (shouldUpdate: () => boolean = () => true) => {
     setIsRefreshing(true);
 
     try {
@@ -583,7 +583,9 @@ export default function LeagueDashboard() {
       const data = (await leagueResponse.json()) as LeagueResponse;
       const week = data.state?.week || 1;
       const matchupsResponse = await fetch(`${apiBaseUrl}/api/league/matchups/${week}`, { cache: 'no-store' });
-      const matchupData = matchupsResponse.ok ? await matchupsResponse.json() : { matchups: [] };
+      const matchupData: { matchups?: Matchup[] } = matchupsResponse.ok
+        ? await matchupsResponse.json()
+        : { matchups: [] };
 
       if (!shouldUpdate()) {
         return;
@@ -637,8 +639,10 @@ export default function LeagueDashboard() {
     let mounted = true;
     const searchParams = new URLSearchParams({ ids: missingPlayerIds.join(',') });
     void fetch(`${apiBaseUrl}/api/players/nfl?${searchParams.toString()}`, { cache: 'force-cache' })
-      .then((response) => (response.ok ? response.json() : null))
-      .then((data: { players?: PlayerDirectory } | null) => {
+      .then(async (response): Promise<{ players?: PlayerDirectory } | null> =>
+        response.ok ? await response.json() : null,
+      )
+      .then((data) => {
         if (mounted && data?.players && Object.keys(data.players).length > 0) {
           setPlayerDirectory((current) => ({ ...(current || {}), ...data.players }));
         }
