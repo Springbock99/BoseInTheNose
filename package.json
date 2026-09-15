@@ -11,7 +11,8 @@
     "start": "next start",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "rules": "node scripts/build-rules.mjs",
-    "test:rules": "node --experimental-strip-types --no-warnings scripts/test-rules.mjs"
+    "test:rules": "node --experimental-strip-types --no-warnings scripts/test-rules.mjs",
+    "players": "node scripts/build-players.mjs"
   },
   "dependencies": {
     "minisearch": "^7.2.0",

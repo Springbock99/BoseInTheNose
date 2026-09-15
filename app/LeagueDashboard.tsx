@@ -100,7 +100,9 @@ type HeroStat = {
   subject: string;
 };
 
-const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8787';
+// The API now lives in this same app under /api, so requests are same-origin
+// and need no base URL or CORS.
+const apiBaseUrl = '';
 const logoImageUrl = '/nfl-fantasy-logo.png';
 
 const fallbackTeams: TeamRow[] = [
@@ -722,7 +724,7 @@ export default function LeagueDashboard() {
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-white/70">
             {status === 'ready'
-              ? `${leagueName} is now connected to Sleeper. Standings, team totals, and weekly highlights are being pulled through your local backend.`
+              ? `${leagueName} is now connected to Sleeper. Standings, team totals, and weekly highlights update automatically.`
               : 'A dark-mode clubhouse for standings, weekly stories, rivalries, and Sleeper-powered league data.'}
           </p>
           <HeroStats stats={heroStats} />
