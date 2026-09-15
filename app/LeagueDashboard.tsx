@@ -100,7 +100,9 @@ type HeroStat = {
   subject: string;
 };
 
-const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8787';
+// The API now lives in this same app under /api, so requests are same-origin
+// and need no base URL or CORS.
+const apiBaseUrl = '';
 const logoImageUrl = '/nfl-fantasy-logo.png';
 
 const fallbackTeams: TeamRow[] = [
@@ -571,7 +573,7 @@ export default function LeagueDashboard() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const loadLeague = useCallback(async (shouldUpdate = () => true) => {
+  const loadLeague = useCallback(async (shouldUpdate: () => boolean = () => true) => {
     setIsRefreshing(true);
 
     try {
@@ -583,7 +585,9 @@ export default function LeagueDashboard() {
       const data = (await leagueResponse.json()) as LeagueResponse;
       const week = data.state?.week || 1;
       const matchupsResponse = await fetch(`${apiBaseUrl}/api/league/matchups/${week}`, { cache: 'no-store' });
-      const matchupData = matchupsResponse.ok ? await matchupsResponse.json() : { matchups: [] };
+      const matchupData: { matchups?: Matchup[] } = matchupsResponse.ok
+        ? await matchupsResponse.json()
+        : { matchups: [] };
 
       if (!shouldUpdate()) {
         return;
@@ -637,8 +641,10 @@ export default function LeagueDashboard() {
     let mounted = true;
     const searchParams = new URLSearchParams({ ids: missingPlayerIds.join(',') });
     void fetch(`${apiBaseUrl}/api/players/nfl?${searchParams.toString()}`, { cache: 'force-cache' })
-      .then((response) => (response.ok ? response.json() : null))
-      .then((data: { players?: PlayerDirectory } | null) => {
+      .then(async (response): Promise<{ players?: PlayerDirectory } | null> =>
+        response.ok ? await response.json() : null,
+      )
+      .then((data) => {
         if (mounted && data?.players && Object.keys(data.players).length > 0) {
           setPlayerDirectory((current) => ({ ...(current || {}), ...data.players }));
         }
@@ -718,7 +724,7 @@ export default function LeagueDashboard() {
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-white/70">
             {status === 'ready'
-              ? `${leagueName} is now connected to Sleeper. Standings, team totals, and weekly highlights are being pulled through your local backend.`
+              ? `${leagueName} is now connected to Sleeper. Standings, team totals, and weekly highlights update automatically.`
               : 'A dark-mode clubhouse for standings, weekly stories, rivalries, and Sleeper-powered league data.'}
           </p>
           <HeroStats stats={heroStats} />
