@@ -44,3 +44,6 @@ next-env.d.ts
 .screenshots/
 .playwright-mcp/
 tsconfig.tsbuildinfo
+
+# private league analysis (never commit)
+/private/
