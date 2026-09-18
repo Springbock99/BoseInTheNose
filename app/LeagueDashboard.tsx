@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import PageBackground from './PageBackground';
+import SponsorStrip from './SponsorStrip';
 
 type SleeperUser = {
   user_id: string;
@@ -107,7 +108,6 @@ type ClosestMatchup = {
 // The API now lives in this same app under /api, so requests are same-origin
 // and need no base URL or CORS.
 const apiBaseUrl = '';
-const logoImageUrl = '/nfl-fantasy-logo.png';
 
 const fallbackTeams: TeamRow[] = [
   { name: 'Velvet Blitz', managerName: 'Velvet Blitz', rosterId: 1, record: '7-2', points: '1,184.6', trend: '+48.2', wins: 7, fpts: 1184.6 },
@@ -137,35 +137,11 @@ const fallbackRecords: RecordCard[] = [
 
 const navItems = [
   { label: 'Home', href: '#home' },
-  { label: 'Stats', href: '/stats' },
   { label: 'Rules', href: '/rules' },
   { label: 'Bouseathlon', href: '/bouseathlon' },
+  { label: 'Sponsors', href: '/sponsors' },
 ];
 const refreshIntervalMs = 60_000;
-const logoStyles = [
-  {
-    name: 'Gold Aura',
-    detail: 'champion glow',
-    shellClass: 'h-20 w-20 sm:h-24 sm:w-24',
-    glowClass: '-inset-4 bg-[radial-gradient(circle_at_50%_52%,rgba(255,190,89,0.34),rgba(98,223,255,0.14)_42%,transparent_72%)] blur-xl',
-    imageClass: 'h-[4.6rem] w-[4.6rem] sm:h-[5.4rem] sm:w-[5.4rem]',
-  },
-  {
-    name: 'Warm Sweep',
-    detail: 'gold from left',
-    shellClass: 'h-20 w-20 sm:h-24 sm:w-24',
-    glowClass: '-inset-2 bg-[linear-gradient(115deg,rgba(255,190,89,0.52),rgba(98,223,255,0.16)_46%,transparent_74%)] blur-lg',
-    imageClass: 'h-16 w-16 sm:h-20 sm:w-20',
-  },
-  {
-    name: 'Trophy Wake',
-    detail: 'scoreboard trail',
-    shellClass: 'h-20 w-20 sm:h-24 sm:w-24',
-    glowClass: '-inset-3 bg-[radial-gradient(circle_at_48%_50%,rgba(255,190,89,0.38),transparent_42%),radial-gradient(circle_at_12%_55%,rgba(167,139,250,0.18),transparent_52%)] blur-xl',
-    imageClass: 'h-16 w-16 sm:h-20 sm:w-20',
-  },
-];
-const selectedLogoStyle = logoStyles[0];
 const scoreboardStyles = [
   {
     name: 'Tunnel Classic',
@@ -199,25 +175,8 @@ const defaultSleeperAvatarIds = new Set([
   'd55d1f7075eda01948318de4af616075',
 ]);
 
-function LogoImage({ className }: { className: string }) {
-  return (
-    <span
-      className={`block shrink-0 bg-contain bg-center bg-no-repeat mix-blend-screen opacity-95 drop-shadow-[0_0_16px_rgba(255,190,89,0.14)] ${className}`}
-      style={{ backgroundImage: `url(${logoImageUrl})` }}
-      aria-label="Bouse In The Nose logo"
-    />
-  );
-}
-
-function LogoLockup({ style }: { style: (typeof logoStyles)[number] }) {
-  return (
-    <div className="flex items-center">
-      <span className={`relative grid shrink-0 place-items-center ${style.shellClass}`}>
-        <span className={`pointer-events-none absolute ${style.glowClass}`} />
-        <LogoImage className={`relative ${style.imageClass}`} />
-      </span>
-    </div>
-  );
+function splitLeagueName(name: string) {
+  return name.replace(/([a-z])([A-Z])/g, '$1 $2');
 }
 
 function formatRecord(roster: SleeperRoster) {
@@ -713,15 +672,23 @@ export default function LeagueDashboard() {
       <header className="sticky top-0 z-20 bg-transparent">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/48 to-transparent" />
         <nav className="relative mx-auto flex min-h-20 max-w-7xl flex-col gap-4 px-5 py-4 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
-          <a href="#home" className="flex items-center gap-3" aria-label="Bose In The Nose home">
-            <LogoLockup style={selectedLogoStyle} />
+          <a href="#home" className="group flex min-w-0 flex-col" aria-label={`${leagueName} home`}>
+            {/* league-mark-broadcast is one of the wordmark styles already in
+                globals.css: heavy, white, with the cyan glow the rest of the
+                page uses. */}
+            <span className="league-mark-broadcast text-2xl tracking-tight transition group-hover:text-white sm:text-3xl">
+              {splitLeagueName(leagueName)}
+            </span>
+            <span className="mt-1.5 text-[0.6rem] font-black uppercase tracking-[0.3em] text-[#62dfff]/70">
+              Season {season}
+            </span>
           </a>
-          <div className="flex w-fit items-center gap-1 border border-white/10 bg-black/18 p-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_12px_34px_rgba(0,0,0,0.18)] backdrop-blur-md">
+          <div className="flex w-fit max-w-full flex-wrap items-center gap-x-7 gap-y-2">
             {navItems.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
-                className="px-3 py-2 text-sm font-semibold text-white/72 transition hover:bg-[#f9d98a]/12 hover:text-[#f9d98a] sm:px-5"
+                className="py-1 text-sm font-semibold text-white/72 transition hover:text-[#f9d98a]"
               >
                 {item.label}
               </Link>
@@ -735,13 +702,11 @@ export default function LeagueDashboard() {
           <p className="mb-5 text-sm font-bold uppercase tracking-[0.32em] text-[#62dfff]">
             {season} league command center
           </p>
-          <h1 className="text-5xl font-black leading-[0.96] tracking-normal text-white sm:text-7xl lg:text-8xl">
-            Every week gets its own legend.
+          <h1 className="text-[clamp(2.25rem,5vw,4.5rem)] font-black leading-[0.98] tracking-normal text-white">
+            Bragging rights, settled weekly.
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-white/70">
-            {status === 'ready'
-              ? `${leagueName} is now connected to Sleeper. Standings, team totals, and weekly numbers update automatically.`
-              : 'A dark-mode clubhouse for standings, weekly stories, rivalries, and Sleeper-powered league data.'}
+            Standings update live. Excuses don&rsquo;t.
           </p>
           <HeroStats stats={heroStats} matchup={closestMatchup} />
         </div>
@@ -756,6 +721,8 @@ export default function LeagueDashboard() {
           onRefresh={() => loadLeague()}
         />
       </section>
+
+      <SponsorStrip />
     </main>
   );
 }
