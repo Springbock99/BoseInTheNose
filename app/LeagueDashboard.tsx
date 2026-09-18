@@ -78,6 +78,10 @@ type RecapCard = {
   meta: string;
   /** Bench Pain puts the player in `team`, so the manager needs its own field. */
   owner?: string;
+  /** Bench Pain again: the id behind the name, for the headshot. */
+  playerId?: string;
+  /** The team behind the number, for cards that show a crest. */
+  teamRef?: TeamRow;
 };
 
 type RecordCard = {
@@ -107,6 +111,8 @@ type HeroStat = {
   checks?: number;
   /** Shown beside the label — the streak holder gets their crest on the card. */
   avatarTeam?: TeamRow;
+  /** Same slot, for a player: Bench Pain shows who was left out. */
+  avatarPlayerId?: string;
   /** Set when the card opens a panel; makes it a button rather than a figure. */
   onClick?: () => void;
   expanded?: boolean;
@@ -457,6 +463,7 @@ function buildRecapCards(
       team: highScoreTeam?.name || 'Waiting room',
       value: highScore ? highScore.points.toFixed(2) : highScoreTeam?.points || '0.00',
       meta: `Week ${currentWeek} top number`,
+      teamRef: highScoreTeam,
     },
     {
       label: 'Table Boss',
@@ -470,6 +477,7 @@ function buildRecapCards(
       value: benchPain?.points ? benchPain.points.toFixed(2) : '0.00',
       meta: benchPain?.points && benchPain.team ? `${benchPain.team.name} left him sitting` : 'best bench player appears live',
       owner: benchPain?.points ? benchPain.team?.managerName || benchPain.team?.name : undefined,
+      playerId: benchPain?.points ? benchPain.playerId : undefined,
     },
     {
       label: 'Cold Snap',
@@ -614,7 +622,7 @@ function ScoreboardMockup({
         <div className="mb-2 grid grid-cols-[3.25rem_1fr_auto] gap-3 px-4 text-[0.65rem] font-black uppercase tracking-[0.16em] text-white/34">
           <span>No.</span>
           <span>Team</span>
-          <span className="text-right">Wins</span>
+          <span className="text-right">Record</span>
         </div>
         <div className="scoreboard-scrollbar max-h-[min(58rem,calc(100vh-15rem))] space-y-2.5 overflow-y-auto pr-1">
           {teams.map((team, teamIndex) => {
@@ -643,9 +651,11 @@ function ScoreboardMockup({
                       )}
                       <h3 className={`truncate font-bold text-white ${style.titleClass}`}>{team.name}</h3>
                     </div>
-                    <p className="mt-1 text-xs font-semibold text-white/46">{team.record} | {team.points} PF</p>
+                    <p className="mt-1 truncate text-xs font-semibold text-white/46">
+                      {team.managerName} | {team.points} PF
+                    </p>
                   </div>
-                  <span className="text-sm font-black text-[#62dfff]">{team.trend}</span>
+                  <span className="text-sm font-black text-[#62dfff]">{team.record}</span>
                 </button>
 
                 {isOpen && (
@@ -769,11 +779,16 @@ function LineupColumn({
         {side.lineup.map((entry, index) => (
           <li
             key={`${entry.playerId}-${index}`}
-            className="flex items-baseline gap-3 border-b border-white/[0.05] py-1.5 last:border-b-0"
+            className="flex items-center gap-2.5 border-b border-white/[0.05] py-1.5 last:border-b-0"
           >
-            <span className="w-10 shrink-0 text-[0.6rem] font-black uppercase tracking-[0.1em] text-[#a78bfa]">
+            <span className="w-9 shrink-0 text-[0.6rem] font-black uppercase tracking-[0.1em] text-[#a78bfa]">
               {entry.slot}
             </span>
+            <PlayerAvatar
+              playerId={entry.playerId}
+              player={playerDirectory?.[entry.playerId]}
+              className="h-6 w-6"
+            />
             <span className="min-w-0 flex-1 truncate text-xs font-semibold text-white/72">
               {formatPlayerName(entry.playerId, playerDirectory)}
             </span>
@@ -828,6 +843,13 @@ function HeroStats({
                   </p>
                   {stat.avatarTeam && (
                     <TeamAvatar team={stat.avatarTeam} className="h-8 w-8 rounded-full" />
+                  )}
+                  {stat.avatarPlayerId && (
+                    <PlayerAvatar
+                      playerId={stat.avatarPlayerId}
+                      player={playerDirectory?.[stat.avatarPlayerId]}
+                      className="h-8 w-8"
+                    />
                   )}
                 </div>
                 <div>
@@ -1122,12 +1144,18 @@ export default function LeagueDashboard() {
   const benchPainCard = recapCards.find((card) => card.label === 'Bench Pain') || fallbackRecapCards[2];
   const streakCard = records.find((record) => record.label === 'Longest Streak') || fallbackRecords[3];
   const heroStats: HeroStat[] = [
-    { value: highScoreCard.value, label: 'Highest score', subject: highScoreCard.team },
+    {
+      value: highScoreCard.value,
+      label: 'Highest score',
+      subject: highScoreCard.team,
+      avatarTeam: highScoreCard.teamRef,
+    },
     {
       value: benchPainCard.value,
       label: 'Bench pain',
       subject: benchPainCard.team,
       detail: benchPainCard.owner,
+      avatarPlayerId: benchPainCard.playerId,
     },
     streak
       ? {
