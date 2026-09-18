@@ -122,3 +122,51 @@ a {
     0 0 22px rgba(98, 223, 255, 0.24),
     0 10px 30px rgba(0, 0, 0, 0.5);
 }
+
+/* Bouseathlon: an event card growing into its open panel is a layout change,
+   which cannot be tweened by transitions. The View Transitions API captures
+   before/after frames and animates between them; these rules only tune the
+   timing. Browsers without support skip straight to the new layout.
+
+   Tuning knobs, if the motion ever feels wrong: --card-open-duration is the
+   length of the movement, and the easing below is its character. A curve that
+   spends its first fifth of time covering most of the distance reads as
+   mechanical no matter how long it runs. */
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    --card-open-duration: 560ms;
+    --card-close-duration: 400ms;
+    /* Eases in as well as out, so the card starts moving rather than being
+       fired, and coasts into place instead of arriving. */
+    --card-open-ease: cubic-bezier(0.45, 0.05, 0.2, 1);
+  }
+
+  ::view-transition-group(*) {
+    animation-duration: var(--card-open-duration);
+    animation-timing-function: var(--card-open-ease);
+  }
+
+  /* The tile and the open panel hold different content, so the two snapshots
+     cross-dissolve while the box morph carries the motion. The outgoing one
+     leaves early: hold it too long and its text ghosts over the incoming
+     diagram. The incoming one arrives over roughly two-thirds of the movement,
+     so the content is settled slightly before the box stops. */
+  ::view-transition-old(*) {
+    animation-duration: 180ms;
+    animation-timing-function: ease-in;
+  }
+
+  ::view-transition-new(*) {
+    animation-duration: 380ms;
+    animation-timing-function: ease-out;
+  }
+
+  /* Closing is a dismissal, not a reveal — the same curve, less of it. */
+  html[data-view-transition='close']::view-transition-group(*) {
+    animation-duration: var(--card-close-duration);
+  }
+
+  html[data-view-transition='close']::view-transition-new(*) {
+    animation-duration: 260ms;
+  }
+}

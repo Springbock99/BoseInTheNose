@@ -1,0 +1,282 @@
+{
+  "title": "Bouseathlon Illustrated Quick Guide",
+  "standfirst": "BouseInTheNose • Season 26/27. A short event-day reference; use the handbook for complete rules. Officials review faults and disputes. Impartial alternates replace conflicted officials.",
+  "sourceDoc": "docs/bouseathlon-quick-guide.docx",
+  "generatedAt": "2026-09-18T09:23:01.952Z",
+  "events": [
+    {
+      "number": 1,
+      "title": "Field Goal",
+      "id": "field-goal",
+      "tagline": "One kick per distance. One miss and you're out.",
+      "diagram": "/bouseathlon/event-01.png",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "≤5 remain OR reach 45: use 1-yard steps. Example: 4 left after 30 → next is 31. Kick above the crossbar, between the uprights. One kick per distance; one miss eliminates, subject to winner-only sudden death.",
+          "label": "Format"
+        },
+        {
+          "type": "p",
+          "text": "Shared lower places stand. To decide the winner: equal attempts; all miss = repeat; all hit = move back 1 yard; otherwise only hitters continue. A sole successful contender wins.",
+          "label": "Tiebreak"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "QB Throw",
+      "id": "qb-throw",
+      "tagline": "One throw per target. Most hits wins.",
+      "diagram": "/bouseathlon/event-02.png",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Example sequence only — use the same selected sequence for everyone. One throw per target, then move on. Any contact counts; most hits wins.",
+          "label": "Format"
+        },
+        {
+          "type": "p",
+          "text": "Separate first and second by equal-attempt throwing sudden death to select QB1 and QB2. Keep resolving any group still eligible for either place; other ties may stand.",
+          "label": "Tiebreak"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Routes",
+      "id": "routes",
+      "tagline": "Left side, then right. Lowest combined time.",
+      "diagram": "/bouseathlon/event-03.png",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "View from behind the QB. Start on the left side first; mirror on the right second. Run forward, cut 90° towards the centre, catch, turn upfield and cross the finish with the ball in hand.",
+          "label": "Format"
+        },
+        {
+          "type": "p",
+          "text": "Random runner order. QBs alternate per runner: the same QB handles both routes and all retries. When a QB runs, the other throws. The QB stays in the pocket.",
+          "label": "Order"
+        },
+        {
+          "type": "p",
+          "text": "START on “Hut” as the QB receives the ball. STOP at the finish with ball. Two timekeepers; average their readings.",
+          "label": "Timing"
+        },
+        {
+          "type": "p",
+          "text": "Missed catch or fumble: stop when the ball touches the ground. Wrong route or missed marker: stop when noticed, subject to review. Retry the route and retain failed-attempt time; reset time does not count.",
+          "label": "Faults"
+        },
+        {
+          "type": "p",
+          "text": "A genuinely bad throw is disregarded after impartial review: retry without that attempt’s time. The QB involved cannot judge the disputed throw. Replace all conflicted officials; a three-person panel decides by majority.",
+          "label": "Disputed throws"
+        },
+        {
+          "type": "p",
+          "text": "Add left and right accumulated times; lowest total wins. Tiebreak: faster accumulated individual route, including failed attempts. If still tied, share placement and pooled points.",
+          "label": "Scoring"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Beer Dash",
+      "id": "beer-dash",
+      "tagline": "One attempt. Spills cost you seconds.",
+      "diagram": "/bouseathlon/event-04.png",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "One scored attempt. Contestant decides when the cup is empty; commissioners check afterwards. Spill penalties per incident: minor +3 sec; major +5 sec. Sufficient beer left +5 sec. Tiny droplets generally receive no penalty.",
+          "label": "Format"
+        },
+        {
+          "type": "p",
+          "text": "Result = (Timekeeper 1 + Timekeeper 2) ÷ 2 + applicable penalties. Lowest result wins; equal results share placement and pooled points.",
+          "label": "Scoring"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Gauntlet",
+      "id": "gauntlet",
+      "tagline": "Every station, one clock. Fastest wins.",
+      "diagram": "/bouseathlon/event-05.png",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "One scored attempt. Grab the shot glass = START. Complete each station before advancing. Use one beer-pong cup at the opposite end of the table. Illegal throw = miss; keep trying while time runs.",
+          "label": "Format"
+        },
+        {
+          "type": "p",
+          "text": "Flip cup starts upright with part of its base over the table edge. It must land and remain upside down. Retry misses. Cornhole: 5 m from the front edge of the board; throw until a bag goes in the hole = STOP.",
+          "label": "Stations"
+        },
+        {
+          "type": "p",
+          "text": "Two officials time; the third watches the beer-pong elbow line. Other contestants retrieve balls and bags. Average both times; lowest wins. Ties share points. Impartial alternates replace conflicted officials.",
+          "label": "Timing"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Cornhole",
+      "id": "cornhole",
+      "tagline": "Only bags in the hole count.",
+      "diagram": "/bouseathlon/event-06.png",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Only bags in the hole count. Individual event; most scored bags wins. A later legal throw knocking a bag into the hole also counts. Clear the board between rounds.",
+          "label": "Scoring"
+        },
+        {
+          "type": "p",
+          "text": "Foot fault: throw used, no score. Undo scoring caused by that throw and reset affected bags. Commissioners review faults and disputes.",
+          "label": "Faults"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Darts",
+      "id": "darts",
+      "tagline": "Nine darts. Highest total wins.",
+      "diagram": "/bouseathlon/event-07.png",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Kenny’s regular dartboard. 3 sets × 3 darts = 9 throws. Add all nine scores; highest total wins. Singles, doubles and triples; outer bull 25, inner bull 50.",
+          "label": "Format"
+        },
+        {
+          "type": "p",
+          "text": "Bounce-outs: zero, no rethrow. Foot fault: zero and dart used. Commissioners review faults. Cornhole and Darts ties share placement and pooled points.",
+          "label": "Faults"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Kubb",
+      "id": "kubb",
+      "tagline": "Seeded 1 v 14. Win 7, lose 0.",
+      "diagram": "/bouseathlon/event-08.png",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "After Event 7, seed 1 vs 14, 2 vs 13, 3 vs 12, 4 vs 11, 5 vs 10, 6 vs 9, 7 vs 8. Rock-paper-scissors resolves tied seeds. The lower-ranked contestant starts.",
+          "label": "Seeding"
+        },
+        {
+          "type": "p",
+          "text": "Throw underarm and vertically in the direction of travel, holding one end. No helicopter throws. Illegal throw: baton used, warning, reset all pieces it knocks down, including the king.",
+          "label": "Throwing"
+        },
+        {
+          "type": "p",
+          "text": "Between turns, throw knocked-down kubbs underarm onto the opponent’s half and stand them where they land. Three placement attempts total per kubb; after three failures, the opponent places it on their own half.",
+          "label": "Placement"
+        },
+        {
+          "type": "p",
+          "text": "Clear all field kubbs before baseline kubbs; reset a baseline kubb knocked down too early. If field kubbs remain, the opponent may advance to the foremost field kubb on their own half for regular throws.",
+          "label": "Order of play"
+        },
+        {
+          "type": "p",
+          "text": "All king throws from the original baseline. Clear all opposing field and baseline kubbs first; use remaining batons. A legal early king knockdown loses; a legal king knockdown after clearing wins. If the king stays up, play passes to the opponent.",
+          "label": "The king"
+        },
+        {
+          "type": "p",
+          "text": "One match each. Win 7 / Loss 0. No further tournament rounds.",
+          "label": "Scoring"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Mystery",
+      "id": "mystery",
+      "tagline": "Revealed when the event begins.",
+      "diagram": null,
+      "blocks": [
+        {
+          "type": "p",
+          "text": "The details and rules will be revealed when the event begins.",
+          "label": ""
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "title": "Quiz",
+      "id": "quiz",
+      "tagline": "Everyone brings a question. Everyone answers all of them.",
+      "diagram": null,
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Submit one NFL, NFL fantasy or BouseInTheNose question by arrival at Bouseathlon. Everyone answers all questions, including their own. Duplicate questions are replaced with random ChatGPT-generated questions.",
+          "label": "Format"
+        },
+        {
+          "type": "p",
+          "text": "One minute per question. Commissioners host; contestants swap answers and mark. Commissioners check marking and question validity. An impartial alternate rules on an official’s own answer when needed.",
+          "label": "Running it"
+        },
+        {
+          "type": "p",
+          "text": "Correct answer = 1 point. Partial credit at commissioner discretion. Highest score wins; ties share placement and pooled points.",
+          "label": "Scoring"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "points-and-draft-slot-choice",
+      "title": "Points and draft-slot choice",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "With 14 contestants: 14 points for first down to 1 for last. Apply event tiebreakers, then average points for occupied places. Three tied for second: (13 + 12 + 11) ÷ 3 = 12 each; next is fifth, earning 10.",
+          "label": "Points"
+        },
+        {
+          "type": "p",
+          "text": "Kubb: win 7 / loss 0. Add all ten events; highest total ranks first. Resolve overall ties with beer pong below. Winner chooses any available draft slot; second chooses from those remaining, and so on.",
+          "label": "Totals and draft slots"
+        }
+      ]
+    },
+    {
+      "id": "overall-beer-pong-tiebreaker",
+      "title": "Overall beer-pong tiebreaker",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Same table as Gauntlet; one cup at the opposite end. Keep elbow behind the throwing edge; illegal throw = miss. Impartial officials apply throughout.",
+          "label": "Format"
+        },
+        {
+          "type": "p",
+          "text": "Equal attempts and redemption: everyone gets one shot before the round is decided. Two contestants: both hit or both miss = repeat; one hits and one misses = hitter wins.",
+          "label": "Two contestants"
+        },
+        {
+          "type": "p",
+          "text": "Three or more: all hit or all miss = repeat. Otherwise hitters rank ahead of missers. Each still-tied subgroup continues until all required placements are resolved. Then choose draft slots in that order.",
+          "label": "Three or more"
+        }
+      ]
+    }
+  ]
+}
