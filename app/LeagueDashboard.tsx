@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import PageBackground from './PageBackground';
+import { withViewTransition } from './lib/viewTransition';
 import SponsorStrip from './SponsorStrip';
 
 type SleeperUser = {
@@ -31,6 +32,8 @@ type SleeperLeague = {
   name: string;
   season: string;
   total_rosters: number;
+  /** Slot order for a starting lineup, e.g. QB, RB, RB, ... plus BN entries. */
+  roster_positions?: string[];
 };
 
 type SleeperState = {
@@ -51,6 +54,8 @@ type Matchup = {
   points: number;
   players?: string[];
   starters?: string[];
+  /** Parallel to `starters`: index n is what starter n scored. */
+  starters_points?: number[];
   players_points?: Record<string, number>;
 };
 
@@ -98,11 +103,56 @@ type HeroStat = {
   subject: string;
   /** Optional second line: who the subject belongs to, or what the number means. */
   detail?: string;
+  /** Number of wins to mark with a tick, for the streak card. */
+  checks?: number;
+  /** Shown beside the label — the streak holder gets their crest on the card. */
+  avatarTeam?: TeamRow;
+  /** Set when the card opens a panel; makes it a button rather than a figure. */
+  onClick?: () => void;
+  expanded?: boolean;
+};
+
+type WeekEntry = {
+  rosterId: number;
+  points: number;
+  opponentId: number;
+  opponentPoints: number;
+};
+
+type ResultsResponse = {
+  throughWeek: number;
+  weeks: { week: number; entries: WeekEntry[] }[];
+};
+
+type StreakGame = {
+  week: number;
+  opponent: string;
+  points: number;
+  opponentPoints: number;
+};
+
+type StreakDetail = {
+  team: TeamRow;
+  length: number;
+  games: StreakGame[];
+  next: { week: number; opponent: string } | null;
+};
+
+type LineupSlot = {
+  slot: string;
+  playerId: string;
+  points: number;
+};
+
+type MatchupSide = {
+  team: TeamRow;
+  points: number;
+  lineup: LineupSlot[];
 };
 
 type ClosestMatchup = {
-  home: TeamRow;
-  away: TeamRow;
+  home: MatchupSide;
+  away: MatchupSide;
 };
 
 // The API now lives in this same app under /api, so requests are same-origin
@@ -238,21 +288,101 @@ function buildTeams(data: LeagueResponse): TeamRow[] {
 }
 
 function formatPlayerName(playerId: string, playerDirectory: PlayerDirectory | null) {
-  if (playerId.length <= 3) {
-    return `${playerId} defense`;
-  }
-
   const player = playerDirectory?.[playerId];
-  if (!player) {
-    return `Player ${playerId}`;
+  if (player) {
+    return (
+      player.full_name ||
+      [player.first_name, player.last_name].filter(Boolean).join(' ') ||
+      `Player ${playerId}`
+    );
   }
 
-  return player.full_name || [player.first_name, player.last_name].filter(Boolean).join(' ') || `Player ${playerId}`;
+  // Only reached before the directory lands. Team defences are keyed by
+  // abbreviation, where "NE defense" reads better than "Player NE".
+  return playerId.length <= 3 ? `${playerId} defense` : `Player ${playerId}`;
+}
+
+// A week is decided once the league has moved past it. Points alone are not
+// enough: mid-week, a team leading 5.30-0.00 has not won anything, and reading
+// that as a win both inflates the streak and hides the fixture still to play.
+function isDecided(week: number, throughWeek: number, entry: WeekEntry) {
+  return week < throughWeek && (entry.points > 0 || entry.opponentPoints > 0);
+}
+
+// The current run of consecutive wins, counted back from the latest decided
+// week. This is what "streak" means — the old card showed total wins, so a team
+// that won in weeks 1 and 7 and lost in between still read as a streak.
+function buildStreak(results: ResultsResponse | null, teams: TeamRow[]): StreakDetail | null {
+  if (!results || teams.length === 0) return null;
+
+  const teamsByRoster = new Map(teams.map((team) => [team.rosterId, team]));
+  const nameOf = (rosterId: number) => teamsByRoster.get(rosterId)?.name || `Roster ${rosterId}`;
+
+  let best: StreakDetail | null = null;
+
+  for (const team of teams) {
+    const played = results.weeks
+      .map((week) => ({ week: week.week, entry: week.entries.find((e) => e.rosterId === team.rosterId) }))
+      .filter((row): row is { week: number; entry: WeekEntry } => Boolean(row.entry));
+
+    const decided = played.filter((row) => isDecided(row.week, results.throughWeek, row.entry));
+    const upcoming = played.find((row) => !isDecided(row.week, results.throughWeek, row.entry));
+
+    const run: StreakGame[] = [];
+    for (const row of [...decided].reverse()) {
+      if (row.entry.points <= row.entry.opponentPoints) break;
+      run.unshift({
+        week: row.week,
+        opponent: nameOf(row.entry.opponentId),
+        points: row.entry.points,
+        opponentPoints: row.entry.opponentPoints,
+      });
+    }
+
+    const detail: StreakDetail = {
+      team,
+      length: run.length,
+      games: run,
+      next: upcoming ? { week: upcoming.week, opponent: nameOf(upcoming.entry.opponentId) } : null,
+    };
+
+    // Ties on streak length go to the team with more points, so the card is
+    // stable rather than flipping on roster order.
+    if (!best || detail.length > best.length || (detail.length === best.length && team.fpts > best.team.fpts)) {
+      best = detail;
+    }
+  }
+
+  return best && best.length > 0 ? best : null;
+}
+
+const SLOT_LABELS: Record<string, string> = {
+  WRRB_FLEX: 'FLEX',
+  REC_FLEX: 'FLEX',
+  FLEX: 'FLEX',
+  SUPER_FLEX: 'SFLEX',
+  DEF: 'DEF',
+};
+
+// Starters arrive as a bare array whose position carries the meaning: index 0
+// is the first roster_positions entry, and bench slots never appear. Pairing
+// the two gives each player its slot label.
+function buildLineup(matchup: Matchup, rosterPositions: string[]): LineupSlot[] {
+  const startingSlots = rosterPositions.filter((slot) => slot !== 'BN');
+  return (matchup.starters || []).map((playerId, index) => ({
+    slot: SLOT_LABELS[startingSlots[index]] || startingSlots[index] || '-',
+    playerId,
+    points: matchup.starters_points?.[index] ?? matchup.players_points?.[playerId] ?? 0,
+  }));
 }
 
 // The tightest game of the week. Everything else the old highlight feed
 // carried (top score, table leader) was already on screen elsewhere.
-function buildClosestMatchup(matchups: Matchup[], teams: TeamRow[]): ClosestMatchup | null {
+function buildClosestMatchup(
+  matchups: Matchup[],
+  teams: TeamRow[],
+  rosterPositions: string[],
+): ClosestMatchup | null {
   const teamsByRoster = new Map(teams.map((team) => [team.rosterId, team]));
   const groupedMatchups = matchups.reduce<Map<number, Matchup[]>>((groups, matchup) => {
     const current = groups.get(matchup.matchup_id) || [];
@@ -272,13 +402,24 @@ function buildClosestMatchup(matchups: Matchup[], teams: TeamRow[]): ClosestMatc
 
   if (!closest) return null;
 
-  const home = teamsByRoster.get(closest.winner.roster_id);
-  const away = teamsByRoster.get(closest.runnerUp.roster_id);
-  if (!home || !away) return null;
+  const homeTeam = teamsByRoster.get(closest.winner.roster_id);
+  const awayTeam = teamsByRoster.get(closest.runnerUp.roster_id);
+  if (!homeTeam || !awayTeam) return null;
 
   // The margin picks which game is closest; it is deliberately not displayed,
   // since a lone number told you nothing about who was ahead.
-  return { home, away };
+  return {
+    home: {
+      team: homeTeam,
+      points: closest.winner.points,
+      lineup: buildLineup(closest.winner, rosterPositions),
+    },
+    away: {
+      team: awayTeam,
+      points: closest.runnerUp.points,
+      lineup: buildLineup(closest.runnerUp, rosterPositions),
+    },
+  };
 }
 
 function buildRecapCards(
@@ -357,6 +498,47 @@ function buildRecordCards(teams: TeamRow[], currentWeek: number, isLiveLeague: b
   ];
 }
 
+// Headshots come straight from Sleeper's CDN, which needs no key. A player
+// without one answers 403 rather than serving a placeholder, so every image
+// carries its own fallback. Team defences use the club logo instead, since
+// they are keyed by abbreviation and have no headshot at all.
+function PlayerAvatar({
+  playerId,
+  player,
+  className,
+}: {
+  playerId: string;
+  player?: PlayerMeta;
+  className: string;
+}) {
+  const [failed, setFailed] = useState(false);
+  const isDefence = playerId.length <= 3 || player?.position === 'DEF';
+  const source = isDefence
+    ? `https://sleepercdn.com/images/team_logos/nfl/${playerId.toLowerCase()}.png`
+    : `https://sleepercdn.com/content/nfl/players/thumb/${playerId}.jpg`;
+
+  return (
+    <span
+      className={`relative grid shrink-0 place-items-center overflow-hidden rounded-full border border-white/10 bg-[#111520] ${className}`}
+    >
+      {failed ? (
+        <span className="text-[0.55rem] font-black uppercase tracking-[0.06em] text-white/38">
+          {player?.position || '—'}
+        </span>
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element -- remote CDN image, no loader needed
+        <img
+          src={source}
+          alt=""
+          loading="lazy"
+          onError={() => setFailed(true)}
+          className={`h-full w-full ${isDefence ? 'object-contain p-1' : 'object-cover'}`}
+        />
+      )}
+    </span>
+  );
+}
+
 function TeamAvatar({ team, className }: { team: TeamRow; className: string }) {
   return (
     <span
@@ -386,6 +568,10 @@ function ScoreboardMockup({
   style,
   isRefreshing,
   onRefresh,
+  openRosterId,
+  onToggleRoster,
+  lineupFor,
+  playerDirectory,
 }: {
   teams: TeamRow[];
   status: 'loading' | 'ready' | 'offline';
@@ -394,6 +580,10 @@ function ScoreboardMockup({
   style: (typeof scoreboardStyles)[number];
   isRefreshing: boolean;
   onRefresh: () => void;
+  openRosterId: number | null;
+  onToggleRoster: (rosterId: number) => void;
+  lineupFor: (rosterId: number) => LineupSlot[];
+  playerDirectory: PlayerDirectory | null;
 }) {
   return (
     <article className="relative overflow-hidden border border-[#a78bfa]/22 bg-[#0d0b16]/92 p-4 shadow-[0_28px_90px_rgba(167,139,250,0.14)] before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(118deg,rgba(167,139,250,0.24),transparent_28%),radial-gradient(circle_at_92%_8%,rgba(98,223,255,0.18),transparent_24%),radial-gradient(circle_at_25%_95%,rgba(255,66,92,0.16),transparent_30%)] sm:p-5">
@@ -427,29 +617,84 @@ function ScoreboardMockup({
           <span className="text-right">Wins</span>
         </div>
         <div className="scoreboard-scrollbar max-h-[min(58rem,calc(100vh-15rem))] space-y-2.5 overflow-y-auto pr-1">
-          {teams.map((team, teamIndex) => (
-            <div
-              key={`${style.name}-${team.name}`}
-              className={`grid items-center gap-3 border border-white/10 bg-black/22 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-sm transition hover:border-[#62dfff]/35 hover:bg-white/[0.075] ${style.rowClass}`}
-            >
-              {style.rankClass !== 'hidden' && (
-                <span className={`grid place-items-center border border-[#a78bfa]/25 bg-[#a78bfa]/10 text-sm font-black text-[#c4b5fd] ${style.rankClass}`}>
-                  {String(teamIndex + 1).padStart(2, '0')}
-                </span>
-              )}
-              <TeamAvatar team={team} className={style.avatarClass} />
-              <div className="min-w-0">
-                <div className="flex items-baseline gap-2">
-                  {style.rankClass === 'hidden' && (
-                    <span className="text-xs font-black text-white/30">{String(teamIndex + 1).padStart(2, '0')}</span>
+          {teams.map((team, teamIndex) => {
+            const isOpen = openRosterId === team.rosterId;
+            const lineup = lineupFor(team.rosterId);
+            return (
+              <div key={`${style.name}-${team.name}`}>
+                <button
+                  type="button"
+                  onClick={() => onToggleRoster(team.rosterId)}
+                  aria-expanded={isOpen}
+                  className={`w-full grid items-center gap-3 border bg-black/22 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-sm transition hover:border-[#62dfff]/35 hover:bg-white/[0.075] ${style.rowClass} ${
+                    isOpen ? 'border-[#62dfff]/45' : 'border-white/10'
+                  }`}
+                >
+                  {style.rankClass !== 'hidden' && (
+                    <span className={`grid place-items-center border border-[#a78bfa]/25 bg-[#a78bfa]/10 text-sm font-black text-[#c4b5fd] ${style.rankClass}`}>
+                      {String(teamIndex + 1).padStart(2, '0')}
+                    </span>
                   )}
-                  <h3 className={`truncate font-bold text-white ${style.titleClass}`}>{team.name}</h3>
-                </div>
-                <p className="mt-1 text-xs font-semibold text-white/46">{team.record} | {team.points} PF</p>
+                  <TeamAvatar team={team} className={style.avatarClass} />
+                  <div className="min-w-0">
+                    <div className="flex items-baseline gap-2">
+                      {style.rankClass === 'hidden' && (
+                        <span className="text-xs font-black text-white/30">{String(teamIndex + 1).padStart(2, '0')}</span>
+                      )}
+                      <h3 className={`truncate font-bold text-white ${style.titleClass}`}>{team.name}</h3>
+                    </div>
+                    <p className="mt-1 text-xs font-semibold text-white/46">{team.record} | {team.points} PF</p>
+                  </div>
+                  <span className="text-sm font-black text-[#62dfff]">{team.trend}</span>
+                </button>
+
+                {isOpen && (
+                  <div className="border border-t-0 border-[#62dfff]/45 bg-black/32 px-3 py-2">
+                    <div className="flex items-baseline justify-between gap-3 border-b border-white/10 pb-2">
+                      <p className="text-[0.6rem] font-black uppercase tracking-[0.16em] text-white/60">
+                        {team.managerName} · this week
+                      </p>
+                      <p className="shrink-0 text-[0.6rem] font-black uppercase tracking-[0.14em] text-white/30">
+                        Starting lineup
+                      </p>
+                    </div>
+                    {lineup.length > 0 ? (
+                      <ul>
+                        {lineup.map((entry, index) => {
+                          const player = playerDirectory?.[entry.playerId];
+                          return (
+                            <li
+                              key={`${entry.playerId}-${index}`}
+                              className="flex items-center gap-2.5 border-b border-white/[0.05] py-1.5 last:border-b-0"
+                            >
+                              <span className="w-9 shrink-0 text-[0.55rem] font-black uppercase tracking-[0.08em] text-[#a78bfa]">
+                                {entry.slot}
+                              </span>
+                              <PlayerAvatar
+                                playerId={entry.playerId}
+                                player={player}
+                                className="h-7 w-7"
+                              />
+                              <span className="min-w-0 flex-1 truncate text-xs font-semibold text-white/72">
+                                {formatPlayerName(entry.playerId, playerDirectory)}
+                              </span>
+                              <span className="shrink-0 font-mono text-xs font-bold tabular-nums text-white/48">
+                                {entry.points.toFixed(2)}
+                              </span>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    ) : (
+                      <p className="py-3 text-xs font-semibold text-white/40">
+                        Lineup appears once this week&rsquo;s matchup is posted.
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
-              <span className="text-sm font-black text-[#62dfff]">{team.trend}</span>
-            </div>
-          ))}
+            );
+          })}
         </div>
         <p className="mt-4 border-t border-white/10 pt-3 text-xs font-semibold text-white/40">
           Pulled live from Sleeper. Once games start logging scores, records and PF will update here automatically.
@@ -464,76 +709,259 @@ function ScoreboardMockup({
 // what makes it read as the headline rather than a fourth statistic.
 // One half of the head-to-head: avatar, team, and its form. Mirrored on the
 // right so the VS badge sits at the centre of the row.
-function MatchupSide({ team, align }: { team: TeamRow; align: 'left' | 'right' }) {
+function WinTick({ className = '' }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 12 12"
+      aria-hidden
+      className={`h-3 w-3 shrink-0 text-[#4ade80] ${className}`}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M2 6.4 4.8 9.2 10 3.4" />
+    </svg>
+  );
+}
+
+function MatchupSide({ side, align }: { side: MatchupSide; align: 'left' | 'right' }) {
   return (
     <div
       className={`flex min-w-0 flex-1 items-center gap-2.5 ${
         align === 'right' ? 'sm:flex-row-reverse sm:text-right' : ''
       }`}
     >
-      <TeamAvatar team={team} className="h-9 w-9 shrink-0 rounded-full sm:h-10 sm:w-10" />
+      <TeamAvatar team={side.team} className="h-9 w-9 shrink-0 rounded-full sm:h-10 sm:w-10" />
       <div className="min-w-0">
-        <p className="truncate text-sm font-black leading-tight text-white sm:text-base">{team.name}</p>
+        <p className="truncate text-sm font-black leading-tight text-white sm:text-base">
+          {side.team.name}
+        </p>
         <p className="mt-1 truncate text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-white/38">
-          {team.record} · {team.points} PF
+          {side.team.record} · {side.points.toFixed(2)} pts
         </p>
       </div>
     </div>
   );
 }
 
-function HeroStats({ stats, matchup }: { stats: HeroStat[]; matchup: ClosestMatchup | null }) {
+// One side's starting nine. Slot labels come from the league's own
+// roster_positions, so a settings change is reflected without touching this.
+function LineupColumn({
+  side,
+  playerDirectory,
+}: {
+  side: MatchupSide;
+  playerDirectory: PlayerDirectory | null;
+}) {
+  return (
+    <div className="min-w-0">
+      <div className="flex items-baseline justify-between gap-3 border-b border-white/10 pb-2">
+        <p className="truncate text-[0.65rem] font-black uppercase tracking-[0.16em] text-white/72">
+          {side.team.name}
+        </p>
+        <p className="shrink-0 font-mono text-sm font-bold text-[#62dfff]">
+          {side.points.toFixed(2)}
+        </p>
+      </div>
+      <ul className="mt-1">
+        {side.lineup.map((entry, index) => (
+          <li
+            key={`${entry.playerId}-${index}`}
+            className="flex items-baseline gap-3 border-b border-white/[0.05] py-1.5 last:border-b-0"
+          >
+            <span className="w-10 shrink-0 text-[0.6rem] font-black uppercase tracking-[0.1em] text-[#a78bfa]">
+              {entry.slot}
+            </span>
+            <span className="min-w-0 flex-1 truncate text-xs font-semibold text-white/72">
+              {formatPlayerName(entry.playerId, playerDirectory)}
+            </span>
+            <span className="shrink-0 font-mono text-xs font-bold tabular-nums text-white/58">
+              {entry.points.toFixed(2)}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function HeroStats({
+  stats,
+  matchup,
+  playerDirectory,
+  showLineups,
+  onToggleLineups,
+  streak,
+  showStreak,
+}: {
+  stats: HeroStat[];
+  matchup: ClosestMatchup | null;
+  playerDirectory: PlayerDirectory | null;
+  showLineups: boolean;
+  onToggleLineups: () => void;
+  streak: StreakDetail | null;
+  showStreak: boolean;
+}) {
   return (
     <div className="mt-9 max-w-2xl">
       <div className="grid grid-cols-3 gap-2">
-        {stats.map((stat) => (
-        <article
-          key={stat.label}
-          className="relative min-h-32 overflow-hidden border border-[#a78bfa]/22 bg-[#0d0b16]/92 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_18px_48px_rgba(167,139,250,0.10)] backdrop-blur-sm"
-        >
-          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#a78bfa] via-[#62dfff] to-transparent" />
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_86%_12%,rgba(98,223,255,0.18),transparent_32%),linear-gradient(118deg,rgba(167,139,250,0.15),transparent_38%)]" />
-          <div className="relative flex h-full flex-col justify-between gap-4">
-            <p className="text-[0.65rem] font-black uppercase leading-tight tracking-[0.14em] text-[#62dfff]">
-              {stat.label}
-            </p>
-            <div>
-              <p className="truncate text-2xl font-black text-white sm:text-3xl">{stat.value}</p>
-              <p className="mt-2 line-clamp-2 border-t border-white/10 pt-2 text-xs font-semibold leading-snug text-white/48">
-                {stat.subject}
-              </p>
-              {stat.detail && (
-                <p className="mt-1 truncate text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-white/32">
-                  {stat.detail}
-                </p>
-              )}
-            </div>
-          </div>
-        </article>
-        ))}
+        {stats.map((stat) => {
+          const Tag = stat.onClick ? 'button' : 'article';
+          return (
+            <Tag
+              key={stat.label}
+              {...(stat.onClick
+                ? { type: 'button' as const, onClick: stat.onClick, 'aria-expanded': stat.expanded }
+                : {})}
+              className={`group relative min-h-32 overflow-hidden border border-[#a78bfa]/22 bg-[#0d0b16]/92 p-4 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_18px_48px_rgba(167,139,250,0.10)] backdrop-blur-sm ${
+                stat.onClick ? 'transition hover:border-[#62dfff]/45' : ''
+              }`}
+            >
+              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#a78bfa] via-[#62dfff] to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_86%_12%,rgba(98,223,255,0.18),transparent_32%),linear-gradient(118deg,rgba(167,139,250,0.15),transparent_38%)]" />
+              <div className="relative flex h-full flex-col justify-between gap-4">
+                <div className="flex items-start justify-between gap-2">
+                  <p className="text-[0.65rem] font-black uppercase leading-tight tracking-[0.14em] text-[#62dfff]">
+                    {stat.label}
+                  </p>
+                  {stat.avatarTeam && (
+                    <TeamAvatar team={stat.avatarTeam} className="h-8 w-8 rounded-full" />
+                  )}
+                </div>
+                <div>
+                  <div className="flex items-baseline gap-2">
+                    <p className="truncate text-2xl font-black text-white sm:text-3xl">{stat.value}</p>
+                    {stat.checks ? (
+                      <span className="flex items-center gap-0.5">
+                        {Array.from({ length: Math.min(stat.checks, 5) }).map((_, index) => (
+                          <WinTick key={index} />
+                        ))}
+                      </span>
+                    ) : null}
+                  </div>
+                  <p className="mt-2 line-clamp-2 border-t border-white/10 pt-2 text-xs font-semibold leading-snug text-white/48">
+                    {stat.subject}
+                  </p>
+                  {stat.detail && (
+                    <p className="mt-1 truncate text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-white/32">
+                      {stat.detail}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </Tag>
+          );
+        })}
       </div>
 
-      <article className="relative mt-2 flex min-h-24 items-center overflow-hidden border border-[#62dfff]/28 bg-[#0d0b16]/92 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_18px_48px_rgba(167,139,250,0.10)] backdrop-blur-sm">
-          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#62dfff] via-[#a78bfa] to-transparent" />
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_92%_14%,rgba(98,223,255,0.20),transparent_38%),linear-gradient(118deg,rgba(167,139,250,0.14),transparent_44%)]" />
-        <div className="relative w-full min-w-0">
-          <p className="text-[0.65rem] font-black uppercase tracking-[0.16em] text-[#62dfff]">
-            Matchup of the week
-          </p>
-          {matchup ? (
-            <div className="mt-2.5 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
-              <MatchupSide team={matchup.home} align="left" />
-              <span className="shrink-0 self-center border border-[#62dfff]/30 bg-[#62dfff]/10 px-2.5 py-1 text-[0.6rem] font-black uppercase tracking-[0.18em] text-[#62dfff] sm:self-auto">
-                vs
-              </span>
-              <MatchupSide team={matchup.away} align="right" />
+      {streak && showStreak && (
+        <article className="relative mt-2 overflow-hidden border border-[#4ade80]/25 bg-[#0d0b16]/92 p-4 backdrop-blur-sm">
+          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#4ade80]/80 via-[#62dfff] to-transparent" />
+          <div className="relative">
+            <div className="flex items-baseline justify-between gap-3 border-b border-white/10 pb-2">
+              <p className="truncate text-[0.65rem] font-black uppercase tracking-[0.16em] text-white/72">
+                {streak.team.name}
+              </p>
+              <p className="shrink-0 text-[0.6rem] font-black uppercase tracking-[0.14em] text-[#4ade80]">
+                {streak.length} in a row
+              </p>
             </div>
-          ) : (
-            <p className="mt-1.5 text-base font-black leading-snug text-white sm:text-lg">
-              The tightest game appears once scores land
-            </p>
-          )}
-        </div>
+            <ul className="mt-1">
+              {streak.games.map((game) => (
+                <li
+                  key={game.week}
+                  className="flex items-center gap-3 border-b border-white/[0.05] py-1.5 last:border-b-0"
+                >
+                  <span className="w-8 shrink-0 font-mono text-[0.65rem] font-bold text-white/32">
+                    W{game.week}
+                  </span>
+                  <WinTick />
+                  <span className="min-w-0 flex-1 truncate text-xs font-semibold text-white/72">
+                    beat {game.opponent}
+                  </span>
+                  <span className="shrink-0 font-mono text-xs font-bold tabular-nums text-white/48">
+                    {game.points.toFixed(2)} - {game.opponentPoints.toFixed(2)}
+                  </span>
+                </li>
+              ))}
+              {streak.next && (
+                <li className="flex items-center gap-3 border-t border-white/10 pt-2">
+                  <span className="w-8 shrink-0 font-mono text-[0.65rem] font-bold text-white/32">
+                    W{streak.next.week}
+                  </span>
+                  <span aria-hidden className="text-[0.6rem] text-[#62dfff]">
+                    ▸
+                  </span>
+                  <span className="min-w-0 flex-1 truncate text-xs font-semibold text-white/50">
+                    vs {streak.next.opponent}
+                  </span>
+                  <span className="shrink-0 text-[0.6rem] font-black uppercase tracking-[0.14em] text-[#62dfff]">
+                    Up next
+                  </span>
+                </li>
+              )}
+            </ul>
+          </div>
+        </article>
+      )}
+
+      <article
+        // Named for the view transition, so opening the lineups morphs the
+        // card the same way the Bouseathlon event cards grow.
+        style={{ viewTransitionName: 'matchup-card' }}
+        className="relative mt-2 overflow-hidden border border-[#62dfff]/28 bg-[#0d0b16]/92 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_18px_48px_rgba(167,139,250,0.10)] backdrop-blur-sm"
+      >
+        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#62dfff] via-[#a78bfa] to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_92%_14%,rgba(98,223,255,0.20),transparent_38%),linear-gradient(118deg,rgba(167,139,250,0.14),transparent_44%)]" />
+
+        {matchup ? (
+          <>
+            <button
+              type="button"
+              onClick={onToggleLineups}
+              aria-expanded={showLineups}
+              className="group relative flex min-h-24 w-full items-center p-4 text-left"
+            >
+              <div className="w-full min-w-0">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-[0.65rem] font-black uppercase tracking-[0.16em] text-[#62dfff]">
+                    Matchup of the week
+                  </p>
+                  <span className="shrink-0 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-white/30 transition group-hover:text-[#62dfff]">
+                    {showLineups ? 'Hide lineups' : 'Lineups'}
+                  </span>
+                </div>
+                <div className="mt-2.5 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+                  <MatchupSide side={matchup.home} align="left" />
+                  <span className="shrink-0 self-center border border-[#62dfff]/30 bg-[#62dfff]/10 px-2.5 py-1 text-[0.6rem] font-black uppercase tracking-[0.18em] text-[#62dfff] sm:self-auto">
+                    vs
+                  </span>
+                  <MatchupSide side={matchup.away} align="right" />
+                </div>
+              </div>
+            </button>
+
+            {showLineups && (
+              <div className="relative grid gap-x-6 gap-y-5 border-t border-white/10 px-4 pb-4 pt-4 sm:grid-cols-2">
+                <LineupColumn side={matchup.home} playerDirectory={playerDirectory} />
+                <LineupColumn side={matchup.away} playerDirectory={playerDirectory} />
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="relative flex min-h-24 items-center p-4">
+            <div className="w-full min-w-0">
+              <p className="text-[0.65rem] font-black uppercase tracking-[0.16em] text-[#62dfff]">
+                Matchup of the week
+              </p>
+              <p className="mt-1.5 text-base font-black leading-snug text-white sm:text-lg">
+                The tightest game appears once scores land
+              </p>
+            </div>
+          </div>
+        )}
       </article>
     </div>
   );
@@ -546,6 +974,10 @@ export default function LeagueDashboard() {
   const [status, setStatus] = useState<'loading' | 'ready' | 'offline'>('loading');
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [showLineups, setShowLineups] = useState(false);
+  const [results, setResults] = useState<ResultsResponse | null>(null);
+  const [openRosterId, setOpenRosterId] = useState<number | null>(null);
+  const [showStreak, setShowStreak] = useState(false);
 
   const loadLeague = useCallback(async (shouldUpdate: () => boolean = () => true) => {
     setIsRefreshing(true);
@@ -598,16 +1030,15 @@ export default function LeagueDashboard() {
   }, [loadLeague]);
 
   useEffect(() => {
-    const benchPlayerIds = [
-      ...new Set(
-        matchups.flatMap((matchup) => {
-          const starters = new Set(matchup.starters || []);
-          return (matchup.players || []).filter((playerId) => !starters.has(playerId) && playerId.length > 3);
-        }),
-      ),
+    // Every id on every roster, starters included: the lineups in the matchup
+    // card need names too, not just the bench player behind Bench Pain.
+    // Team defences are keyed by abbreviation ("DAL"), so the old length > 3
+    // filter silently dropped all nine of them.
+    const rosterPlayerIds = [
+      ...new Set(matchups.flatMap((matchup) => matchup.players || [])),
     ];
 
-    const missingPlayerIds = benchPlayerIds.filter((playerId) => !playerDirectory?.[playerId]);
+    const missingPlayerIds = rosterPlayerIds.filter((playerId) => !playerDirectory?.[playerId]);
     if (missingPlayerIds.length === 0) {
       return;
     }
@@ -633,9 +1064,45 @@ export default function LeagueDashboard() {
   const teams = useMemo(() => (leagueData ? buildTeams(leagueData) : fallbackTeams), [leagueData]);
   const isLiveLeague = Boolean(leagueData);
   const currentWeek = leagueData?.state.week || 1;
+  const streak = useMemo(() => buildStreak(results, teams), [results, teams]);
+
+
+  // The results feed is keyed to the week, not the 60s standings poll: a past
+  // week's outcome cannot change, so re-fetching it every minute is waste.
+  useEffect(() => {
+    if (!isLiveLeague) return;
+
+    let mounted = true;
+    void fetch(`${apiBaseUrl}/api/league/results`, { cache: 'no-store' })
+      .then(async (response): Promise<ResultsResponse | null> =>
+        response.ok ? await response.json() : null,
+      )
+      .then((data) => {
+        if (mounted && data?.weeks) setResults(data);
+      })
+      .catch(() => undefined);
+
+    return () => {
+      mounted = false;
+    };
+  }, [isLiveLeague, currentWeek]);
+  const rosterPositions = useMemo(
+    () => leagueData?.league.roster_positions || [],
+    [leagueData],
+  );
+  // The current week's matchups are already loaded for the hero cards, so a
+  // team's starting lineup is a lookup rather than another request.
+  const lineupFor = useCallback(
+    (rosterId: number) => {
+      const matchup = matchups.find((row) => row.roster_id === rosterId);
+      return matchup ? buildLineup(matchup, rosterPositions) : [];
+    },
+    [matchups, rosterPositions],
+  );
+
   const closestMatchup = useMemo(
-    () => (isLiveLeague ? buildClosestMatchup(matchups, teams) : null),
-    [isLiveLeague, matchups, teams],
+    () => (isLiveLeague ? buildClosestMatchup(matchups, teams, rosterPositions) : null),
+    [isLiveLeague, matchups, rosterPositions, teams],
   );
   const recapCards = useMemo(
     () => buildRecapCards(teams, matchups, currentWeek, playerDirectory, isLiveLeague),
@@ -662,7 +1129,21 @@ export default function LeagueDashboard() {
       subject: benchPainCard.team,
       detail: benchPainCard.owner,
     },
-    { value: streakCard.value, label: 'Longest win streak', subject: streakCard.team },
+    streak
+      ? {
+          value: `${streak.length}W`,
+          label: 'Longest win streak',
+          subject: streak.team.name,
+          detail: streak.next ? `next: ${streak.next.opponent}` : undefined,
+          checks: streak.length,
+          avatarTeam: streak.team,
+          onClick: () =>
+            void withViewTransition(() => setShowStreak((open) => !open), {
+              flavour: showStreak ? 'close' : 'open',
+            }),
+          expanded: showStreak,
+        }
+      : { value: streakCard.value, label: 'Longest win streak', subject: streakCard.team },
   ];
 
 
@@ -708,7 +1189,19 @@ export default function LeagueDashboard() {
           <p className="mt-7 max-w-2xl text-lg leading-8 text-white/70">
             Standings update live. Excuses don&rsquo;t.
           </p>
-          <HeroStats stats={heroStats} matchup={closestMatchup} />
+          <HeroStats
+            stats={heroStats}
+            matchup={closestMatchup}
+            playerDirectory={playerDirectory}
+            streak={streak}
+            showStreak={showStreak}
+            showLineups={showLineups}
+            onToggleLineups={() =>
+              void withViewTransition(() => setShowLineups((open) => !open), {
+                flavour: showLineups ? 'close' : 'open',
+              })
+            }
+          />
         </div>
 
         <ScoreboardMockup
@@ -719,6 +1212,15 @@ export default function LeagueDashboard() {
           style={selectedScoreboardStyle}
           isRefreshing={isRefreshing}
           onRefresh={() => loadLeague()}
+          openRosterId={openRosterId}
+          onToggleRoster={(rosterId) =>
+            void withViewTransition(
+              () => setOpenRosterId((current) => (current === rosterId ? null : rosterId)),
+              { flavour: openRosterId === rosterId ? 'close' : 'open' },
+            )
+          }
+          lineupFor={lineupFor}
+          playerDirectory={playerDirectory}
         />
       </section>
 
