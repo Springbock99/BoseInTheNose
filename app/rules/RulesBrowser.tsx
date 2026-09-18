@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import PageBackground from '../PageBackground';
 import ChapterPanel from './ChapterPanel';
 import { buildIndex, searchRules } from './search';
 import type { Rulebook } from './types';
@@ -59,12 +60,7 @@ export default function RulesBrowser({ rulebook }: { rulebook: Rulebook }) {
 
   return (
     <main className="relative isolate min-h-screen overflow-hidden bg-[#050608] px-5 py-10 text-[#f5f8fb] sm:px-8">
-      <div
-        className="pointer-events-none fixed inset-0 z-0 bg-cover bg-center opacity-[0.30] blur-[0.5px]"
-        style={{ backgroundImage: "url('/stadium-background.png')" }}
-      />
-      <div className="pointer-events-none fixed inset-0 z-[1] bg-[linear-gradient(90deg,rgba(2,3,5,0.92)_0%,rgba(2,3,5,0.72)_50%,rgba(2,3,5,0.90)_100%),linear-gradient(180deg,rgba(2,3,5,0.52)_0%,rgba(2,3,5,0.90)_76%,#020305_100%)]" />
-      <div className="pointer-events-none fixed inset-0 z-[2] bg-[radial-gradient(circle_at_50%_6%,rgba(98,223,255,0.16),transparent_32%),radial-gradient(circle_at_84%_22%,rgba(167,139,250,0.14),transparent_28%)]" />
+      <PageBackground />
 
       <div className="relative z-10 mx-auto max-w-5xl">
         <header className="mb-12 flex items-center justify-between gap-4">
