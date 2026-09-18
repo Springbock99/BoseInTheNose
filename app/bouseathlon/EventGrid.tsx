@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import PageBackground from '../PageBackground';
 import EventCard from './EventCard';
-import { withViewTransition } from './viewTransition';
+import { withViewTransition } from '../lib/viewTransition';
 import type { Event, Guide } from './types';
 
 export default function EventGrid({ guide }: { guide: Guide }) {
