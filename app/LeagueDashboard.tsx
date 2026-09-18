@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import PageBackground from './PageBackground';
 
 type SleeperUser = {
   user_id: string;
@@ -64,17 +65,13 @@ type TeamRow = {
   fpts: number;
 };
 
-type Highlight = {
-  tag: string;
-  title: string;
-  meta: string;
-};
-
 type RecapCard = {
   label: string;
   team: string;
   value: string;
   meta: string;
+  /** Bench Pain puts the player in `team`, so the manager needs its own field. */
+  owner?: string;
 };
 
 type RecordCard = {
@@ -98,6 +95,13 @@ type HeroStat = {
   label: string;
   value: string;
   subject: string;
+  /** Optional second line: who the subject belongs to, or what the number means. */
+  detail?: string;
+};
+
+type ClosestMatchup = {
+  home: TeamRow;
+  away: TeamRow;
 };
 
 // The API now lives in this same app under /api, so requests are same-origin
@@ -116,28 +120,11 @@ const fallbackTeams: TeamRow[] = [
   { name: 'Two Minute Drill', managerName: 'Two Minute Drill', rosterId: 8, record: '2-7', points: '921.9', trend: '-14.2', wins: 2, fpts: 921.9 },
 ];
 
-const fallbackHighlights: Highlight[] = [
-  {
-    tag: 'Matchup of the Week',
-    title: 'Connect Sleeper to surface the closest games automatically',
-    meta: 'Waiting for live matchup data',
-  },
-  {
-    tag: 'Waiver Wire',
-    title: 'Trending adds and drops will live here next',
-    meta: 'Sleeper trends endpoint ready',
-  },
-  {
-    tag: 'Power Shift',
-    title: 'Power ranking notes can be generated from league results',
-    meta: 'Standings are live now',
-  },
-];
 
 const fallbackRecapCards: RecapCard[] = [
   { label: 'High Score', team: 'Bier Football Fame', value: '148.72', meta: '+22.4 over league avg' },
   { label: 'Closest Win', team: 'Bouse House', value: '0.86', meta: 'won by less than a point' },
-  { label: 'Bench Pain', team: 'Nordic Blitz', value: '38.10', meta: 'points left sitting' },
+  { label: 'Bench Pain', team: 'Nordic Blitz', value: '38.10', meta: 'points left sitting', owner: 'Nordic Blitz' },
   { label: 'Cold Snap', team: 'Goal Line Gold', value: '71.44', meta: 'lowest weekly total' },
 ];
 
@@ -150,9 +137,9 @@ const fallbackRecords: RecordCard[] = [
 
 const navItems = [
   { label: 'Home', href: '#home' },
-  { label: 'Highlights', href: '#highlights' },
   { label: 'Stats', href: '/stats' },
   { label: 'Rules', href: '/rules' },
+  { label: 'Bouseathlon', href: '/bouseathlon' },
 ];
 const refreshIntervalMs = 60_000;
 const logoStyles = [
@@ -179,12 +166,6 @@ const logoStyles = [
   },
 ];
 const selectedLogoStyle = logoStyles[0];
-const backgroundStyle = {
-  imageUrl: '/stadium-background.png',
-  imageClass: 'opacity-[0.52] blur-[0.5px] saturate-[1.02] contrast-[0.92]',
-  washClass: 'bg-[linear-gradient(90deg,rgba(2,3,5,0.84)_0%,rgba(2,3,5,0.42)_50%,rgba(2,3,5,0.78)_100%),linear-gradient(180deg,rgba(2,3,5,0.34)_0%,rgba(2,3,5,0.72)_76%,#020305_100%)]',
-  glowClass: 'bg-[radial-gradient(circle_at_50%_4%,rgba(98,223,255,0.24),transparent_36%),radial-gradient(circle_at_16%_22%,rgba(167,139,250,0.13),transparent_22%)]',
-};
 const scoreboardStyles = [
   {
     name: 'Tunnel Classic',
@@ -310,56 +291,35 @@ function formatPlayerName(playerId: string, playerDirectory: PlayerDirectory | n
   return player.full_name || [player.first_name, player.last_name].filter(Boolean).join(' ') || `Player ${playerId}`;
 }
 
-function buildHighlights(data: LeagueResponse, matchups: Matchup[]): Highlight[] {
-  const teamsByRoster = new Map(data.rosters.map((roster) => [roster.roster_id, roster]));
-  const usersById = new Map(data.users.map((user) => [user.user_id, user]));
+// The tightest game of the week. Everything else the old highlight feed
+// carried (top score, table leader) was already on screen elsewhere.
+function buildClosestMatchup(matchups: Matchup[], teams: TeamRow[]): ClosestMatchup | null {
+  const teamsByRoster = new Map(teams.map((team) => [team.rosterId, team]));
   const groupedMatchups = matchups.reduce<Map<number, Matchup[]>>((groups, matchup) => {
     const current = groups.get(matchup.matchup_id) || [];
     groups.set(matchup.matchup_id, [...current, matchup]);
     return groups;
   }, new Map());
 
-  const completedGames = [...groupedMatchups.values()]
-    .filter((game) => game.length >= 2)
+  const closest = [...groupedMatchups.values()]
+    // A fixture both teams have yet to play sits at a margin of 0.00 and would
+    // otherwise win "closest game" every time before kickoff.
+    .filter((game) => game.length >= 2 && game.some((side) => side.points > 0))
     .map((game) => {
       const sorted = [...game].sort((a, b) => b.points - a.points);
-      return {
-        winner: sorted[0],
-        runnerUp: sorted[1],
-        margin: Math.abs(sorted[0].points - sorted[1].points),
-      };
+      return { winner: sorted[0], runnerUp: sorted[1], margin: Math.abs(sorted[0].points - sorted[1].points) };
     })
-    .sort((a, b) => a.margin - b.margin);
+    .sort((a, b) => a.margin - b.margin)[0];
 
-  const closest = completedGames[0];
-  const topScore = [...matchups].sort((a, b) => b.points - a.points)[0];
-  const leader = buildTeams(data)[0];
+  if (!closest) return null;
 
-  const closestWinnerRoster = closest ? teamsByRoster.get(closest.winner.roster_id) : undefined;
-  const closestRunnerRoster = closest ? teamsByRoster.get(closest.runnerUp.roster_id) : undefined;
-  const topRoster = topScore ? teamsByRoster.get(topScore.roster_id) : undefined;
+  const home = teamsByRoster.get(closest.winner.roster_id);
+  const away = teamsByRoster.get(closest.runnerUp.roster_id);
+  if (!home || !away) return null;
 
-  return [
-    {
-      tag: 'Matchup of the Week',
-      title: closest && closestWinnerRoster && closestRunnerRoster
-        ? `${getTeamName(closestWinnerRoster, usersById)} edges ${getTeamName(closestRunnerRoster, usersById)}`
-        : 'This week’s tightest matchup will appear once scores land',
-      meta: closest ? `Margin: ${closest.margin.toFixed(2)} points` : `Week ${data.state.week}`,
-    },
-    {
-      tag: 'Top Score',
-      title: topScore && topRoster
-        ? `${getTeamName(topRoster, usersById)} leads the week`
-        : 'Top weekly score is waiting on live matchup data',
-      meta: topScore ? `${topScore.points.toFixed(2)} points` : 'No score posted yet',
-    },
-    {
-      tag: 'Table Leader',
-      title: leader ? `${leader.name} sits at the top of ${data.league.name}` : data.league.name,
-      meta: leader ? `${leader.record} record | ${leader.points} PF` : `${data.league.total_rosters} rosters`,
-    },
-  ];
+  // The margin picks which game is closest; it is deliberately not displayed,
+  // since a lone number told you nothing about who was ahead.
+  return { home, away };
 }
 
 function buildRecapCards(
@@ -409,6 +369,7 @@ function buildRecapCards(
       team: benchPain?.points ? formatPlayerName(benchPain.playerId, playerDirectory) : 'Waiting on player scores',
       value: benchPain?.points ? benchPain.points.toFixed(2) : '0.00',
       meta: benchPain?.points && benchPain.team ? `${benchPain.team.name} left him sitting` : 'best bench player appears live',
+      owner: benchPain?.points ? benchPain.team?.managerName || benchPain.team?.name : undefined,
     },
     {
       label: 'Cold Snap',
@@ -539,10 +500,34 @@ function ScoreboardMockup({
   );
 }
 
-function HeroStats({ stats }: { stats: HeroStat[] }) {
+// The three weekly numbers, with the closest game as a full-width banner under
+// them: its two team names need the whole row to fit, and the extra width is
+// what makes it read as the headline rather than a fourth statistic.
+// One half of the head-to-head: avatar, team, and its form. Mirrored on the
+// right so the VS badge sits at the centre of the row.
+function MatchupSide({ team, align }: { team: TeamRow; align: 'left' | 'right' }) {
   return (
-    <div className="mt-9 grid max-w-2xl grid-cols-3 gap-2">
-      {stats.map((stat, index) => (
+    <div
+      className={`flex min-w-0 flex-1 items-center gap-2.5 ${
+        align === 'right' ? 'sm:flex-row-reverse sm:text-right' : ''
+      }`}
+    >
+      <TeamAvatar team={team} className="h-9 w-9 shrink-0 rounded-full sm:h-10 sm:w-10" />
+      <div className="min-w-0">
+        <p className="truncate text-sm font-black leading-tight text-white sm:text-base">{team.name}</p>
+        <p className="mt-1 truncate text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-white/38">
+          {team.record} · {team.points} PF
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function HeroStats({ stats, matchup }: { stats: HeroStat[]; matchup: ClosestMatchup | null }) {
+  return (
+    <div className="mt-9 max-w-2xl">
+      <div className="grid grid-cols-3 gap-2">
+        {stats.map((stat) => (
         <article
           key={stat.label}
           className="relative min-h-32 overflow-hidden border border-[#a78bfa]/22 bg-[#0d0b16]/92 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_18px_48px_rgba(167,139,250,0.10)] backdrop-blur-sm"
@@ -550,17 +535,47 @@ function HeroStats({ stats }: { stats: HeroStat[] }) {
           <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#a78bfa] via-[#62dfff] to-transparent" />
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_86%_12%,rgba(98,223,255,0.18),transparent_32%),linear-gradient(118deg,rgba(167,139,250,0.15),transparent_38%)]" />
           <div className="relative flex h-full flex-col justify-between gap-4">
-            <div className="flex items-center justify-between gap-2">
-              <p className="truncate text-[0.65rem] font-black uppercase tracking-[0.16em] text-[#62dfff]">{stat.label}</p>
-              <span className="text-xs font-black text-white/28">{String(index + 1).padStart(2, '0')}</span>
-            </div>
+            <p className="text-[0.65rem] font-black uppercase leading-tight tracking-[0.14em] text-[#62dfff]">
+              {stat.label}
+            </p>
             <div>
-              <p className="truncate text-3xl font-black text-white">{stat.value}</p>
-              <p className="mt-2 truncate border-t border-white/10 pt-2 text-xs font-semibold text-white/48">{stat.subject}</p>
+              <p className="truncate text-2xl font-black text-white sm:text-3xl">{stat.value}</p>
+              <p className="mt-2 line-clamp-2 border-t border-white/10 pt-2 text-xs font-semibold leading-snug text-white/48">
+                {stat.subject}
+              </p>
+              {stat.detail && (
+                <p className="mt-1 truncate text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-white/32">
+                  {stat.detail}
+                </p>
+              )}
             </div>
           </div>
         </article>
-      ))}
+        ))}
+      </div>
+
+      <article className="relative mt-2 flex min-h-24 items-center overflow-hidden border border-[#62dfff]/28 bg-[#0d0b16]/92 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_18px_48px_rgba(167,139,250,0.10)] backdrop-blur-sm">
+          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#62dfff] via-[#a78bfa] to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_92%_14%,rgba(98,223,255,0.20),transparent_38%),linear-gradient(118deg,rgba(167,139,250,0.14),transparent_44%)]" />
+        <div className="relative w-full min-w-0">
+          <p className="text-[0.65rem] font-black uppercase tracking-[0.16em] text-[#62dfff]">
+            Matchup of the week
+          </p>
+          {matchup ? (
+            <div className="mt-2.5 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+              <MatchupSide team={matchup.home} align="left" />
+              <span className="shrink-0 self-center border border-[#62dfff]/30 bg-[#62dfff]/10 px-2.5 py-1 text-[0.6rem] font-black uppercase tracking-[0.18em] text-[#62dfff] sm:self-auto">
+                vs
+              </span>
+              <MatchupSide team={matchup.away} align="right" />
+            </div>
+          ) : (
+            <p className="mt-1.5 text-base font-black leading-snug text-white sm:text-lg">
+              The tightest game appears once scores land
+            </p>
+          )}
+        </div>
+      </article>
     </div>
   );
 }
@@ -659,9 +674,9 @@ export default function LeagueDashboard() {
   const teams = useMemo(() => (leagueData ? buildTeams(leagueData) : fallbackTeams), [leagueData]);
   const isLiveLeague = Boolean(leagueData);
   const currentWeek = leagueData?.state.week || 1;
-  const highlights = useMemo(
-    () => (leagueData ? buildHighlights(leagueData, matchups) : fallbackHighlights),
-    [leagueData, matchups],
+  const closestMatchup = useMemo(
+    () => (isLiveLeague ? buildClosestMatchup(matchups, teams) : null),
+    [isLiveLeague, matchups, teams],
   );
   const recapCards = useMemo(
     () => buildRecapCards(teams, matchups, currentWeek, playerDirectory, isLiveLeague),
@@ -682,18 +697,19 @@ export default function LeagueDashboard() {
   const streakCard = records.find((record) => record.label === 'Longest Streak') || fallbackRecords[3];
   const heroStats: HeroStat[] = [
     { value: highScoreCard.value, label: 'Highest score', subject: highScoreCard.team },
-    { value: benchPainCard.value, label: 'Bench pain', subject: benchPainCard.team },
+    {
+      value: benchPainCard.value,
+      label: 'Bench pain',
+      subject: benchPainCard.team,
+      detail: benchPainCard.owner,
+    },
     { value: streakCard.value, label: 'Longest win streak', subject: streakCard.team },
   ];
 
+
   return (
     <main className="relative isolate min-h-screen overflow-hidden bg-[#050608] text-[#f5f8fb]">
-      <div
-        className={`pointer-events-none fixed inset-0 z-0 bg-cover bg-center transition duration-500 ${backgroundStyle.imageClass}`}
-        style={{ backgroundImage: `url('${backgroundStyle.imageUrl}')` }}
-      />
-      <div className={`pointer-events-none fixed inset-0 z-[1] transition duration-500 ${backgroundStyle.washClass}`} />
-      <div className={`pointer-events-none fixed inset-0 z-[2] transition duration-500 ${backgroundStyle.glowClass}`} />
+      <PageBackground />
       <header className="sticky top-0 z-20 bg-transparent">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/48 to-transparent" />
         <nav className="relative mx-auto flex min-h-20 max-w-7xl flex-col gap-4 px-5 py-4 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
@@ -715,7 +731,7 @@ export default function LeagueDashboard() {
       </header>
 
       <section id="home" className="relative z-10 mx-auto grid min-h-[calc(100vh-80px)] max-w-7xl items-start gap-12 px-5 py-12 sm:px-8 lg:grid-cols-[1.08fr_0.92fr] lg:py-28">
-        <div className="max-w-3xl lg:pt-28">
+        <div className="min-w-0 max-w-3xl lg:pt-28">
           <p className="mb-5 text-sm font-bold uppercase tracking-[0.32em] text-[#62dfff]">
             {season} league command center
           </p>
@@ -724,10 +740,10 @@ export default function LeagueDashboard() {
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-white/70">
             {status === 'ready'
-              ? `${leagueName} is now connected to Sleeper. Standings, team totals, and weekly highlights update automatically.`
+              ? `${leagueName} is now connected to Sleeper. Standings, team totals, and weekly numbers update automatically.`
               : 'A dark-mode clubhouse for standings, weekly stories, rivalries, and Sleeper-powered league data.'}
           </p>
-          <HeroStats stats={heroStats} />
+          <HeroStats stats={heroStats} matchup={closestMatchup} />
         </div>
 
         <ScoreboardMockup
@@ -739,30 +755,6 @@ export default function LeagueDashboard() {
           isRefreshing={isRefreshing}
           onRefresh={() => loadLeague()}
         />
-      </section>
-
-      <section id="highlights" className="relative z-10 border-t border-white/10 px-5 py-20 sm:px-8">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-transparent" />
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-            <div>
-              <p className="text-sm font-bold uppercase tracking-[0.32em] text-[#62dfff]">Highlights</p>
-              <h2 className="mt-3 text-4xl font-black text-white sm:text-5xl">Weekly pulse</h2>
-            </div>
-            <p className="max-w-xl text-base leading-7 text-white/58">
-              Live weekly cards from Sleeper: closest matchup, top score, and current table leader.
-            </p>
-          </div>
-          <div className="grid gap-4 lg:grid-cols-3">
-            {highlights.map((item) => (
-              <article key={`${item.tag}-${item.title}`} className="min-h-64 border border-white/10 bg-black/24 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-sm transition hover:border-[#62dfff]/60 hover:bg-black/32 hover:shadow-[0_20px_60px_rgba(0,0,0,0.28)]">
-                <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#62dfff]">{item.tag}</p>
-                <h3 className="mt-8 text-2xl font-black leading-tight text-white">{item.title}</h3>
-                <p className="mt-6 border-t border-white/10 pt-4 text-sm font-semibold text-white/50">{item.meta}</p>
-              </article>
-            ))}
-          </div>
-        </div>
       </section>
     </main>
   );
