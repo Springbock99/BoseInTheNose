@@ -1,12 +1,12 @@
-import { leagueIdFrom, missingLeagueId, sleeper, upstreamFailed } from '@/app/lib/sleeper';
+import { leagueIdFrom, sleeper, upstreamFailed } from '@/app/lib/sleeper';
 
 // One catch-all rather than separate files, because the Express routes it
 // replaces overlapped: /api/league/matchups/1 and /api/league/:leagueId are the
 // same shape, and only the segment values tell them apart.
 //
-//   []                          -> league, id from env
+//   []                          -> league, default id
 //   [leagueId]                  -> league
-//   ['matchups', week]          -> matchups, id from env
+//   ['matchups', week]          -> matchups, default id
 //   [leagueId, 'matchups', week]-> matchups
 export async function GET(
   _request: Request,
@@ -23,7 +23,6 @@ export async function GET(
     : segments[0];
 
   const leagueId = leagueIdFrom(explicitId);
-  if (!leagueId) return missingLeagueId();
 
   try {
     if (isMatchups) {

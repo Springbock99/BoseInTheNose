@@ -38,15 +38,14 @@ export const sleeper = {
     request(`/players/${sport}/trending/${type}?lookback_hours=${hours}&limit=${limit}`, LIVE),
 };
 
-export function leagueIdFrom(explicit?: string) {
-  return explicit || process.env.SLEEPER_LEAGUE_ID || '';
-}
+// Public identifier, not a credential: it is visible in the league's own
+// Sleeper URL, and the API it unlocks is read-only. Keeping it in code means
+// the app runs anywhere with no configuration; SLEEPER_LEAGUE_ID still wins
+// when set, so another league can be pointed at per environment.
+const DEFAULT_LEAGUE_ID = '1400555649904951296';
 
-export function missingLeagueId() {
-  return Response.json(
-    { error: 'Missing league id. Set SLEEPER_LEAGUE_ID or pass /api/league/:leagueId.' },
-    { status: 400 },
-  );
+export function leagueIdFrom(explicit?: string) {
+  return explicit || process.env.SLEEPER_LEAGUE_ID || DEFAULT_LEAGUE_ID;
 }
 
 export function upstreamFailed(error: unknown) {
