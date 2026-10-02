@@ -13,7 +13,8 @@
     "rules": "node scripts/build-rules.mjs",
     "test:rules": "node --experimental-strip-types --no-warnings scripts/test-rules.mjs",
     "players": "node scripts/build-players.mjs",
-    "test:bouseathlon": "node --no-warnings scripts/test-bouseathlon.mjs"
+    "test:bouseathlon": "node --no-warnings scripts/test-bouseathlon.mjs",
+    "test:injuries": "node --experimental-strip-types --no-warnings scripts/test-injuries.mjs"
   },
   "dependencies": {
     "minisearch": "^7.2.0",

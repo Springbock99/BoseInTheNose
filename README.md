@@ -62,12 +62,25 @@ base URL to configure.
 | `/api/league/:leagueId/matchups/:week` | matchups for an explicit league |
 | `/api/trending` | trending adds or drops |
 | `/api/players?ids=1,2,3` | name, position and team for those ids |
+| `/api/injuries?ids=1,2,3` | current player injury flags and snapshot timestamp for those ids |
 | `/api/health` | liveness check |
+
+The homepage Injury Ward ranks managers by players marked Out or Injured
+Reserve, including bench and reserve players without double-counting. Doubtful
+and Questionable appear separately. Tied leaders share the Chief Excuse Officer
+title. Missing player data suppresses the title and is labeled incomplete.
+
+Injury data comes from a separate Sleeper player snapshot cached for 24 hours
+on the server; it does not depend on rebuilding `players.json`. The UI displays
+the snapshot time, checks for refreshed data hourly while open, and labels a
+stale report when the upstream service cannot refresh. This is a current roster
+report, not a season-long injury history.
 
 ## Tests
 
 ```bash
 npm run test:rules
+npm run test:injuries
 ```
 
 Covers the rulebook converter, the search index and highlight segmentation.
