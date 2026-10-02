@@ -6,6 +6,7 @@ import PageBackground from './PageBackground';
 import { withViewTransition } from './lib/viewTransition';
 import SponsorStrip from './SponsorStrip';
 import InjuryWard from './InjuryWard';
+import WeeklyHighlights from './WeeklyHighlights';
 import { PlayerAvatar, TeamAvatar } from './LeagueAvatars';
 
 type SleeperUser = {
@@ -198,6 +199,7 @@ const fallbackRecords: RecordCard[] = [
 
 const navItems = [
   { label: 'Home', href: '#home' },
+  { label: 'Highlights', href: '#highlights' },
   { label: 'Rules', href: '/rules' },
   { label: 'Bouseathlon', href: '/bouseathlon' },
   { label: 'Sponsors', href: '/sponsors' },
@@ -1196,6 +1198,7 @@ export default function LeagueDashboard() {
         />
       </section>
 
+      <WeeklyHighlights />
       <SponsorStrip />
     </main>
   );

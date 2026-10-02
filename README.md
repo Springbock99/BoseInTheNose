@@ -76,6 +76,29 @@ the snapshot time, checks for refreshed data hourly while open, and labels a
 stale report when the upstream service cannot refresh. This is a current roster
 report, not a season-long injury history.
 
+## Highlights design preview
+
+The homepage Replay Room (`#highlights`) has an inline YouTube player, a clip
+selector, and category filters. `app/data/highlights.ts` contains three real
+official NFL videos from the 2024 season, explicitly labeled as archive footage.
+The weekly feed is not connected; these videos do not update automatically.
+No video files are downloaded or rehosted. The player loads only after a click.
+The three archive samples currently reject external playback in Chrome. They
+are design references, not verified playable sources. The player handles
+publisher errors and loading failures with an explicit message and source link.
+An embeddable source must be verified before this is released as an inline
+weekly highlights feature.
+
+For a production feed, use Sleeper's season, season type and week as context,
+then a server-side YouTube Data API integration to discover official NFL
+uploads and verify publication dates, season/week labels and embedding status.
+Sleeper's documented public API does not supply highlight videos or a best-play
+ranking. Prefer the NFL's own top-play selections, not raw view counts. Cache
+source checks hourly, show the content's actual week and the last successful
+check time, and keep the previous labeled week until new videos are available.
+That integration needs a server-side YouTube Data API key; the design preview
+requires no key. Region and publisher playback restrictions can still apply.
+
 ## Tests
 
 ```bash
